@@ -1,0 +1,41 @@
+.not-found {
+    min-height: calc(100vh - 160px);
+    padding: 80px 24px;
+
+    display: grid;
+    place-items: center;
+
+    text-align: center;
+}
+
+.content {
+    max-width: 650px;
+}
+
+.error-code {
+    display: block;
+
+    margin-bottom: 16px;
+
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 800;
+    line-height: 0.9;
+
+    opacity: 0.08;
+}
+
+h1 {
+    margin: 0 0 20px;
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+}
+
+p {
+    max-width: 550px;
+    margin: 0 auto 32px;
+
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
