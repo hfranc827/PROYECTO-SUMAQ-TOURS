@@ -2,35 +2,138 @@
 
     <div class="header-container">
 
-        <a routerLink="/" class="brand" aria-label="Sumaq Tours - Inicio">
-            SUMAQ <span>TOURS</span>
+        <!-- LOGO -->
+
+        <a routerLink="/" class="brand">
+
+            <span class="brand-mark">
+                ST
+            </span>
+
+            <span class="brand-copy">
+
+                <strong>
+                    Sumaq
+                    <span>
+                        Tours
+                    </span>
+                </strong>
+
+                <small>
+                    TU VIAJE COMIENZA AQUÍ
+                </small>
+
+            </span>
+
         </a>
 
-        <nav class="navigation" aria-label="Navegación principal">
 
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- NAVEGACIÓN -->
+
+        <nav class="navigation">
+
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{
+                    exact: true
+                }">
                 Inicio
             </a>
+
+
+            <a routerLink="/destinos" routerLinkActive="active">
+                Destinos
+            </a>
+
+
+            <a routerLink="/tours" routerLinkActive="active">
+                Tours
+            </a>
+
+
+            <a routerLink="/paquetes" routerLinkActive="active">
+                Paquetes
+            </a>
+
+
+            <a routerLink="/promociones" routerLinkActive="active">
+                Promociones
+            </a>
+
 
             <a routerLink="/nosotros" routerLinkActive="active">
                 Nosotros
             </a>
 
+
             <a routerLink="/contacto" routerLinkActive="active">
                 Contacto
             </a>
 
+
+            @if (
+            isAuthenticated() &&
+            getRole() === 'ROLE_CLIENTE'
+            ) {
+
+            <a routerLink="/mi-cuenta" routerLinkActive="active">
+                Mi cuenta
+            </a>
+
+            }
+
+
+            @if (
+            isAuthenticated() &&
+            getRole() === 'ROLE_ADMIN'
+            ) {
+
+            <a routerLink="/admin" routerLinkActive="active">
+                Administración
+            </a>
+
+            }
+
+
+            @if (
+            isAuthenticated() &&
+            getRole() === 'ROLE_ASESOR'
+            ) {
+
+            <a routerLink="/asesor" routerLinkActive="active">
+                Asesor
+            </a>
+
+            }
+
         </nav>
+
+
+        <!-- AUTENTICACIÓN -->
 
         <div class="auth-actions">
 
-            <a mat-button routerLink="/login">
-                Ingresar
+            @if (!isAuthenticated()) {
+
+            <a mat-button routerLink="/login" class="login-button">
+                Iniciar sesión
             </a>
 
-            <a mat-flat-button routerLink="/registro">
-                Registrarse
+
+            <a mat-flat-button routerLink="/registro" class="register-button">
+                Crear cuenta
             </a>
+
+            } @else {
+
+            <span class="user-email">
+                {{ getEmail() }}
+            </span>
+
+
+            <button mat-button type="button" class="logout-button" (click)="logout()">
+                Cerrar sesión
+            </button>
+
+            }
 
         </div>
 
