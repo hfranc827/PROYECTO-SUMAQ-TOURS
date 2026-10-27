@@ -1,1 +1,72 @@
-<p>promocion-card works!</p>
+<mat-card class="promotion-card">
+
+    <div class="discount-section">
+
+        <span class="product-type">
+            {{ promocion().tipoProducto }}
+        </span>
+
+        <strong class="discount">
+            {{
+            promocion().porcentajeDescuento
+            | number:'1.0-2'
+            }}%
+        </strong>
+
+        <span class="discount-label">
+            DE DESCUENTO
+        </span>
+
+    </div>
+
+
+    <mat-card-content>
+
+        <span class="product-name">
+            {{ promocion().productoNombre }}
+        </span>
+
+        <h2>
+            {{ promocion().titulo }}
+        </h2>
+
+
+        @if (promocion().descripcion) {
+
+        <p class="description">
+            {{ promocion().descripcion }}
+        </p>
+
+        }
+
+
+        <div class="validity">
+
+            <span>
+                Válido hasta
+            </span>
+
+            <strong>
+                {{
+                promocion().fechaFin
+                | date:'dd/MM/yyyy'
+                }}
+            </strong>
+
+        </div>
+
+    </mat-card-content>
+
+
+    <mat-card-actions>
+
+        <a mat-button [routerLink]="[
+        '/promociones',
+        promocion().id
+      ]">
+            Ver promoción
+        </a>
+
+    </mat-card-actions>
+
+</mat-card>

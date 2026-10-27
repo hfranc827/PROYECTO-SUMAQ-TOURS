@@ -1,9 +1,33 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  input
+} from '@angular/core';
+
+import { RouterLink } from '@angular/router';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
+import {
+  DestinoResponse
+} from '../../models/destino.model';
+
 
 @Component({
-  imports: [],
   selector: 'app-destino-card',
-  styleUrl: './destino-card.scss',
+
+  imports: [
+    RouterLink,
+    MatButtonModule,
+    MatCardModule
+  ],
+
   templateUrl: './destino-card.html',
+  styleUrl: './destino-card.scss'
 })
-export class DestinoCard {}
+export class DestinoCard {
+
+  readonly destino =
+    input.required<DestinoResponse>();
+
+}

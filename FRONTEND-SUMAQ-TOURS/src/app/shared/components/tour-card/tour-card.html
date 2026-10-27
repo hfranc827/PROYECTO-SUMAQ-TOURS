@@ -1,1 +1,87 @@
-<p>tour-card works!</p>
+<mat-card class="tour-card">
+
+    <div class="image-wrapper">
+
+        @if (
+        tour().imagenPrincipalUrl
+        ) {
+
+        <img [src]="tour().imagenPrincipalUrl" [alt]="tour().nombre" class="tour-image">
+
+        } @else {
+
+        <div class="image-placeholder">
+            IMAGEN DEL TOUR
+        </div>
+
+        }
+
+
+        <span class="activity">
+            {{ tour().tipoActividad }}
+        </span>
+
+    </div>
+
+
+    <mat-card-content>
+
+        <span class="destination">
+            {{ tour().destinoNombre }}
+        </span>
+
+
+        <h2>
+            {{ tour().nombre }}
+        </h2>
+
+
+        <p class="description">
+            {{ tour().descripcion }}
+        </p>
+
+
+        <div class="tour-info">
+
+            <span>
+                ◷ {{ tour().duracionHoras }} h
+            </span>
+
+            <span>
+                {{ tour().nivelDificultad }}
+            </span>
+
+        </div>
+
+
+        <div class="price">
+
+            <div>
+
+                <span>
+                    Desde
+                </span>
+
+                <strong>
+                    S/
+                    {{
+                    tour().precio
+                    | number:'1.2-2'
+                    }}
+                </strong>
+
+            </div>
+
+
+            <a mat-flat-button [routerLink]="[
+                    '/tours',
+                    tour().id
+                ]">
+                Ver detalle
+            </a>
+
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
