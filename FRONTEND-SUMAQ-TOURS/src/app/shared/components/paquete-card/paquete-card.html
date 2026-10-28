@@ -1,1 +1,90 @@
-<p>paquete-card works!</p>
+<mat-card class="package-card">
+
+    <div class="package-layout">
+
+        <div class="image-wrapper">
+
+            @if (
+            paquete().imagenPrincipalUrl
+            ) {
+
+            <img [src]="paquete().imagenPrincipalUrl" [alt]="paquete().nombre" class="package-image">
+
+            } @else {
+
+            <div class="image-placeholder">
+
+                IMAGEN DEL PAQUETE
+
+            </div>
+
+            }
+
+        </div>
+
+
+        <div class="package-content">
+
+            <h2>
+                {{ paquete().nombre }}
+            </h2>
+
+
+            <div class="duration">
+
+                <span class="duration-icon">
+                    ◷
+                </span>
+
+                <span>
+
+                    {{ paquete().duracionDias }}
+                    día{{
+                    paquete().duracionDias !== 1
+                    ? 's'
+                    : ''
+                    }}
+
+                    /
+
+                    {{ paquete().duracionNoches }}
+                    noche{{
+                    paquete().duracionNoches !== 1
+                    ? 's'
+                    : ''
+                    }}
+
+                </span>
+
+            </div>
+
+
+            <div class="price">
+
+                <span>
+                    Desde
+                </span>
+
+                <strong>
+                    S/
+                    {{
+                    paquete().precio
+                    | number:'1.0-2'
+                    }}
+                </strong>
+
+            </div>
+
+
+            <a mat-flat-button [routerLink]="[
+                    '/paquetes',
+                    paquete().id
+                ]" class="detail-button">
+                Ver detalle
+            </a>
+
+        </div>
+
+    </div>
+
+</mat-card>

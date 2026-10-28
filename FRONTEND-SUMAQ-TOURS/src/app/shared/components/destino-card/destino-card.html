@@ -1,1 +1,53 @@
-<p>destino-card works!</p>
+<mat-card class="destination-card">
+
+    <a [routerLink]="[
+            '/destinos',
+            destino().id
+        ]" class="destination-link">
+
+        <div class="image-wrapper">
+
+            @if (
+            destino().imagenPrincipalUrl
+            ) {
+
+            <img [src]="destino().imagenPrincipalUrl" [alt]="destino().nombre" class="destination-image">
+
+            } @else {
+
+            <div class="image-placeholder">
+
+                IMAGEN DEL DESTINO
+
+            </div>
+
+            }
+
+
+            <div class="image-overlay"></div>
+
+
+            <div class="destination-name">
+
+                <span class="pin">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"></path>
+
+                        <circle cx="12" cy="10" r="2"></circle>
+                    </svg>
+
+                </span>
+
+
+                <strong>
+                    {{ destino().nombre }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </a>
+
+</mat-card>

@@ -1,9 +1,36 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  input
+} from '@angular/core';
+
+import { RouterLink } from '@angular/router';
+
+import { CommonModule } from '@angular/common';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
+import {
+  TourResponse
+} from '../../models/tour.model';
+
 
 @Component({
-  imports: [],
   selector: 'app-tour-card',
-  styleUrl: './tour-card.scss',
+
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatButtonModule,
+    MatCardModule
+  ],
+
   templateUrl: './tour-card.html',
+  styleUrl: './tour-card.scss'
 })
-export class TourCard {}
+export class TourCard {
+
+  readonly tour =
+    input.required<TourResponse>();
+
+}
