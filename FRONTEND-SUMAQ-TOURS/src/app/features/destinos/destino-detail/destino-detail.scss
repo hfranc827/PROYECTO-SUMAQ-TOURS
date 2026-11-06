@@ -1,0 +1,692 @@
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+.destination-detail {
+    min-height:
+        calc(100vh - 76px);
+
+    padding:
+        28px 0 90px;
+
+    background: #fbf7ed;
+}
+
+
+.detail-container {
+    width: min(1340px,
+            calc(100% - 64px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   BREADCRUMB
+   ========================= */
+
+.breadcrumb {
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #929995;
+
+    font-size: 0.77rem;
+
+    font-weight: 600;
+}
+
+
+.breadcrumb a {
+    color: #08705f;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   GRID PRINCIPAL
+   ========================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr) minmax(390px, 0.78fr);
+
+    gap: 36px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   GALERÍA
+   ========================= */
+
+.gallery-column {
+    min-width: 0;
+}
+
+
+.main-image {
+    width: 100%;
+
+    aspect-ratio:
+        1.52 / 1;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #d6dfda;
+}
+
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg,
+            #d4dfd8,
+            #a8c1b5);
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 7px;
+
+    color: #557068;
+
+    text-align: center;
+}
+
+
+.image-placeholder span {
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.image-placeholder small {
+    opacity: 0.72;
+}
+
+
+.thumbnail-grid {
+    margin-top: 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.thumbnail {
+    height: 86px;
+
+    overflow: hidden;
+
+    border:
+        2px solid transparent;
+
+    border-radius: 8px;
+
+    background: #dce4df;
+}
+
+
+.thumbnail.active {
+    border-color: #08705f;
+}
+
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg,
+            #e0e7e3,
+            #bdcec5);
+
+    display: grid;
+
+    place-items: center;
+
+    color: #70867d;
+
+    font-size: 0.6rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* =========================
+   INFORMACIÓN
+   ========================= */
+
+.info-column {
+    min-width: 0;
+
+    padding-top: 4px;
+}
+
+
+.location-label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #a66e18;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.info-column>h1 {
+    margin:
+        0 0 15px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2.8rem,
+            5vw,
+            4.7rem);
+
+    line-height: 0.95;
+
+    letter-spacing:
+        -0.04em;
+}
+
+
+/* UBICACIÓN */
+
+.destination-location {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #75817c;
+
+    font-size: 0.82rem;
+
+    font-weight: 600;
+}
+
+
+.destination-location svg {
+    width: 19px;
+    height: 19px;
+
+    fill: none;
+
+    stroke: #08705f;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.divider {
+    height: 1px;
+
+    margin:
+        24px 0;
+
+    background: #e6e1d8;
+}
+
+
+/* =========================
+   DESCRIPCIÓN
+   ========================= */
+
+.description-section h2 {
+    margin:
+        0 0 13px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.55rem;
+}
+
+
+.description-section p {
+    margin: 0;
+
+    color: #69736f;
+
+    font-size: 0.9rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   RESUMEN
+   ========================= */
+
+.destination-summary {
+    margin-top: 28px;
+
+    padding:
+        18px 0;
+
+    border-top:
+        1px solid #e6e1d8;
+
+    border-bottom:
+        1px solid #e6e1d8;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+.destination-summary div {
+    display: grid;
+
+    gap: 6px;
+}
+
+
+.destination-summary span {
+    color: #a66e18;
+
+    font-size: 0.62rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+
+.destination-summary strong {
+    color: #283830;
+
+    font-size: 0.85rem;
+
+    line-height: 1.4;
+}
+
+
+.explore-button {
+    width: 100%;
+
+    min-height: 43px;
+
+    margin-top: 22px;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #08705f !important;
+
+    color:
+        white !important;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================
+   TOURS
+   ========================= */
+
+.destination-tours {
+    margin-top: 72px;
+
+    padding-top: 52px;
+
+    border-top:
+        1px solid #e4ded3;
+}
+
+
+.section-heading {
+    margin-bottom: 26px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 28px;
+}
+
+
+.section-heading>div {
+    max-width: 680px;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #a66e18;
+
+    font-size: 0.66rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.section-heading h2 {
+    margin:
+        0 0 9px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2rem,
+            4vw,
+            3rem);
+
+    line-height: 1;
+}
+
+
+.section-heading p {
+    margin: 0;
+
+    color: #7b8580;
+
+    font-size: 0.86rem;
+
+    line-height: 1.6;
+}
+
+
+.see-all {
+    color:
+        #08705f !important;
+
+    font-weight: 800;
+}
+
+
+.see-all span {
+    margin-left: 7px;
+}
+
+
+.tour-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* =========================
+   SIN TOURS
+   ========================= */
+
+.no-tours {
+    margin-top: 70px;
+
+    padding:
+        60px 28px;
+
+    border:
+        1px solid #e4ded3;
+
+    border-radius: 12px;
+
+    background: white;
+
+    text-align: center;
+}
+
+
+.no-tours h2 {
+    margin:
+        8px 0 10px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 2rem;
+}
+
+
+.no-tours p {
+    margin:
+        0 auto 24px;
+
+    max-width: 500px;
+
+    color: #78827e;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   ESTADOS
+   ========================= */
+
+.state {
+    min-height:
+        calc(100vh - 76px);
+
+    padding: 40px;
+
+    background: #fbf7ed;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+}
+
+
+.state h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #7d8682;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1050px) {
+
+    .detail-grid {
+        grid-template-columns:
+            1fr 390px;
+
+        gap: 28px;
+    }
+
+
+    .tour-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .info-column {
+        margin-top: 10px;
+    }
+
+
+    .main-image {
+        aspect-ratio:
+            16 / 10;
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .destination-detail {
+        padding-top: 20px;
+    }
+
+
+    .detail-container {
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .thumbnail-grid {
+        gap: 6px;
+    }
+
+
+    .thumbnail {
+        height: 64px;
+    }
+
+
+    .destination-summary {
+        grid-template-columns: 1fr;
+    }
+
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .tour-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

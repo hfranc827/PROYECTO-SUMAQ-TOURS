@@ -1,0 +1,1171 @@
+
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+.tour-detail {
+    min-height:
+        calc(100vh - 76px);
+
+    padding:
+        28px 0 90px;
+
+    background: #fbf7ed;
+}
+
+
+.detail-container {
+    width: min(1340px,
+            calc(100% - 64px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   BREADCRUMB
+   ========================= */
+
+.breadcrumb {
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #929995;
+
+    font-size: 0.77rem;
+
+    font-weight: 600;
+}
+
+
+.breadcrumb a {
+    color: #08705f;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   GRID PRINCIPAL
+   ========================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr) minmax(390px, 0.78fr);
+
+    gap: 36px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   GALERÍA
+   ========================= */
+
+.gallery-column {
+    min-width: 0;
+}
+
+
+.main-image {
+    width: 100%;
+
+    aspect-ratio:
+        1.52 / 1;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #d6dfda;
+}
+
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg,
+            #d4dfd8,
+            #a8c1b5);
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 8px;
+
+    color: #557068;
+
+    text-align: center;
+}
+
+
+.image-placeholder span {
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.image-placeholder small {
+    opacity: 0.72;
+}
+
+
+.thumbnail-grid {
+    margin-top: 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.thumbnail {
+    height: 86px;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    border:
+        2px solid transparent;
+
+    border-radius: 8px;
+
+    background: #dce4df;
+
+    cursor: pointer;
+
+    transition:
+        border-color 180ms ease,
+        transform 180ms ease;
+}
+
+
+.thumbnail.active {
+    border-color: #08705f;
+}
+
+
+.thumbnail:hover {
+    transform: translateY(-2px);
+}
+
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   INFORMACIÓN
+   ========================= */
+
+.info-column {
+    min-width: 0;
+
+    padding-top: 4px;
+}
+
+
+.location-label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #a66e18;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.info-column h1 {
+    margin:
+        0 0 14px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2.5rem,
+            4.5vw,
+            4.3rem);
+
+    line-height: 0.98;
+
+    letter-spacing:
+        -0.04em;
+}
+
+
+.activity-label {
+    display: inline-flex;
+
+    padding:
+        7px 12px;
+
+    border-radius: 999px;
+
+    background: #e7eee8;
+
+    color: #08705f;
+
+    font-size: 0.7rem;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+
+.divider {
+    height: 1px;
+
+    margin:
+        23px 0;
+
+    background: #e6e1d8;
+}
+
+
+/* =========================
+   DESCRIPCIÓN
+   ========================= */
+
+.description-section h2 {
+    margin:
+        0 0 12px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.55rem;
+}
+
+
+.description-section p {
+    margin: 0;
+
+    color: #69736f;
+
+    font-size: 0.9rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   RESUMEN
+   ========================= */
+
+.tour-summary {
+    margin-top: 25px;
+
+    padding:
+        19px 0;
+
+    border-top:
+        1px solid #e6e1d8;
+
+    border-bottom:
+        1px solid #e6e1d8;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+.summary-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.summary-icon {
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e8eee8;
+
+    color: #08705f;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 1.15rem;
+}
+
+
+.summary-item div {
+    display: grid;
+
+    gap: 5px;
+}
+
+
+.summary-item div span {
+    color: #a66e18;
+
+    font-size: 0.61rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.09em;
+}
+
+
+.summary-item strong {
+    color: #283830;
+
+    font-size: 0.81rem;
+
+    line-height: 1.4;
+}
+
+
+/* =========================
+   PRECIO
+   ========================= */
+
+.price-section {
+    margin-top: 23px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.price-section div {
+    display: grid;
+
+    gap: 4px;
+}
+
+
+.price-section div span {
+    color: #909693;
+
+    font-size: 0.72rem;
+}
+
+
+.price-section strong {
+    color: #08705f;
+
+    font-size: 2rem;
+
+    font-weight: 800;
+}
+
+
+.price-note {
+    color: #8b9490;
+
+    font-size: 0.68rem;
+}
+
+
+.destination-link {
+    margin-top: 15px;
+
+    color: #08705f !important;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   INCLUYE / NO INCLUYE
+   ========================= */
+
+.included-section {
+    margin-top: 65px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+.included-card {
+    padding: 25px;
+
+    border:
+        1px solid #e6e1d8;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #a66e18;
+
+    font-size: 0.66rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.included-card h2 {
+    margin:
+        0 0 15px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.65rem;
+}
+
+
+.included-text {
+    margin: 0;
+
+    color: #69736f;
+
+    font-size: 0.87rem;
+
+    line-height: 1.8;
+
+    white-space: pre-line;
+}
+
+
+.empty-description {
+    margin: 0;
+
+    color: #9ba19e;
+
+    font-size: 0.82rem;
+
+    line-height: 1.6;
+}
+
+
+.excluded-card .eyebrow {
+    color: #a66e18;
+}
+
+
+/* =========================
+   RESERVAS
+   ========================= */
+
+.booking-section {
+    margin-top: 75px;
+
+    padding-top: 48px;
+
+    border-top:
+        1px solid #e4ded3;
+}
+
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+
+.section-heading h2 {
+    margin:
+        0 0 10px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2rem,
+            4vw,
+            3rem);
+
+    line-height: 1.1;
+}
+
+
+.section-heading p {
+    margin: 0;
+
+    color: #7b8580;
+
+    font-size: 0.87rem;
+
+    line-height: 1.6;
+}
+
+
+.booking-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.35fr) minmax(310px, 0.75fr);
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   DISPONIBILIDADES
+   ========================= */
+
+.availability-column h3 {
+    margin:
+        0 0 18px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.45rem;
+}
+
+
+.availability-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.availability-item {
+    min-width: 0;
+
+    padding: 16px;
+
+    border:
+        1px solid #e5e2da;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    display: grid;
+
+    gap: 8px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease;
+}
+
+
+.availability-item:hover:not(:disabled) {
+    border-color: #08705f;
+
+    background: #f5faf6;
+}
+
+
+.availability-item.selected {
+    border:
+        2px solid #08705f;
+
+    background: #edf5ef;
+}
+
+
+.availability-item:disabled {
+    opacity: 0.58;
+
+    cursor: not-allowed;
+}
+
+
+.availability-date {
+    color: #17251f;
+
+    font-size: 1rem;
+
+    font-weight: 800;
+}
+
+
+.availability-seats {
+    color: #7c8581;
+
+    font-size: 0.72rem;
+}
+
+
+.availability-status {
+    color: #a66e18;
+
+    font-size: 0.62rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.07em;
+}
+
+
+.availability-status.available {
+    color: #08705f;
+}
+
+
+/* =========================
+   MENSAJES
+   ========================= */
+
+.availability-message {
+    padding: 30px 20px;
+
+    border:
+        1px solid #e6e1d8;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    text-align: center;
+}
+
+
+.availability-message strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #263b31;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.2rem;
+}
+
+
+.availability-message p {
+    margin: 0;
+
+    color: #7b8580;
+
+    font-size: 0.82rem;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   TARJETA DE RESERVA
+   ========================= */
+
+.reservation-card {
+    padding: 25px;
+
+    border:
+        1px solid #e6e1d8;
+
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 22px rgba(35, 50, 45, 0.06);
+}
+
+
+.reservation-card h3 {
+    margin:
+        0 0 22px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.6rem;
+}
+
+
+.reservation-tour,
+.selected-date {
+    margin-bottom: 18px;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        1px solid #e9e5dd;
+
+    display: grid;
+
+    gap: 6px;
+}
+
+
+.reservation-tour span,
+.selected-date span {
+    color: #929995;
+
+    font-size: 0.7rem;
+}
+
+
+.reservation-tour strong,
+.selected-date strong {
+    color: #283830;
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================
+   CAMPO DE PERSONAS
+   ========================= */
+
+.people-field {
+    width: 100%;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   RESUMEN DE RESERVA
+   ========================= */
+
+.reservation-total {
+    margin-top: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.reservation-total span {
+    color: #78827e;
+
+    font-size: 0.76rem;
+}
+
+
+.reservation-total strong {
+    color: #283830;
+
+    font-size: 0.85rem;
+}
+
+
+.final-total {
+    margin-top: 19px;
+
+    padding-top: 16px;
+
+    border-top:
+        1px solid #e9e5dd;
+}
+
+
+.final-total span {
+    color: #17251f;
+
+    font-weight: 800;
+}
+
+
+.final-total strong {
+    color: #08705f;
+
+    font-size: 1.55rem;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   SELECCIÓN DE FECHA
+   ========================= */
+
+.selection-hint {
+    margin: 20px 0;
+
+    padding: 16px;
+
+    border-radius: 8px;
+
+    background: #f2f5ef;
+
+    color: #68766e;
+
+    font-size: 0.8rem;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+
+/* =========================
+   BOTÓN RESERVAR
+   ========================= */
+
+.reserve-button {
+    width: 100%;
+
+    min-height: 46px;
+
+    margin-top: 20px;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #08705f !important;
+
+    color: #ffffff !important;
+
+    font-size: 0.78rem;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.reserve-button:disabled {
+    background: #aabbb2 !important;
+
+    color: #ffffff !important;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   NOTA DE RESERVA
+   ========================= */
+
+.reservation-note {
+    margin:
+        12px 0 0;
+
+    color: #9ba19e;
+
+    font-size: 0.68rem;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =========================
+   MENSAJES DE RESERVA
+   ========================= */
+
+.reservation-error,
+.reservation-success {
+    margin-top: 14px;
+
+    padding: 12px;
+
+    border-radius: 7px;
+
+    font-size: 0.77rem;
+
+    line-height: 1.5;
+}
+
+
+.reservation-error {
+    background: #fff0ee;
+
+    color: #a42d25;
+}
+
+
+.reservation-success {
+    background: #edf6ef;
+
+    color: #08705f;
+}
+
+
+/* =========================
+   ESTADOS
+   ========================= */
+
+.state {
+    min-height:
+        calc(100vh - 76px);
+
+    padding: 40px;
+
+    background: #fbf7ed;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+}
+
+
+.state h1 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #7d8682;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1050px) {
+
+    .detail-grid {
+        grid-template-columns:
+            minmax(0, 1fr) 390px;
+
+        gap: 28px;
+    }
+
+
+    .booking-grid {
+        grid-template-columns:
+            1fr 330px;
+
+        gap: 20px;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .info-column {
+        margin-top: 10px;
+    }
+
+
+    .main-image {
+        aspect-ratio: 16 / 10;
+    }
+
+
+    .booking-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .reservation-card {
+        max-width: 600px;
+
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .tour-detail {
+        padding-top: 20px;
+    }
+
+
+    .detail-container {
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .thumbnail-grid {
+        gap: 6px;
+    }
+
+
+    .thumbnail {
+        height: 64px;
+    }
+
+
+    .tour-summary {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 18px 12px;
+    }
+
+
+    .included-section {
+        grid-template-columns: 1fr;
+
+        margin-top: 45px;
+    }
+
+
+    .included-card {
+        padding: 20px;
+    }
+
+
+    .booking-section {
+        margin-top: 50px;
+
+        padding-top: 35px;
+    }
+
+
+    .availability-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .reservation-card {
+        padding: 20px;
+    }
+
+
+    .price-section {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}
