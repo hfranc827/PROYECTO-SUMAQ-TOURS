@@ -1,4 +1,791 @@
+/* =============================================================
+   SUMAQ TOURS | CONTACTO
+   ============================================================= */
 :host {
+  --contact-primary: #075b50;
+  --contact-primary-hover: #06483f;
+  --contact-primary-soft: #eaf3ee;
+  --contact-accent: #f5aa22;
+  --contact-accent-soft: #fff3d8;
+  --contact-bg: #fbf8f1;
+  --contact-surface: #ffffff;
+  --contact-ink: #1d2d3f;
+  --contact-text: #516068;
+  --contact-muted: #7b8589;
+  --contact-border: #e6e5de;
+  --contact-shadow: 0 12px 35px rgba(29, 45, 63, 0.065);
+
   display: block;
-  padding: 80px 24px;
+  width: 100%;
+  min-height: 100%;
+  padding: 68px 24px 94px;
+  box-sizing: border-box;
+  overflow: visible;
+  color: var(--contact-ink);
+  background: var(--contact-bg);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+.contact-page {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* 1. CABECERA -------------------------------------------------- */
+
+.contact-hero {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 19px;
+  padding: 8px 15px;
+  border: 1px solid #f0dfb5;
+  border-radius: 999px;
+  background: var(--contact-accent-soft);
+  color: #92610d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.hero-label mat-icon {
+  width: 17px;
+  height: 17px;
+  font-size: 17px;
+}
+
+.contact-hero h1 {
+  margin: 0;
+  color: var(--contact-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 5.1vw, 58px);
+  font-weight: 700;
+  line-height: 1.13;
+  letter-spacing: -1.5px;
+}
+
+.contact-hero h1 span {
+  display: block;
+  color: var(--contact-primary);
+}
+
+.contact-hero p {
+  max-width: 620px;
+  margin: 19px auto 0;
+  color: var(--contact-text);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* 2. DISTRIBUCIÓN ------------------------------------------------ */
+
+.contact-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.07fr) minmax(0, 0.93fr);
+  align-items: start;
+  gap: 32px;
+}
+
+/* 3. FORMULARIO Y ENCABEZADOS ----------------------------------- */
+
+.contact-form-container {
+  min-width: 0;
+  padding: 35px;
+  border: 1px solid var(--contact-border);
+  border-radius: 15px;
+  background: var(--contact-surface);
+  box-shadow: var(--contact-shadow);
+}
+
+.section-heading {
+  margin-bottom: 26px;
+}
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #a16c12;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.65px;
+}
+
+.section-number::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--contact-accent);
+}
+
+.section-heading h2 {
+  margin: 0 0 10px;
+  color: var(--contact-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(25px, 2.7vw, 30px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--contact-text);
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.full-width {
+  width: 100%;
+  min-width: 0;
+}
+
+/* 4. ANGULAR MATERIAL (MDC) --------------------------------------
+   Se mantienen mat-form-field, matInput, mat-select y mat-hint.
+   Estos estilos están limitados a .contact-form.
+   --------------------------------------------------------------- */
+
+:host ::ng-deep .contact-form .mat-mdc-form-field {
+  width: 100%;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+  --mdc-outlined-text-field-container-shape: 9px;
+  --mdc-outlined-text-field-outline-color: #dce1dd;
+  --mdc-outlined-text-field-hover-outline-color: #90b6ad;
+  --mdc-outlined-text-field-focus-outline-color: #075b50;
+  --mdc-outlined-text-field-label-text-color: #64716e;
+  --mdc-outlined-text-field-hover-label-text-color: #52645e;
+  --mdc-outlined-text-field-focus-label-text-color: #075b50;
+  --mdc-outlined-text-field-input-text-color: #1d2d3f;
+  --mdc-outlined-text-field-input-text-placeholder-color: #8a9793;
+  --mdc-outlined-text-field-caret-color: #075b50;
+  --mat-form-field-trailing-icon-color: #075b50;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-text-field-wrapper {
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+:host ::ng-deep .contact-form .mdc-notched-outline__leading,
+:host ::ng-deep .contact-form .mdc-notched-outline__notch,
+:host ::ng-deep .contact-form .mdc-notched-outline__trailing {
+  border-color: #dce1dd;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+:host ::ng-deep .contact-form .mat-mdc-form-field:hover .mdc-notched-outline__notch,
+:host ::ng-deep .contact-form .mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: #90b6ad;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+:host ::ng-deep .contact-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+:host ::ng-deep .contact-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--contact-primary);
+  border-width: 2px;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-floating-label {
+  color: #64716e;
+}
+
+:host ::ng-deep .contact-form .mat-focused .mat-mdc-floating-label {
+  color: var(--contact-primary);
+}
+
+:host ::ng-deep .contact-form .mat-mdc-input-element,
+:host ::ng-deep .contact-form .mat-mdc-select-value-text {
+  color: var(--contact-ink);
+  font-size: 14px;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-input-element {
+  caret-color: var(--contact-primary);
+}
+
+:host ::ng-deep .contact-form .mat-mdc-input-element::placeholder {
+  color: #8a9793;
+  opacity: 1;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-select-arrow {
+  color: var(--contact-primary);
+}
+
+:host ::ng-deep .contact-form .mat-mdc-form-field-icon-prefix {
+  color: var(--contact-primary);
+  padding-right: 7px;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-form-field-icon-prefix mat-icon {
+  width: 21px;
+  height: 21px;
+  color: var(--contact-primary);
+  font-size: 21px;
+}
+
+:host ::ng-deep .contact-form .mat-mdc-form-field-hint {
+  color: var(--contact-muted);
+  font-size: 11px;
+}
+
+:host ::ng-deep .contact-form textarea.mat-mdc-input-element {
+  min-height: 105px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* 5. ENVÍO DEMOSTRATIVO ------------------------------------------
+   Se conserva el <div>: el CSS NO le añade comportamiento.
+   --------------------------------------------------------------- */
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 3px;
+  padding: 0 20px;
+  border: 1px solid var(--contact-primary);
+  border-radius: 9px;
+  background: var(--contact-primary);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  cursor: default;
+}
+
+.submit-button mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  transition: transform 180ms ease;
+}
+
+.submit-button:hover {
+  background: var(--contact-primary-hover);
+  box-shadow: 0 6px 16px rgba(7, 91, 80, 0.16);
+  transform: translateY(-1px);
+}
+
+.submit-button:hover mat-icon {
+  transform: translateX(3px);
+}
+
+.form-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 12px 13px;
+  border: 1px solid #ece8da;
+  border-radius: 9px;
+  background: #fcfaf4;
+  color: #747c79;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.form-disclaimer mat-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  color: #9e741e;
+  font-size: 16px;
+}
+
+/* 6. INFORMACIÓN DE CONTACTO ------------------------------------- */
+
+.contact-info-box {
+  min-width: 0;
+  padding: 21px;
+  margin-bottom: 22px;
+  background: var(--contact-surface);
+  border: 1px solid var(--contact-border);
+  border-radius: 14px;
+  box-shadow: var(--contact-shadow);
+}
+
+.contact-info-box h3 {
+  margin: 0 0 10px;
+  color: var(--contact-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.contact-info-box > p {
+  margin: 0 0 14px;
+  color: var(--contact-text);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ece9e1;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1efe9;
+}
+
+.contact-info-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.contact-info-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--contact-primary-soft);
+  color: var(--contact-primary);
+}
+
+.contact-info-icon mat-icon {
+  width: 21px;
+  height: 21px;
+  font-size: 21px;
+}
+
+.contact-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.contact-info-text strong {
+  color: var(--contact-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.contact-info-text span,
+.contact-info-text a {
+  color: var(--contact-text);
+  font-size: 11.8px;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.contact-info-text a:hover {
+  color: var(--contact-primary);
+  text-decoration: underline;
+}
+
+/* 7. SUBTÍTULO DE REDES SOCIALES --------------------------------- */
+
+.social-heading {
+  margin-bottom: 13px;
+}
+
+.social-heading .section-number {
+  margin-bottom: 6px;
+}
+
+.social-heading h3 {
+  margin: 0;
+  color: var(--contact-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* 6. REDES SOCIALES ----------------------------------------------- */
+
+.social-section {
+  min-width: 0;
+}
+
+.social-section .section-heading {
+  padding: 5px 2px 0;
+  margin-bottom: 18px;
+}
+
+.social-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.social-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 218px;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid var(--contact-border);
+  border-radius: 14px;
+  background: var(--contact-surface);
+  box-shadow: var(--contact-shadow);
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.social-card:hover {
+  transform: translateY(-3px);
+  border-color: #b6cfc7;
+  box-shadow: 0 16px 32px rgba(29, 45, 63, 0.09);
+}
+
+.social-card>* {
+  position: relative;
+  z-index: 1;
+}
+
+.social-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.social-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--contact-primary-soft);
+  color: var(--contact-primary);
+}
+
+.social-icon mat-icon {
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  font-size: 20px;
+}
+
+.social-status {
+  padding: 5px 7px;
+  border: 1px solid #f2e3bc;
+  border-radius: 999px;
+  background: #fff7e7;
+  color: #996b1b;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.social-card-content {
+  max-width: 350px;
+  margin-top: 12px;
+}
+
+.social-platform {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--contact-primary);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.social-card-content h3 {
+  margin: 0 0 6px;
+  color: var(--contact-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.social-card-content p {
+  margin: 0;
+  color: var(--contact-text);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.social-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+  color: var(--contact-primary);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.social-card-footer mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+/* Instagram y TikTok reciben acentos, sin romper la marca Sumaq */
+
+.instagram-card {
+  background: linear-gradient(125deg, #ffffff 68%, #fffaf3 100%);
+}
+
+.instagram-icon {
+  background: #fff1e9;
+  color: #c64f75;
+}
+
+.tiktok-card {
+  background: linear-gradient(125deg, #ffffff 68%, #f2f9f6 100%);
+}
+
+.tiktok-icon {
+  background: #edf6f3;
+  color: #075b50;
+}
+
+.instagram-decoration,
+.tiktok-decoration {
+  position: absolute;
+  z-index: 0;
+  top: -45px;
+  right: -42px;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(7, 91, 80, 0.06);
+  border-radius: 50%;
+  background: rgba(7, 91, 80, 0.025);
+  pointer-events: none;
+}
+
+.instagram-decoration {
+  border-color: rgba(245, 170, 34, 0.13);
+  background: rgba(245, 170, 34, 0.045);
+}
+
+/* 7. MENSAJE DE CIERRE ------------------------------------------- */
+
+.social-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #d5e7df;
+  border-radius: 12px;
+  background: #edf5f0;
+}
+
+.social-message>mat-icon {
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  color: var(--contact-primary);
+  font-size: 25px;
+}
+
+.social-message h3 {
+  margin: 0 0 5px;
+  color: var(--contact-primary);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.social-message p {
+  margin: 0;
+  color: #5e6c67;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+/* 8. TABLET ------------------------------------------------------ */
+
+@media (max-width: 960px) {
+  :host {
+    padding: 57px 22px 75px;
+  }
+
+  .contact-content {
+    max-width: 740px;
+    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 42px;
+  }
+
+  .contact-hero {
+    margin-bottom: 43px;
+  }
+
+  .social-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .social-card {
+    min-height: 204px;
+    padding: 16px;
+  }
+
+  .social-card-content h3 {
+    font-size: 18px;
+  }
+}
+
+/* 9. CELULAR ----------------------------------------------------- */
+
+@media (max-width: 620px) {
+  :host {
+    padding: 42px 16px 58px;
+  }
+
+  .contact-hero {
+    margin-bottom: 34px;
+  }
+
+  .hero-label {
+    max-width: 100%;
+    padding: 8px 12px;
+    font-size: 9px;
+    letter-spacing: 0.9px;
+  }
+
+  .contact-hero h1 {
+    font-size: clamp(35px, 8.4vw, 45px);
+    letter-spacing: -1px;
+  }
+
+  .contact-hero p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .contact-form-container {
+    padding: 23px 19px;
+    border-radius: 12px;
+  }
+
+  .section-heading h2 {
+    font-size: 25px;
+  }
+
+  .contact-content {
+    gap: 36px;
+  }
+
+  .social-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .social-card {
+    min-height: 178px;
+  }
+
+  .social-card-content h3 {
+    font-size: 19px;
+  }
+
+  .social-message {
+    padding: 16px;
+  }
+}
+
+/* 10. ACCESIBILIDAD ---------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .submit-button,
+  .submit-button mat-icon,
+  .social-card {
+    transition: none;
+  }
+}
+/* 11. WHATSAPP FLOTANTE ------------------------------------------- */
+
+.floating-whatsapp {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.floating-whatsapp i {
+  color: #ffffff;
+  font-size: 35px;
+  line-height: 1;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.48);
+}
+
+.floating-whatsapp:focus-visible {
+  outline: 3px solid #075b50;
+  outline-offset: 4px;
+}
+
+@media (max-width: 620px) {
+  .floating-whatsapp {
+    right: 16px;
+    bottom: 18px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .floating-whatsapp i {
+    font-size: 31px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-whatsapp {
+    transition: none;
+  }
 }

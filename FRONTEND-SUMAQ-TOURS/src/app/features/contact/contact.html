@@ -1,7 +1,201 @@
-<section>
-    <h1>Contacto</h1>
+<main class="contact-page">
+  <!-- Encabezado principal -->
+  <section class="contact-hero">
+    <span class="hero-label">
+      <mat-icon>near_me</mat-icon>
+      ESTAMOS AQUÍ PARA AYUDARTE
+    </span>
+
+    <h1>
+      Tu próxima aventura
+      <span>comienza aquí.</span>
+    </h1>
 
     <p>
-        Comunícate con nuestro equipo.
+      ¿Tienes dudas sobre nuestros destinos o paquetes turísticos?
+      Nos encantará ayudarte a planificar una experiencia inolvidable.
     </p>
-</section>
+  </section>
+
+  <!-- Distribución: formulario a la izquierda, información y redes a la derecha -->
+  <section class="contact-content">
+    <!-- Formulario de demostración: conserva su comportamiento actual -->
+    <div class="contact-form-container">
+      <div class="section-heading">
+        <span class="section-number">01 / CONTACTO</span>
+        <h2>Hablemos de tu próximo viaje</h2>
+        <p>
+          Completa los siguientes campos y cuéntanos qué aventura tienes
+          en mente.
+        </p>
+      </div>
+
+      <form class="contact-form" novalidate>
+        <!-- Nombre -->
+        <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+          <mat-label>Nombre completo</mat-label>
+          <mat-icon matPrefix>person_outline</mat-icon>
+          <input matInput type="text" placeholder="Escribe tu nombre" autocomplete="name">
+        </mat-form-field>
+
+        <!-- Correo -->
+        <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <mat-icon matPrefix>mail_outline</mat-icon>
+          <input matInput type="email" placeholder="ejemplo@correo.com" autocomplete="email">
+        </mat-form-field>
+
+        <!-- Asunto -->
+        <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+          <mat-label>¿Sobre qué deseas consultar?</mat-label>
+          <mat-icon matPrefix>travel_explore</mat-icon>
+          <mat-select>
+            <mat-option value="tours">Información sobre tours</mat-option>
+            <mat-option value="paquetes">Paquetes turísticos</mat-option>
+            <mat-option value="reservas">Reservas y disponibilidad</mat-option>
+            <mat-option value="pagos">Consultas sobre pagos</mat-option>
+            <mat-option value="otros">Otras consultas</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Mensaje -->
+        <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+          <mat-label>Tu mensaje</mat-label>
+          <textarea matInput rows="5" maxlength="500"
+            placeholder="Cuéntanos qué experiencia estás buscando..."></textarea>
+          <mat-hint align="end">Máximo 500 caracteres</mat-hint>
+        </mat-form-field>
+
+        <!-- Botón visual: no se modifica ni se conecta a un servicio -->
+        <div class="submit-button">
+          <span>Enviar mensaje</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </div>
+
+        <p class="form-disclaimer">
+          <mat-icon>info_outline</mat-icon>
+          Formulario de demostración. El envío de mensajes estará disponible próximamente.
+        </p>
+      </form>
+    </div>
+
+    <!-- Columna derecha -->
+    <aside class="social-section">
+      <div class="section-heading">
+        <span class="section-number">02 / INFORMACIÓN DE CONTACTO Y REDES</span>
+        <h2>Conecta con nosotros</h2>
+        <p>
+          Resuelve tus consultas y encuentra inspiración para tu próximo viaje.
+        </p>
+      </div>
+
+      <!-- Información de contacto -->
+      <div class="contact-info-box">
+        <h3>Información de contacto</h3>
+        <p>
+          ¿Tienes dudas o consultas? Puedes escribirnos, llamarnos o chatear
+          con nuestro equipo a través de nuestros canales de atención.
+        </p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="contact-info-text">
+              <strong>Dirección</strong>
+              <span>Av. Lurigancho 990, Lima 15427, Perú</span>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <mat-icon>call</mat-icon>
+            </div>
+            <div class="contact-info-text">
+              <strong>Teléfono</strong>
+              <a href="tel:+51966364437">+51 999 999 999</a>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <mat-icon>mail_outline</mat-icon>
+            </div>
+            <div class="contact-info-text">
+              <strong>Correos electrónicos</strong>
+              <a href="mailto:info.titicacatours@gmail.com">info.sumaqtours@gmail.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Redes sociales: tarjetas compactas -->
+      <div class="social-heading">
+        <span class="section-number">SÍGUENOS</span>
+        <h3>Inspírate para viajar</h3>
+      </div>
+
+      <div class="social-cards">
+        <!-- Instagram -->
+        <article class="social-card instagram-card">
+          <div class="social-card-top">
+            <div class="social-icon instagram-icon">
+              <mat-icon>photo_camera</mat-icon>
+            </div>
+            <span class="social-status">PRÓXIMAMENTE</span>
+          </div>
+          <div class="social-card-content">
+            <span class="social-platform">INSTAGRAM</span>
+            <h3>Momentos que inspiran.</h3>
+            <p>Paisajes increíbles, experiencias únicas y lugares que querrás descubrir.</p>
+          </div>
+          <div class="social-card-footer">
+            <span>Explora nuestro mundo</span>
+            <mat-icon>north_east</mat-icon>
+          </div>
+          <div class="instagram-decoration"></div>
+        </article>
+
+        <!-- TikTok -->
+        <article class="social-card tiktok-card">
+          <div class="social-card-top">
+            <div class="social-icon tiktok-icon">
+              <mat-icon>music_note</mat-icon>
+            </div>
+            <span class="social-status">PRÓXIMAMENTE</span>
+          </div>
+          <div class="social-card-content">
+            <span class="social-platform">TIKTOK</span>
+            <h3>Viaja, descubre y comparte.</h3>
+            <p>Inspírate con videos, recorridos y aventuras que despiertan tus ganas de viajar.</p>
+          </div>
+          <div class="social-card-footer">
+            <span>Vive la experiencia</span>
+            <mat-icon>north_east</mat-icon>
+          </div>
+          <div class="tiktok-decoration"></div>
+        </article>
+      </div>
+
+      <!-- Mensaje final -->
+      <div class="social-message">
+        <mat-icon>explore</mat-icon>
+        <div>
+          <h3>El mundo tiene mucho por descubrir.</h3>
+          <p>En Sumaq Tours te ayudamos a dar el primer paso.</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<!-- Acceso a WhatsApp -->
+<a class="floating-whatsapp"
+  href="https://wa.me/51966364437"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chatea con nosotros por WhatsApp"
+  title="Escríbenos por WhatsApp">
+  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+</a>
