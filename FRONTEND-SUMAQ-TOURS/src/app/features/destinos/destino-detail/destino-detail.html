@@ -1,1 +1,320 @@
-<p>destino-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Cargando destino...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No encontramos este destino
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/destinos">
+        Ver todos los destinos
+    </a>
+
+</section>
+
+} @else if (
+destino();
+as item
+) {
+
+<article class="destination-detail">
+
+    <div class="detail-container">
+
+
+        <!-- =========================
+             BREADCRUMB
+             ========================= -->
+
+        <nav class="breadcrumb">
+
+            <a routerLink="/destinos">
+                ← Volver a destinos
+            </a>
+
+            <span>
+                /
+            </span>
+
+            <span>
+                Detalle del destino
+            </span>
+
+        </nav>
+
+
+        <!-- =========================
+             BLOQUE PRINCIPAL
+             ========================= -->
+
+        <section class="detail-grid">
+
+
+            <!-- GALERÍA -->
+
+            <div class="gallery-column">
+
+                <div class="main-image">
+
+                    @if (
+                    item.imagenPrincipalUrl
+                    ) {
+
+                    <img [src]="item.imagenPrincipalUrl" [alt]="item.nombre">
+
+                    } @else {
+
+                    <div class="image-placeholder main-placeholder">
+
+                        <span>
+                            IMAGEN PRINCIPAL
+                        </span>
+
+                        <small>
+                            Puedes agregarla desde Administración
+                        </small>
+
+                    </div>
+
+                    }
+
+                </div>
+
+
+                <div class="thumbnail-grid">
+
+                    <div class="thumbnail active">
+
+                        @if (
+                        item.imagenPrincipalUrl
+                        ) {
+
+                        <img [src]="item.imagenPrincipalUrl" [alt]="item.nombre">
+
+                        } @else {
+
+                        <div class="thumbnail-placeholder">
+                            FOTO
+                        </div>
+
+                        }
+
+                    </div>
+
+
+                    <div class="thumbnail">
+                        <div class="thumbnail-placeholder">
+                            FOTO
+                        </div>
+                    </div>
+
+
+                    <div class="thumbnail">
+                        <div class="thumbnail-placeholder">
+                            FOTO
+                        </div>
+                    </div>
+
+
+                    <div class="thumbnail">
+                        <div class="thumbnail-placeholder">
+                            FOTO
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN -->
+
+            <div class="info-column">
+
+                <span class="location-label">
+                    DESTINO · PERÚ
+                </span>
+
+
+                <h1>
+                    {{ item.nombre }}
+                </h1>
+
+
+                <div class="destination-location">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"></path>
+
+                        <circle cx="12" cy="10" r="2"></circle>
+                    </svg>
+
+                    <span>
+                        {{ item.ubicacion }}
+                    </span>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <section class="description-section">
+
+                    <h2>
+                        Descubre {{ item.nombre }}
+                    </h2>
+
+                    <p>
+                        {{ item.descripcion }}
+                    </p>
+
+                </section>
+
+
+                <div class="destination-summary">
+
+                    <div>
+
+                        <span>
+                            UBICACIÓN
+                        </span>
+
+                        <strong>
+                            {{ item.ubicacion }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            EXPERIENCIAS
+                        </span>
+
+                        <strong>
+
+                            {{ tours().length }}
+
+                            {{
+                            tours().length === 1
+                            ? 'tour disponible'
+                            : 'tours disponibles'
+                            }}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <a mat-flat-button routerLink="/tours" class="explore-button">
+                    Explorar todos los tours
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TOURS DEL DESTINO
+             ========================= -->
+
+        @if (
+        tours().length > 0
+        ) {
+
+        <section class="destination-tours">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        EXPERIENCIAS
+                    </span>
+
+                    <h2>
+                        Tours en {{ item.nombre }}
+                    </h2>
+
+                    <p>
+                        Descubre las experiencias disponibles
+                        para este destino.
+                    </p>
+
+                </div>
+
+
+                <a mat-button routerLink="/tours" class="see-all">
+                    Ver todos
+                    <span>→</span>
+                </a>
+
+            </div>
+
+
+            <div class="tour-grid">
+
+                @for (
+                tour of tours();
+                track tour.id
+                ) {
+
+                <app-tour-card [tour]="tour" />
+
+                }
+
+            </div>
+
+        </section>
+
+        } @else {
+
+        <section class="no-tours">
+
+            <span class="eyebrow">
+                EXPERIENCIAS
+            </span>
+
+            <h2>
+                Próximamente más experiencias
+            </h2>
+
+            <p>
+                Actualmente no tenemos tours
+                disponibles para este destino.
+            </p>
+
+            <a mat-flat-button routerLink="/destinos">
+                Explorar otros destinos
+            </a>
+
+        </section>
+
+        }
+
+    </div>
+
+</article>
+
+}

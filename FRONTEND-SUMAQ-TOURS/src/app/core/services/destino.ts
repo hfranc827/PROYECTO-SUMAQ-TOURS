@@ -1,9 +1,26 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import {
+    inject,
+    Injectable
+} from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import {
+    HttpClient
+} from '@angular/common/http';
+
+import {
+    Observable,
+    of,
+    throwError
+} from 'rxjs';
+
+import {
+    environment
+} from '../../../environments/environment';
+
+import {
+    DemoData
+} from './demo-data';
 
 import {
     CreateDestinoRequest,
@@ -20,40 +37,85 @@ export class Destino {
     private readonly http =
         inject(HttpClient);
 
+    private readonly demoData =
+        inject(DemoData);
+
     private readonly apiUrl =
         `${environment.apiUrl}/destinos`;
 
 
+    // =====================================
+    // LISTAR DESTINOS PÚBLICOS
+    // =====================================
+
     listarPublicos():
         Observable<DestinoResponse[]> {
 
-        return this.http
-            .get<DestinoResponse[]>(
-                this.apiUrl
-            );
+        if (environment.useMockData) {
+
+            const destinos =
+                this.demoData.listarDestinos()
+                    .filter(destino => destino.activo);
+
+            return of(destinos);
+
+        }
+
+        return this.http.get<DestinoResponse[]>(
+            this.apiUrl
+        );
+
     }
 
+
+    // =====================================
+    // OBTENER DESTINO POR ID
+    // =====================================
 
     obtenerPorId(
         id: number
     ): Observable<DestinoResponse> {
 
-        return this.http
-            .get<DestinoResponse>(
-                `${this.apiUrl}/${id}`
-            );
+        if (environment.useMockData) {
+
+            const destino =
+                this.demoData.listarDestinos()
+                    .find(item =>
+                        item.id === id &&
+                        item.activo
+                    );
+
+            if (!destino) {
+
+                return throwError(() => ({
+                    status: 404,
+                    message: 'Destino no encontrado'
+                }));
+
+            }
+
+            return of(destino);
+
+        }
+
+        return this.http.get<DestinoResponse>(
+            `${this.apiUrl}/${id}`
+        );
+
     }
 
 
-    // ===========================
-    // ADMIN
-    // ===========================
+    // =====================================
+    // ADMINISTRACIÓN
+    // =====================================
+
     listarTodosAdmin():
         Observable<DestinoResponse[]> {
 
         return this.http.get<DestinoResponse[]>(
             `${this.apiUrl}/admin/todos`
         );
+
     }
 
 
@@ -61,11 +123,11 @@ export class Destino {
         request: CreateDestinoRequest
     ): Observable<DestinoResponse> {
 
-        return this.http
-            .post<DestinoResponse>(
-                this.apiUrl,
-                request
-            );
+        return this.http.post<DestinoResponse>(
+            this.apiUrl,
+            request
+        );
+
     }
 
 
@@ -74,11 +136,11 @@ export class Destino {
         request: UpdateDestinoRequest
     ): Observable<DestinoResponse> {
 
-        return this.http
-            .put<DestinoResponse>(
-                `${this.apiUrl}/${id}`,
-                request
-            );
+        return this.http.put<DestinoResponse>(
+            `${this.apiUrl}/${id}`,
+            request
+        );
+
     }
 
 
@@ -86,12 +148,10 @@ export class Destino {
         id: number
     ): Observable<void> {
 
-        return this.http
-            .delete<void>(
-                `${this.apiUrl}/${id}`
-            );
+        return this.http.delete<void>(
+            `${this.apiUrl}/${id}`
+        );
+
     }
-
-
 
 }

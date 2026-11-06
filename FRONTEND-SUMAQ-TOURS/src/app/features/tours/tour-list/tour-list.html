@@ -1,1 +1,286 @@
-<p>tour-list works!</p>
+<section class="tours-page">
+
+    <!-- CABECERA -->
+
+    <header class="page-hero">
+
+        <span class="eyebrow">
+            SUMAQ TOURS · EXPLORA EL PERÚ
+        </span>
+
+        <h1>
+            Tours y experiencias
+        </h1>
+
+        <p>
+            Descubre actividades únicas
+            en los mejores destinos del Perú.
+        </p>
+
+    </header>
+
+
+    <!-- BUSCADOR -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+
+            <div class="search-input">
+
+                <span class="search-icon">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+
+                        <circle cx="11" cy="11" r="7"></circle>
+
+                        <path d="m20 20-3.5-3.5"></path>
+
+                    </svg>
+
+                </span>
+
+
+                <input type="search" placeholder="Buscar destino o tour..." [value]="textoBusqueda()" (input)="
+        actualizarBusqueda(
+            $any($event.target).value
+        )
+    " (keydown.enter)="buscar()">
+
+            </div>
+
+
+            <div class="price-filter">
+
+                <select [value]="filtroPrecio()" (change)="
+                        actualizarFiltro(
+                            $any($event.target).value
+                        )
+                    ">
+
+                    <option value="TODOS">
+                        Filtrar por precio
+                    </option>
+
+                    <option value="MENOR">
+                        Menor precio
+                    </option>
+
+                    <option value="MAYOR">
+                        Mayor precio
+                    </option>
+
+                    <option value="HASTA_150">
+                        Hasta S/ 150
+                    </option>
+
+                    <option value="150_300">
+                        S/ 151 - S/ 300
+                    </option>
+
+                    <option value="MAS_300">
+                        Más de S/ 300
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button mat-flat-button type="button" class="search-button" (click)="buscar()">
+                Buscar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTENIDO -->
+
+    <div class="tours-container">
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Buscando experiencias...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarTours()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else {
+
+        <div class="list-heading">
+
+            <h2>
+                Tours turísticos
+            </h2>
+
+            <span class="tour-count">
+
+                {{ toursFiltrados().length }}
+
+                {{
+                toursFiltrados().length === 1
+                ? 'tour'
+                : 'tours'
+                }}
+
+            </span>
+
+        </div>
+
+
+        @if (
+        toursFiltrados().length === 0
+        ) {
+
+        <div class="state empty-state">
+
+            <h3>
+                No encontramos tours
+            </h3>
+
+            <p>
+                Intenta buscar otro destino
+                o cambia el filtro de precio.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="tour-grid">
+
+            @for (
+            tour of toursFiltrados();
+            track tour.id
+            ) {
+
+            <article class="tour-card">
+
+                <!-- IMAGEN -->
+
+                <div class="tour-image-wrapper">
+
+                    @if (
+                    tour.imagenPrincipalUrl
+                    ) {
+
+                    <img [src]="tour.imagenPrincipalUrl" [alt]="tour.nombre" class="tour-image">
+
+                    } @else {
+
+                    <div class="image-placeholder">
+                        IMAGEN DEL TOUR
+                    </div>
+
+                    }
+
+
+                    <span class="activity-badge">
+                        {{ tour.tipoActividad }}
+                    </span>
+
+                </div>
+
+
+                <!-- INFORMACIÓN -->
+
+                <div class="tour-content">
+
+                    <span class="destination">
+                        {{ tour.destinoNombre }}
+                    </span>
+
+
+                    <h3>
+                        {{ tour.nombre }}
+                    </h3>
+
+
+                    <div class="tour-meta">
+
+                        <span>
+
+                            <span class="clock-icon">
+
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9"></circle>
+
+                                    <path d="M12 7v5l3 2"></path>
+
+                                </svg>
+
+                            </span>
+
+                            {{ tour.duracionHoras }} h
+
+                        </span>
+
+
+                        <span>
+                            {{ tour.nivelDificultad }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        <span>
+                            Desde
+                        </span>
+
+                        <strong>
+                            S/
+                            {{
+                            tour.precio
+                            | number:'1.0-2'
+                            }}
+                        </strong>
+
+                    </div>
+
+
+                    <a mat-flat-button class="detail-button" [routerLink]="[
+                            '/tours',
+                            tour.id
+                        ]">
+                        Ver detalle
+                    </a>
+
+                </div>
+
+            </article>
+
+            }
+
+        </div>
+
+        }
+
+        }
+
+    </div>
+
+</section>

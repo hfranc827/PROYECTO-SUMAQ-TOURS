@@ -1,1 +1,829 @@
-<p>tour-detail works!</p>
+
+@if (loading()) {
+
+    <section class="state">
+
+        <mat-spinner diameter="48"></mat-spinner>
+
+        <p>
+            Cargando información del tour...
+        </p>
+
+    </section>
+
+} @else if (errorMessage()) {
+
+    <section class="state">
+
+        <h1>
+            No encontramos este tour
+        </h1>
+
+        <p>
+            {{ errorMessage() }}
+        </p>
+
+        <a mat-flat-button routerLink="/tours">
+            Ver todos los tours
+        </a>
+
+    </section>
+
+} @else if (tour(); as item) {
+
+    <article class="tour-detail">
+
+        <div class="detail-container">
+
+
+            <!-- =========================
+                 BREADCRUMB
+                 ========================= -->
+
+            <nav class="breadcrumb">
+
+                <a routerLink="/tours">
+                    ← Volver a tours
+                </a>
+
+                <span>/</span>
+
+                <span>
+                    Detalle del tour
+                </span>
+
+            </nav>
+
+
+            <!-- =========================
+                 INFORMACIÓN PRINCIPAL
+                 ========================= -->
+
+            <section class="detail-grid">
+
+
+                <!-- GALERÍA -->
+
+                <div class="gallery-column">
+
+                    <div class="main-image">
+
+                        @if (imagenSeleccionada(); as imagen) {
+
+                            <img
+                                [src]="imagen"
+                                [alt]="item.nombre"
+                            >
+
+                        } @else {
+
+                            <div class="image-placeholder">
+
+                                <span>
+                                    IMAGEN DEL TOUR
+                                </span>
+
+                                <small>
+                                    Puedes agregar imágenes desde Administración
+                                </small>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+
+                    <!-- MINIATURAS -->
+
+                    @if (
+                        item.imagenPrincipalUrl ||
+                        item.imagenes.length > 0
+                    ) {
+
+                        <div class="thumbnail-grid">
+
+
+                            @if (item.imagenPrincipalUrl; as principal) {
+
+                                <button
+                                    type="button"
+                                    class="thumbnail"
+
+                                    [class.active]="
+                                        imagenSeleccionada() === principal
+                                    "
+
+                                    (click)="seleccionarImagen(principal)"
+
+                                    aria-label="Ver imagen principal"
+                                >
+
+                                    <img
+                                        [src]="principal"
+                                        [alt]="item.nombre"
+                                    >
+
+                                </button>
+
+                            }
+
+
+                            @for (
+                                imagen of item.imagenes;
+                                track imagen.id
+                            ) {
+
+                                @if (
+                                    imagen.url !== item.imagenPrincipalUrl
+                                ) {
+
+                                    <button
+                                        type="button"
+                                        class="thumbnail"
+
+                                        [class.active]="
+                                            imagenSeleccionada() === imagen.url
+                                        "
+
+                                        (click)="seleccionarImagen(imagen.url)"
+
+                                        [attr.aria-label]="'Ver imagen ' + imagen.orden"
+                                    >
+
+                                        <img
+                                            [src]="imagen.url"
+                                            [alt]="item.nombre + ' - imagen ' + imagen.orden"
+                                        >
+
+                                    </button>
+
+                                }
+
+                            }
+
+                        </div>
+
+                    }
+
+                </div>
+
+
+                <!-- INFORMACIÓN DEL TOUR -->
+
+                <div class="info-column">
+
+
+                    <span class="location-label">
+
+                        EXPERIENCIA · {{ item.destinoNombre | uppercase }}
+
+                    </span>
+
+
+                    <h1>
+                        {{ item.nombre }}
+                    </h1>
+
+
+                    <div class="activity-label">
+
+                        {{ item.tipoActividad }}
+
+                    </div>
+
+
+                    <div class="divider"></div>
+
+
+                    <!-- DESCRIPCIÓN -->
+
+                    <section class="description-section">
+
+                        <h2>
+                            Acerca de esta experiencia
+                        </h2>
+
+                        <p>
+                            {{ item.descripcion }}
+                        </p>
+
+                    </section>
+
+
+                    <!-- CARACTERÍSTICAS -->
+
+                    <div class="tour-summary">
+
+
+                        <div class="summary-item">
+
+                            <span class="summary-icon">
+                                ◷
+                            </span>
+
+                            <div>
+
+                                <span>
+                                    DURACIÓN
+                                </span>
+
+                                <strong>
+                                    {{ item.duracionHoras }} horas
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-item">
+
+                            <span class="summary-icon">
+                                ◈
+                            </span>
+
+                            <div>
+
+                                <span>
+                                    DIFICULTAD
+                                </span>
+
+                                <strong>
+                                    {{ item.nivelDificultad }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-item">
+
+                            <span class="summary-icon">
+                                ♧
+                            </span>
+
+                            <div>
+
+                                <span>
+                                    CAPACIDAD
+                                </span>
+
+                                <strong>
+                                    {{ item.capacidadMaxima }} personas
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-item">
+
+                            <span class="summary-icon">
+                                ⌖
+                            </span>
+
+                            <div>
+
+                                <span>
+                                    DESTINO
+                                </span>
+
+                                <strong>
+                                    {{ item.destinoNombre }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRECIO -->
+
+                    <div class="price-section">
+
+                        <div>
+
+                            <span>
+                                Precio por persona
+                            </span>
+
+                            <strong>
+                                S/ {{ item.precio | number:'1.2-2' }}
+                            </strong>
+
+                        </div>
+
+                        <span class="price-note">
+                            Reserva tu experiencia
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        mat-button
+                        class="destination-link"
+
+                        [routerLink]="[
+                            '/destinos',
+                            item.destinoId
+                        ]"
+                    >
+
+                        Conoce el destino →
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 INCLUYE Y NO INCLUYE
+                 ========================= -->
+
+            <section class="included-section">
+
+
+                <!-- INCLUYE -->
+
+                <div class="included-card">
+
+                    <span class="eyebrow">
+                        TU EXPERIENCIA
+                    </span>
+
+                    <h2>
+                        ¿Qué incluye?
+                    </h2>
+
+                    @if (item.incluye) {
+
+                        <p class="included-text">
+                            {{ item.incluye }}
+                        </p>
+
+                    } @else {
+
+                        <p class="empty-description">
+                            Información pendiente de actualización.
+                        </p>
+
+                    }
+
+                </div>
+
+
+                <!-- NO INCLUYE -->
+
+                <div class="included-card excluded-card">
+
+                    <span class="eyebrow">
+                        INFORMACIÓN ADICIONAL
+                    </span>
+
+                    <h2>
+                        ¿Qué no incluye?
+                    </h2>
+
+                    @if (item.noIncluye) {
+
+                        <p class="included-text">
+                            {{ item.noIncluye }}
+                        </p>
+
+                    } @else {
+
+                        <p class="empty-description">
+                            Información pendiente de actualización.
+                        </p>
+
+                    }
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 DISPONIBILIDADES Y RESERVA
+                 ========================= -->
+
+            <section class="booking-section">
+
+
+                <!-- CABECERA -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            PLANIFICA TU EXPERIENCIA
+                        </span>
+
+                        <h2>
+                            Reserva tu próxima aventura
+                        </h2>
+
+                        <p>
+                            Selecciona una fecha disponible y
+                            el número de personas que participarán.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="booking-grid">
+
+
+                    <!-- =========================
+                         FECHAS DISPONIBLES
+                         ========================= -->
+
+                    <div class="availability-column">
+
+                        <h3>
+                            Fechas disponibles
+                        </h3>
+
+
+                        @if (disponibilidadError()) {
+
+                            <div class="availability-message">
+
+                                <strong>
+                                    No fue posible cargar las fechas
+                                </strong>
+
+                                <p>
+                                    {{ disponibilidadError() }}
+                                </p>
+
+                            </div>
+
+                        } @else if (disponibilidades().length === 0) {
+
+                            <div class="availability-message">
+
+                                <strong>
+                                    Sin fechas disponibles
+                                </strong>
+
+                                <p>
+                                    Próximamente tendremos nuevas salidas
+                                    para esta experiencia.
+                                </p>
+
+                            </div>
+
+                        } @else {
+
+                            <div class="availability-list">
+
+                                @for (
+                                    disponibilidad of disponibilidades();
+                                    track disponibilidad.id
+                                ) {
+
+                                    <button
+                                        type="button"
+                                        class="availability-item"
+
+                                        [class.selected]="
+                                            disponibilidadSeleccionada()?.id === disponibilidad.id
+                                        "
+
+                                        [disabled]="
+                                            disponibilidad.estado !== 'DISPONIBLE' ||
+                                            disponibilidad.cuposDisponibles <= 0
+                                        "
+
+                                        (click)="seleccionarDisponibilidad(disponibilidad)"
+                                    >
+
+
+                                        <span class="availability-date">
+
+                                            {{ disponibilidad.fecha | date:'dd/MM/yyyy' }}
+
+                                        </span>
+
+
+                                        <span class="availability-seats">
+
+                                            @if (
+                                                disponibilidad.estado === 'DISPONIBLE' &&
+                                                disponibilidad.cuposDisponibles > 0
+                                            ) {
+
+                                                {{ disponibilidad.cuposDisponibles }}
+                                                cupos disponibles
+
+                                            } @else if (
+                                                disponibilidad.estado === 'AGOTADO' ||
+                                                disponibilidad.cuposDisponibles <= 0
+                                            ) {
+
+                                                Agotado
+
+                                            } @else {
+
+                                                No disponible
+
+                                            }
+
+                                        </span>
+
+
+                                        <span
+                                            class="availability-status"
+
+                                            [class.available]="
+                                                disponibilidad.estado === 'DISPONIBLE' &&
+                                                disponibilidad.cuposDisponibles > 0
+                                            "
+                                        >
+
+                                            @if (
+                                                disponibilidad.estado === 'DISPONIBLE' &&
+                                                disponibilidad.cuposDisponibles > 0
+                                            ) {
+
+                                                DISPONIBLE
+
+                                            } @else if (
+                                                disponibilidad.estado === 'AGOTADO' ||
+                                                disponibilidad.cuposDisponibles <= 0
+                                            ) {
+
+                                                AGOTADO
+
+                                            } @else {
+
+                                                BLOQUEADO
+
+                                            }
+
+                                        </span>
+
+                                    </button>
+
+                                }
+
+                            </div>
+
+                        }
+
+                    </div>
+
+
+                    <!-- =========================
+                         FORMULARIO DE RESERVA
+                         ========================= -->
+
+                    <aside class="reservation-card">
+
+
+                        <span class="eyebrow">
+                            TU RESERVA
+                        </span>
+
+
+                        <h3>
+                            Detalles de tu reserva
+                        </h3>
+
+
+                        <div class="reservation-tour">
+
+                            <span>
+                                Experiencia seleccionada
+                            </span>
+
+                            <strong>
+                                {{ item.nombre }}
+                            </strong>
+
+                        </div>
+
+
+                        @if (
+                            disponibilidadSeleccionada();
+                            as seleccion
+                        ) {
+
+
+                            <!-- FECHA SELECCIONADA -->
+
+                            <div class="selected-date">
+
+                                <span>
+                                    Fecha seleccionada
+                                </span>
+
+                                <strong>
+                                    {{ seleccion.fecha | date:'dd/MM/yyyy' }}
+                                </strong>
+
+                            </div>
+
+
+                            <!-- CANTIDAD DE PERSONAS -->
+
+                            <mat-form-field
+                                appearance="outline"
+                                class="people-field"
+                            >
+
+                                <mat-label>
+                                    Cantidad de personas
+                                </mat-label>
+
+                                <input
+                                    matInput
+                                    type="number"
+
+                                    [formControl]="cantidadPersonas"
+
+                                    min="1"
+
+                                    [max]="seleccion.cuposDisponibles"
+                                >
+
+
+                                @if (
+                                    cantidadPersonas.hasError('required')
+                                ) {
+
+                                    <mat-error>
+                                        Ingresa la cantidad de personas.
+                                    </mat-error>
+
+                                }
+
+
+                                @if (
+                                    cantidadPersonas.hasError('min')
+                                ) {
+
+                                    <mat-error>
+                                        La cantidad mínima es 1 persona.
+                                    </mat-error>
+
+                                }
+
+
+                                @if (
+                                    cantidadPersonas.hasError('max')
+                                ) {
+
+                                    <mat-error>
+
+                                        Solo hay
+                                        {{ seleccion.cuposDisponibles }}
+                                        cupos disponibles.
+
+                                    </mat-error>
+
+                                }
+
+                            </mat-form-field>
+
+
+                            <!-- RESUMEN DE PRECIOS -->
+
+                            <div class="reservation-total">
+
+                                <span>
+                                    Precio por persona
+                                </span>
+
+                                <strong>
+                                    S/ {{ item.precio | number:'1.2-2' }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="reservation-total">
+
+                                <span>
+                                    Cantidad de personas
+                                </span>
+
+                                <strong>
+                                    {{ cantidadPersonas.value }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="reservation-total final-total">
+
+                                <span>
+                                    Total estimado
+                                </span>
+
+                                <strong>
+
+                                    S/
+
+                                    {{
+                                        item.precio * cantidadPersonas.value
+                                        | number:'1.2-2'
+                                    }}
+
+                                </strong>
+
+                            </div>
+
+
+                        } @else {
+
+
+                            <div class="selection-hint">
+
+                                Selecciona una fecha disponible
+                                para continuar con tu reserva.
+
+                            </div>
+
+                        }
+
+
+                        <!-- MENSAJES -->
+
+                        @if (reservaError()) {
+
+                            <div class="reservation-error">
+                                {{ reservaError() }}
+                            </div>
+
+                        }
+
+
+                        @if (reservaSuccess()) {
+
+                            <div class="reservation-success">
+                                {{ reservaSuccess() }}
+                            </div>
+
+                        }
+
+
+                        <!-- BOTÓN RESERVAR -->
+
+                        <button
+                            mat-flat-button
+                            type="button"
+                            class="reserve-button"
+
+                            [disabled]="
+                                reservando() ||
+                                !disponibilidadSeleccionada() ||
+                                cantidadPersonas.invalid
+                            "
+
+                            (click)="crearReserva()"
+                        >
+
+                            @if (reservando()) {
+
+                                Procesando reserva...
+
+                            } @else {
+
+                                Reservar ahora
+
+                            }
+
+                        </button>
+
+
+                        <p class="reservation-note">
+
+                            La reserva se registra con tu cuenta.
+                            Si no has iniciado sesión, te pediremos ingresar.
+
+                        </p>
+
+                    </aside>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </article>
+
+}

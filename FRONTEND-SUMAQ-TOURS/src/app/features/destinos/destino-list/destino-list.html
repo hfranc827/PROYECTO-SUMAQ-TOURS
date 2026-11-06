@@ -1,1 +1,187 @@
-<p>destino-list works!</p>
+<section class="destinations-page">
+
+    <!-- =========================
+         CABECERA
+         ========================= -->
+
+    <header class="page-hero">
+
+        <span class="eyebrow">
+            SUMAQ TOURS · EXPLORA EL PERÚ
+        </span>
+
+        <h1>
+            Destinos turísticos
+        </h1>
+
+        <p>
+            Descubre lugares únicos y encuentra
+            tu próxima experiencia en el Perú.
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENIDO
+         ========================= -->
+
+    <div class="destinations-container">
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Descubriendo destinos...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarDestinos()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        destinos().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay destinos disponibles
+            </h2>
+
+            <p>
+                Vuelve pronto para descubrir
+                nuevas experiencias.
+            </p>
+
+        </div>
+
+        } @else {
+
+
+        <!-- CABECERA DEL LISTADO -->
+
+        <div class="list-heading">
+
+            <h2>
+                Explora nuestros destinos
+            </h2>
+
+            <span class="destination-count">
+
+                {{ destinos().length }}
+
+                {{
+                destinos().length === 1
+                ? 'destino'
+                : 'destinos'
+                }}
+
+            </span>
+
+        </div>
+
+
+        <!-- CARDS -->
+
+        <div class="destination-grid">
+
+            @for (
+            destino of destinos();
+            track destino.id
+            ) {
+
+            <article class="destination-card">
+
+                <div class="image-wrapper">
+
+                    @if (
+                    destino.imagenPrincipalUrl
+                    ) {
+
+                    <img [src]="destino.imagenPrincipalUrl" [alt]="destino.nombre" class="destination-image">
+
+                    } @else {
+
+                    <div class="image-placeholder">
+
+                        <span>
+                            IMAGEN DEL DESTINO
+                        </span>
+
+                    </div>
+
+                    }
+
+
+                    <div class="image-overlay"></div>
+
+
+                    <span class="location-badge">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"></path>
+
+                            <circle cx="12" cy="10" r="2"></circle>
+                        </svg>
+
+                        {{ destino.ubicacion }}
+
+                    </span>
+
+                </div>
+
+
+                <div class="destination-content">
+
+                    <span class="destination-label">
+                        DESTINO · PERÚ
+                    </span>
+
+
+                    <h3>
+                        {{ destino.nombre }}
+                    </h3>
+
+
+                    <p>
+                        {{ destino.descripcion }}
+                    </p>
+
+
+                    <a mat-flat-button class="detail-button" [routerLink]="[
+                            '/destinos',
+                            destino.id
+                        ]">
+                        Ver destino
+                    </a>
+
+                </div>
+
+            </article>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

@@ -1,0 +1,487 @@
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.destinations-page {
+    min-height:
+        calc(100vh - 76px);
+
+    padding-bottom: 90px;
+
+    background: #fbf7ed;
+}
+
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.page-hero {
+    padding:
+        58px 24px 48px;
+
+    text-align: center;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #ae7719;
+
+    font-size: 0.67rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+}
+
+
+.page-hero h1 {
+    margin:
+        0 0 10px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2.7rem,
+            5vw,
+            4.2rem);
+
+    line-height: 1;
+}
+
+
+.page-hero p {
+    max-width: 560px;
+
+    margin: 0 auto;
+
+    color: #7c8581;
+
+    font-size: 0.9rem;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   CONTENEDOR
+   ========================= */
+
+.destinations-container {
+    width: min(1320px,
+            calc(100% - 64px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   CABECERA LISTADO
+   ========================= */
+
+.list-heading {
+    margin-bottom: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.list-heading h2 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(1.8rem,
+            3vw,
+            2.45rem);
+}
+
+
+.destination-count {
+    color: #9a9f9c;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   GRID
+   ========================= */
+
+.destination-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =========================
+   CARD
+   ========================= */
+
+.destination-card {
+    overflow: hidden;
+
+    border:
+        1px solid #e8e3da;
+
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 16px rgba(35, 50, 45, 0.06);
+
+    transition:
+        transform 220ms ease,
+        box-shadow 220ms ease;
+}
+
+
+.destination-card:hover {
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 32px rgba(35, 50, 45, 0.12);
+}
+
+
+/* =========================
+   IMAGEN
+   ========================= */
+
+.image-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    height: 280px;
+
+    overflow: hidden;
+
+    background: #d7e0da;
+}
+
+
+.destination-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 600ms ease;
+}
+
+
+.destination-card:hover .destination-image {
+    transform:
+        scale(1.045);
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        linear-gradient(135deg,
+            #d7e0da,
+            #adc2b7);
+
+    color: #58736a;
+
+    font-size: 0.67rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.11em;
+}
+
+
+.image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(to top,
+            rgba(4, 38, 32, 0.3),
+            transparent 55%);
+}
+
+
+/* UBICACIÓN */
+
+.location-badge {
+    position: absolute;
+
+    left: 14px;
+    bottom: 14px;
+
+    max-width:
+        calc(100% - 28px);
+
+    padding:
+        7px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(251, 247, 237, 0.94);
+
+    color: #086958;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 0.67rem;
+
+    font-weight: 800;
+
+    backdrop-filter:
+        blur(8px);
+}
+
+
+.location-badge svg {
+    width: 15px;
+    height: 15px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* =========================
+   CONTENIDO
+   ========================= */
+
+.destination-content {
+    padding:
+        20px 18px 18px;
+}
+
+
+.destination-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #08705f;
+
+    font-size: 0.64rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+
+.destination-content h3 {
+    margin:
+        0 0 10px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.55rem;
+
+    line-height: 1.1;
+}
+
+
+.destination-content p {
+    min-height: 65px;
+
+    margin:
+        0 0 17px;
+
+    color: #737d79;
+
+    font-size: 0.83rem;
+
+    line-height: 1.6;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+/* BOTÓN */
+
+.detail-button {
+    width: 100%;
+
+    min-height: 39px;
+
+    border-radius:
+        6px !important;
+
+    background:
+        #086958 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size: 0.73rem;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.detail-button:hover {
+    background:
+        #065649 !important;
+}
+
+
+/* =========================
+   ESTADOS
+   ========================= */
+
+.state {
+    min-height: 350px;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+}
+
+
+.state h2 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #7c8581;
+}
+
+
+.error {
+    color: #9c1c1c !important;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 980px) {
+
+    .destination-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .destinations-container {
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .page-hero {
+        padding-top: 45px;
+    }
+
+
+    .list-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .image-wrapper {
+        height: 250px;
+    }
+
+}
