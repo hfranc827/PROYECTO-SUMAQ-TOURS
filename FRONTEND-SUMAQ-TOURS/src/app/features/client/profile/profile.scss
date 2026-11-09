@@ -1,0 +1,1180 @@
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+.profile-page {
+    min-height:
+        calc(100vh - 76px);
+
+    padding:
+        56px 32px 90px;
+
+    background: #fbf7ed;
+}
+
+
+.profile-container {
+    width: min(1320px,
+            100%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.profile-heading {
+    max-width: 720px;
+
+    margin-bottom: 32px;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 11px;
+
+    color: #a66e18;
+
+    font-size: 0.67rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+}
+
+
+.profile-heading h1 {
+    margin:
+        0 0 10px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2.8rem,
+            5vw,
+            4.4rem);
+
+    line-height: 1;
+
+    letter-spacing: -0.035em;
+}
+
+
+.profile-heading p {
+    max-width: 620px;
+
+    margin: 0;
+
+    color: #74807b;
+
+    font-size: 0.95rem;
+
+    line-height: 1.65;
+}
+
+
+/* =========================
+   BANNER CLIENTE
+   ========================= */
+
+.traveler-banner {
+    min-height: 150px;
+
+    margin-bottom: 50px;
+
+    padding:
+        26px 30px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(125deg,
+            #063e36,
+            #08705f);
+
+    color: white;
+
+    box-shadow:
+        0 14px 34px rgba(8, 72, 61, 0.15);
+
+    display: grid;
+
+    grid-template-columns:
+        auto minmax(0, 1fr) auto;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+
+.traveler-icon {
+    width: 62px;
+
+    height: 62px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.1);
+
+    display: grid;
+
+    place-items: center;
+}
+
+
+.traveler-icon svg {
+    width: 29px;
+    height: 29px;
+
+    fill: none;
+
+    stroke: #f4b447;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.traveler-copy>span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #f4b447;
+
+    font-size: 0.62rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+}
+
+
+.traveler-copy h2 {
+    margin:
+        0 0 6px;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(1.5rem,
+            3vw,
+            2.15rem);
+}
+
+
+.traveler-copy p {
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.7);
+
+    font-size: 0.82rem;
+}
+
+
+.traveler-total {
+    min-width: 100px;
+
+    padding-left: 28px;
+
+    border-left:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    display: grid;
+
+    justify-items: center;
+
+    gap: 3px;
+}
+
+
+.traveler-total span {
+    color:
+        rgba(255, 255, 255, 0.65);
+
+    font-size: 0.6rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+}
+
+
+.traveler-total strong {
+    color: #f4b447;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 2.3rem;
+}
+
+
+/* =========================
+   SECCIÓN RESERVAS
+   ========================= */
+
+.reservations-section {
+    min-width: 0;
+}
+
+
+.section-heading {
+    margin-bottom: 20px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+
+.section-eyebrow {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #a66e18;
+
+    font-size: 0.65rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.section-heading h2 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2rem,
+            4vw,
+            2.8rem);
+}
+
+
+.reservation-count {
+    color: #989f9b;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   FILTROS
+   ========================= */
+
+.reservation-filters {
+    margin-bottom: 30px;
+
+    padding: 7px;
+
+    border:
+        1px solid #e7e1d7;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.6);
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+}
+
+
+.reservation-filters button {
+    min-height: 36px;
+
+    padding:
+        0 16px;
+
+    border-radius:
+        8px !important;
+
+    color: #65716c;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+
+    transition:
+        background 180ms ease,
+        color 180ms ease;
+}
+
+
+.reservation-filters button:hover {
+    background: #edf5f1;
+
+    color: #08705f;
+}
+
+
+.reservation-filters button.active {
+    background:
+        #08705f !important;
+
+    color:
+        white !important;
+}
+
+
+/* =========================
+   GRID RESERVAS
+   ========================= */
+
+.reservation-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 22px;
+
+    align-items: stretch;
+}
+
+
+/* =========================
+   CARD
+   ========================= */
+
+.reservation-card {
+    height: 100%;
+
+    overflow: hidden;
+
+    border:
+        1px solid #e8e3da;
+
+    border-radius:
+        12px !important;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 18px rgba(35, 50, 45, 0.06);
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease;
+}
+
+
+.reservation-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 14px 32px rgba(35, 50, 45, 0.11);
+}
+
+
+/* =========================
+   CABECERA CARD
+   ========================= */
+
+.card-heading {
+    padding:
+        20px 20px 17px;
+
+    border-bottom:
+        1px solid #eee9e0;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content:
+        space-between;
+
+    gap: 16px;
+}
+
+
+.card-heading>div {
+    min-width: 0;
+}
+
+
+.reservation-type {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #08705f;
+
+    font-size: 0.61rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+.card-heading h3 {
+    margin:
+        0 0 5px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.35rem;
+
+    line-height: 1.15;
+}
+
+
+.reservation-number {
+    color: #9a9f9c;
+
+    font-size: 0.67rem;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   ESTADOS
+   ========================= */
+
+.status-badge {
+    flex-shrink: 0;
+
+    width: fit-content;
+
+    padding:
+        6px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.58rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.05em;
+}
+
+
+.status-badge.pending {
+    background: #fff2cf;
+
+    color: #77580d;
+}
+
+
+.status-badge.confirmed {
+    background: #e8f2ed;
+
+    color: #13604f;
+}
+
+
+.status-badge.paid {
+    background: #08705f;
+
+    color: #ffffff;
+}
+
+
+.status-badge.cancelled {
+    background: #fae9e7;
+
+    color: #9a3d35;
+}
+
+
+.status-badge.finished {
+    background: #edf0ef;
+
+    color: #56625d;
+}
+
+
+/* =========================
+   CONTENIDO CARD
+   ========================= */
+
+mat-card-content {
+    flex: 1;
+
+    padding:
+        18px 20px 16px !important;
+}
+
+
+/* DATOS */
+
+.reservation-data {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.reservation-data>div {
+    min-height: 62px;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background: #f8f7f2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.data-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eaf4f0;
+
+    color: #08705f;
+
+    display: grid;
+
+    place-items: center;
+}
+
+
+.data-icon svg {
+    width: 15px;
+    height: 15px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.reservation-data>div>div {
+    min-width: 0;
+
+    display: grid;
+
+    gap: 3px;
+}
+
+
+.reservation-data span:not(.data-icon) {
+    color: #909794;
+
+    font-size: 0.59rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.05em;
+
+    text-transform: uppercase;
+}
+
+
+.reservation-data strong {
+    color: #2c3a34;
+
+    font-size: 0.74rem;
+}
+
+
+/* =========================
+   DESGLOSE
+   ========================= */
+
+.price-breakdown {
+    margin-top: 18px;
+
+    padding-top: 16px;
+
+    border-top:
+        1px solid #eee9e0;
+
+    display: grid;
+
+    gap: 8px;
+}
+
+
+.price-breakdown div {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.price-breakdown span {
+    color: #7c8581;
+
+    font-size: 0.7rem;
+}
+
+
+.price-breakdown strong {
+    color: #384640;
+
+    font-size: 0.73rem;
+}
+
+
+.discount-value {
+    color:
+        #08705f !important;
+}
+
+
+/* =========================
+   TOTAL
+   ========================= */
+
+.price {
+    margin-top: 14px;
+
+    padding:
+        14px 0 0;
+
+    border-top:
+        1px solid #eee9e0;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: flex-end;
+
+    gap: 20px;
+}
+
+
+.price span {
+    color: #777f7c;
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+.price strong {
+    color: #08705f;
+
+    font-size: 1.55rem;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+/* =========================
+   PROMOCIÓN
+   ========================= */
+
+.discount {
+    margin-top: 14px;
+
+    padding: 11px 12px;
+
+    border:
+        1px solid #d8e9e1;
+
+    border-radius: 8px;
+
+    background: #edf7f2;
+
+    color: #12614f;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.discount-icon {
+    width: 28px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #08705f;
+
+    color: white;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+}
+
+
+.discount>div:last-child {
+    display: grid;
+
+    gap: 2px;
+}
+
+
+.discount strong {
+    font-size: 0.7rem;
+}
+
+
+.discount span {
+    font-size: 0.68rem;
+}
+
+
+.discount small {
+    color: #718079;
+
+    font-size: 0.6rem;
+}
+
+
+/* =========================
+   ACCIONES
+   ========================= */
+
+mat-card-actions {
+    padding:
+        0 20px 20px !important;
+
+    display: grid;
+
+    gap: 8px;
+}
+
+
+.detail-button {
+    width: 100%;
+
+    min-height: 40px;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #08705f !important;
+
+    color:
+        white !important;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.detail-button span {
+    margin-left: 7px;
+}
+
+
+.detail-button:hover {
+    background:
+        #06594c !important;
+}
+
+
+.cancel-button {
+    width: 100%;
+
+    color:
+        #9a453b !important;
+
+    font-size: 0.7rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   ERROR ACCIÓN
+   ========================= */
+
+.action-error {
+    margin-bottom: 22px;
+
+    padding:
+        13px 16px;
+
+    border:
+        1px solid #f0cdca;
+
+    border-radius: 9px;
+
+    background: #fff1ef;
+
+    color: #963e36;
+
+    display: grid;
+
+    gap: 3px;
+}
+
+
+.action-error strong {
+    font-size: 0.75rem;
+}
+
+
+.action-error span {
+    font-size: 0.7rem;
+}
+
+
+/* =========================
+   ESTADOS GENERALES
+   ========================= */
+
+.state-container {
+    min-height: 350px;
+
+    padding: 50px 20px;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 13px;
+
+    text-align: center;
+}
+
+
+.state-container h3 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.65rem;
+}
+
+
+.state-container p {
+    max-width: 440px;
+
+    margin: 0;
+
+    color: #7c8581;
+
+    font-size: 0.84rem;
+
+    line-height: 1.6;
+}
+
+
+.state-icon {
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #edf4f0;
+
+    color: #08705f;
+
+    display: grid;
+
+    place-items: center;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.2rem;
+
+    font-weight: 800;
+}
+
+
+.state-icon.travel {
+    color: #a66e18;
+
+    background: #fff1d5;
+}
+
+
+.error-state .state-icon {
+    color: #943b34;
+
+    background: #fae8e6;
+}
+
+
+.error-message {
+    color:
+        #943b34 !important;
+}
+
+
+.empty-actions {
+    margin-top: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.primary-button {
+    border-radius:
+        7px !important;
+
+    background:
+        #08705f !important;
+
+    color:
+        white !important;
+
+    font-weight: 800;
+}
+
+
+.secondary-link {
+    color:
+        #08705f !important;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1050px) {
+
+    .reservation-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .profile-page {
+        padding:
+            45px 20px 70px;
+    }
+
+
+    .traveler-banner {
+        grid-template-columns:
+            auto 1fr;
+    }
+
+
+    .traveler-total {
+        grid-column:
+            1 / -1;
+
+        width: 100%;
+
+        padding:
+            16px 0 0;
+
+        border-left: 0;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.15);
+
+        grid-template-columns:
+            1fr auto;
+
+        justify-items: start;
+
+        align-items: center;
+    }
+
+
+    .traveler-total strong {
+        justify-self: end;
+    }
+
+
+    .reservation-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .profile-heading h1 {
+        font-size: 2.9rem;
+    }
+
+
+    .traveler-banner {
+        padding: 22px;
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .traveler-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+
+    .traveler-total {
+        grid-column: auto;
+    }
+
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .reservation-filters {
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        scrollbar-width: none;
+    }
+
+
+    .reservation-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .reservation-filters button {
+        flex-shrink: 0;
+    }
+
+
+    .reservation-data {
+        grid-template-columns: 1fr;
+    }
+
+
+    .card-heading {
+        flex-direction: column;
+    }
+
+
+    .empty-actions {
+        width: 100%;
+
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+}
