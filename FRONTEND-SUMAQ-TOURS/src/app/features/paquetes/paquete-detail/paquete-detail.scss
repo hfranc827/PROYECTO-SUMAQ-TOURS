@@ -1,0 +1,1136 @@
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+.package-detail {
+    min-height:
+        calc(100vh - 76px);
+
+    padding:
+        28px 0 90px;
+
+    background: #fbf7ed;
+}
+
+
+.detail-container {
+    width: min(1340px,
+            calc(100% - 64px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   BREADCRUMB
+   ========================= */
+
+.breadcrumb {
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #929995;
+
+    font-size: 0.77rem;
+
+    font-weight: 600;
+}
+
+
+.breadcrumb a {
+    color: #08705f;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   GRID PRINCIPAL
+   ========================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr) minmax(390px, 0.78fr);
+
+    gap: 36px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   GALERÍA
+   ========================= */
+
+.gallery-column {
+    min-width: 0;
+}
+
+
+.main-image {
+    width: 100%;
+
+    aspect-ratio: 1.52 / 1;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #d6dfda;
+}
+
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg,
+            #d4dfd8,
+            #a8c1b5);
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 7px;
+
+    color: #557068;
+
+    text-align: center;
+}
+
+
+.image-placeholder span {
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.image-placeholder small {
+    opacity: 0.72;
+}
+
+
+.thumbnail-grid {
+    margin-top: 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.thumbnail {
+    width: 100%;
+    height: 86px;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    border:
+        2px solid transparent;
+
+    border-radius: 8px;
+
+    background: #dce4df;
+
+    display: block;
+
+    appearance: none;
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition:
+        border-color 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+
+.thumbnail:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(8, 112, 95, 0.45);
+
+    box-shadow:
+        0 6px 16px rgba(25, 54, 45, 0.12);
+}
+
+
+.thumbnail.active {
+    border-color:
+        #08705f;
+
+    box-shadow:
+        0 0 0 2px rgba(8, 112, 95, 0.08);
+}
+
+
+.thumbnail:focus-visible {
+    outline:
+        3px solid rgba(8, 112, 95, 0.22);
+
+    outline-offset:
+        2px;
+}
+
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    pointer-events: none;
+}
+
+
+.thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(135deg,
+            #e0e7e3,
+            #bdcec5);
+
+    display: grid;
+
+    place-items: center;
+
+    color: #70867d;
+
+    font-size: 0.6rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* =========================
+   INFORMACIÓN
+   ========================= */
+
+.info-column {
+    min-width: 0;
+}
+
+
+.location-label {
+    display: block;
+
+    margin-top: 5px;
+
+    margin-bottom: 12px;
+
+    color: #a66e18;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.info-column>h1 {
+    margin:
+        0 0 14px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(2.5rem,
+            4vw,
+            4rem);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+}
+
+
+.package-meta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 18px;
+
+    color: #78827e;
+
+    font-size: 0.77rem;
+
+    font-weight: 600;
+}
+
+
+.package-meta>span {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+.meta-icon {
+    color: #75827d;
+}
+
+
+.divider {
+    height: 1px;
+
+    margin:
+        22px 0;
+
+    background: #e6e1d8;
+}
+
+
+/* =========================
+   DESCRIPCIÓN
+   ========================= */
+
+.description-section h2 {
+    margin:
+        0 0 12px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.45rem;
+}
+
+
+.description-section p {
+    margin: 0;
+
+    color: #69736f;
+
+    font-size: 0.9rem;
+
+    line-height: 1.75;
+}
+
+
+/* =========================
+   INCLUYE
+   ========================= */
+
+.include-grid {
+    margin-top: 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 30px;
+}
+
+
+.include-block h3 {
+    margin:
+        0 0 10px;
+
+    color: #26362f;
+
+    font-size: 0.82rem;
+
+    font-weight: 800;
+}
+
+
+.include-text {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 8px;
+}
+
+
+.include-text .bullet {
+    color: #08705f;
+
+    font-weight: 800;
+}
+
+
+.include-text p {
+    margin: 0;
+
+    color: #737c78;
+
+    font-size: 0.8rem;
+
+    line-height: 1.6;
+
+    white-space: pre-line;
+}
+
+
+/* =========================
+   RESERVA
+   ========================= */
+
+.booking-card {
+    margin-top: 26px;
+
+    padding: 22px;
+
+    border:
+        1px solid #e5e0d6;
+
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 25px rgba(32, 51, 44, 0.07);
+}
+
+
+.price-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9a9f9c;
+
+    font-size: 0.64rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+
+.main-price {
+    display: block;
+
+    color: #08705f;
+
+    font-size: 2.15rem;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+.price-note {
+    margin:
+        8px 0 0;
+
+    color: #8b928f;
+
+    font-size: 0.69rem;
+
+    line-height: 1.5;
+}
+
+
+.booking-divider {
+    height: 1px;
+
+    margin:
+        18px 0;
+
+    background: #ece8e0;
+}
+
+
+/* =========================
+   DISPONIBILIDAD
+   ========================= */
+
+.availability-section {
+    display: grid;
+
+    gap: 12px;
+}
+
+
+.availability-heading {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.availability-heading h3 {
+    margin: 0;
+
+    color: #26352f;
+
+    font-size: 0.9rem;
+}
+
+
+.availability-heading>span {
+    color: #989e9b;
+
+    font-size: 0.65rem;
+}
+
+
+.availability-list {
+    display: grid;
+
+    gap: 8px;
+}
+
+
+.availability-item {
+    width: 100%;
+
+    min-height: 58px;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid #e7e6e0;
+
+    border-radius: 8px;
+
+    background: #fbfbf8;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    color: inherit;
+
+    text-align: left;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+
+.availability-item:hover:not(:disabled) {
+    border-color: #78aa9f;
+
+    background: #f6fbf8;
+}
+
+
+.availability-item.selected {
+    border-color: #08705f;
+
+    background: #f1f8f5;
+
+    box-shadow:
+        0 0 0 2px rgba(8, 112, 95, 0.06);
+}
+
+
+.availability-item.sold-out {
+    opacity: 0.48;
+
+    cursor: not-allowed;
+}
+
+
+.availability-item>div {
+    display: grid;
+
+    gap: 3px;
+}
+
+
+.availability-item strong {
+    color: #27372f;
+
+    font-size: 0.78rem;
+}
+
+
+.availability-item div span {
+    color: #909794;
+
+    font-size: 0.65rem;
+}
+
+
+.availability-status {
+    color: #08705f !important;
+
+    font-size: 0.61rem !important;
+
+    font-weight: 800;
+
+    letter-spacing: 0.05em;
+}
+
+
+.no-availability {
+    padding: 14px;
+
+    border-radius: 8px;
+
+    background: #f7f7f3;
+
+    display: grid;
+
+    gap: 4px;
+}
+
+
+.no-availability strong {
+    font-size: 0.76rem;
+}
+
+
+.no-availability span {
+    color: #8b928e;
+
+    font-size: 0.67rem;
+}
+
+
+/* =========================
+   FORMULARIO RESERVA
+   ========================= */
+
+.reservation-form {
+    margin-top: 16px;
+
+    padding-top: 16px;
+
+    border-top:
+        1px solid #ece8e0;
+
+    display: grid;
+
+    gap: 12px;
+}
+
+
+.selected-date {
+    padding:
+        11px 12px;
+
+    border-radius: 8px;
+
+    background: #eef7f3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 16px;
+}
+
+
+.selected-date>div {
+    display: grid;
+
+    gap: 3px;
+}
+
+
+.selected-date span {
+    color: #73817b;
+
+    font-size: 0.61rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+}
+
+
+.selected-date strong {
+    color: #08705f;
+
+    font-size: 0.78rem;
+}
+
+
+.selected-check {
+    width: 25px;
+
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #08705f;
+
+    color: white !important;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 800 !important;
+}
+
+
+.reservation-total {
+    padding:
+        12px 14px;
+
+    border-radius: 8px;
+
+    background: #f7f6f1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.reservation-total span {
+    color: #737c78;
+
+    font-size: 0.72rem;
+}
+
+
+.reservation-total strong {
+    color: #08705f;
+
+    font-size: 1.2rem;
+}
+
+
+.reservation-error {
+    margin:
+        12px 0 0;
+
+    padding: 10px;
+
+    border-radius: 7px;
+
+    background: #fff1f1;
+
+    color: #9f2828;
+
+    font-size: 0.72rem;
+}
+
+
+.reserve-button {
+    width: 100%;
+
+    min-height: 43px;
+
+    margin-top: 16px;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #08705f !important;
+
+    color:
+        white !important;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.reserve-button:hover:not(:disabled) {
+    background:
+        #06594c !important;
+}
+
+
+/* =========================
+   TOURS INCLUIDOS
+   ========================= */
+
+.included-tours {
+    margin-top: 64px;
+
+    padding-top: 46px;
+
+    border-top:
+        1px solid #e4ded3;
+}
+
+
+.section-heading {
+    margin-bottom: 22px;
+}
+
+
+.section-heading>span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #a66e18;
+
+    font-size: 0.66rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+
+.section-heading h2 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 2rem;
+}
+
+
+.tour-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+.included-tour {
+    min-height: 105px;
+
+    padding: 18px;
+
+    border:
+        1px solid #e4e1d9;
+
+    border-radius: 10px;
+
+    background: white;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto auto;
+
+    align-items: center;
+
+    gap: 16px;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+
+.included-tour:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 24px rgba(30, 48, 42, 0.08);
+}
+
+
+.included-tour>div:first-child {
+    display: grid;
+
+    gap: 5px;
+}
+
+
+.tour-destination {
+    color: #08705f;
+
+    font-size: 0.62rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.included-tour strong {
+    color: #24342e;
+
+    font-size: 0.84rem;
+}
+
+
+.tour-price {
+    display: grid;
+
+    gap: 3px;
+
+    text-align: right;
+}
+
+
+.tour-price span {
+    color: #969d99;
+
+    font-size: 0.6rem;
+}
+
+
+.tour-price strong {
+    color: #08705f;
+}
+
+
+.tour-arrow {
+    color: #08705f;
+
+    font-size: 1.2rem;
+}
+
+
+/* =========================
+   ESTADOS GENERALES
+   ========================= */
+
+.state {
+    min-height:
+        calc(100vh - 76px);
+
+    padding: 40px;
+
+    background: #fbf7ed;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+}
+
+
+.state h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #7d8682;
+}
+
+
+/* =========================
+   MATERIAL
+   ========================= */
+
+mat-form-field {
+    width: 100%;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1050px) {
+
+    .detail-grid {
+        grid-template-columns:
+            1fr 390px;
+
+        gap: 28px;
+    }
+
+
+    .tour-list {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .info-column {
+        margin-top: 12px;
+    }
+
+
+    .main-image {
+        aspect-ratio:
+            16 / 10;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .package-detail {
+        padding-top: 20px;
+    }
+
+
+    .detail-container {
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .breadcrumb {
+        margin-bottom: 18px;
+    }
+
+
+    .thumbnail-grid {
+        gap: 6px;
+    }
+
+
+    .thumbnail {
+        height: 64px;
+    }
+
+
+    .info-column>h1 {
+        font-size:
+            clamp(2.4rem,
+                11vw,
+                3.4rem);
+    }
+
+
+    .include-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .tour-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .included-tour {
+        grid-template-columns:
+            minmax(0, 1fr) auto;
+    }
+
+
+    .tour-arrow {
+        display: none;
+    }
+
+}

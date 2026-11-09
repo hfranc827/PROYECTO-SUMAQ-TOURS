@@ -1,0 +1,696 @@
+:host {
+    display: block;
+
+    background: #fbf7ed;
+
+    color: #17251f;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================
+   PÁGINA
+   ========================= */
+
+.packages-page {
+    min-height:
+        calc(100vh - 76px);
+
+    padding-bottom: 90px;
+
+    background: #fbf7ed;
+}
+
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.page-hero {
+    padding:
+        58px 24px 30px;
+
+    text-align: center;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #ae7719;
+
+    font-size: 0.67rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+}
+
+
+.page-hero h1 {
+    margin:
+        0 0 8px;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(
+        2.7rem,
+        5vw,
+        4.2rem
+    );
+
+    line-height: 1;
+}
+
+
+.page-hero p {
+    margin: 0;
+
+    color: #7c8581;
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================
+   BUSCADOR
+   ========================= */
+
+.search-section {
+    padding:
+        0 24px 52px;
+}
+
+
+.search-box {
+    width: min(
+        830px,
+        100%
+    );
+
+    margin: 0 auto;
+
+    padding: 20px 24px;
+
+    border:
+        1px solid
+        rgba(26, 46, 39, 0.05);
+
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 11px 30px
+        rgba(38, 54, 48, 0.09);
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.55fr)
+        minmax(210px, 0.9fr)
+        110px;
+
+    align-items: center;
+
+    gap: 0;
+}
+
+
+/* BUSCAR */
+
+.search-input {
+    min-height: 48px;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid #e4e4df;
+
+    border-radius:
+        8px 0 0 8px;
+
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.search-input:focus-within {
+    position: relative;
+
+    z-index: 2;
+
+    border-color: #086958;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(8, 105, 88, 0.07);
+}
+
+
+.search-icon {
+    width: 19px;
+
+    height: 19px;
+
+    color: #249080;
+
+    flex-shrink: 0;
+}
+
+
+.search-icon svg {
+    width: 100%;
+    height: 100%;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+.search-input input {
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: #34443e;
+
+    font-family: inherit;
+
+    font-size: 0.77rem;
+}
+
+
+.search-input input::placeholder {
+    color: #939a97;
+}
+
+
+/* FILTRO */
+
+.price-filter select {
+    width: 100%;
+
+    height: 48px;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid #e4e4df;
+
+    border-left: 0;
+
+    border-radius: 0;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #273630;
+
+    font-family: inherit;
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* BOTÓN BUSCAR */
+
+.search-button {
+    min-height: 48px;
+
+    margin-left: 8px;
+
+    border-radius:
+        7px !important;
+
+    background:
+        #086958 !important;
+
+    color:
+        white !important;
+
+    font-size: 0.76rem;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.search-button:hover {
+    background:
+        #065649 !important;
+}
+
+
+/* =========================
+   CONTENEDOR
+   ========================= */
+
+.packages-container {
+    width: min(
+        1320px,
+        calc(100% - 64px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   CABECERA LISTADO
+   ========================= */
+
+.list-heading {
+    margin-bottom: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.list-heading h2 {
+    margin: 0;
+
+    color: #17251f;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: clamp(
+        1.8rem,
+        3vw,
+        2.45rem
+    );
+}
+
+
+.package-count {
+    color: #9a9f9c;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   GRID
+   ========================= */
+
+.package-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 22px;
+
+    align-items: stretch;
+}
+
+
+/* =========================
+   TARJETA
+   ========================= */
+
+.package-card {
+    overflow: hidden;
+
+    border:
+        1px solid #e8e3da;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 16px
+        rgba(35, 50, 45, 0.06);
+
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease;
+}
+
+
+.package-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 13px 30px
+        rgba(35, 50, 45, 0.12);
+}
+
+
+/* IMAGEN */
+
+.package-image-wrapper {
+    width: 100%;
+
+    height: 205px;
+
+    overflow: hidden;
+
+    background: #d7e0da;
+}
+
+
+.package-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 600ms ease;
+}
+
+
+.package-card:hover
+.package-image {
+    transform:
+        scale(1.045);
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d7e0da,
+            #adc2b7
+        );
+
+    color: #58736a;
+
+    font-size: 0.66rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.11em;
+}
+
+
+/* =========================
+   CONTENIDO CARD
+   ========================= */
+
+.package-content {
+    padding:
+        16px 15px 15px;
+}
+
+
+.package-content h3 {
+    margin:
+        0 0 8px;
+
+    color: #17251f;
+
+    font-size: 1.03rem;
+
+    font-weight: 800;
+
+    line-height: 1.25;
+}
+
+
+/* DURACIÓN */
+
+.duration {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #8b9290;
+
+    font-size: 0.69rem;
+}
+
+
+.clock-icon {
+    width: 14px;
+
+    height: 14px;
+
+    color: #a1a6a4;
+}
+
+
+.clock-icon svg {
+    width: 100%;
+    height: 100%;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* PRECIO */
+
+.price {
+    margin-top: 11px;
+
+    display: grid;
+
+    gap: 1px;
+}
+
+
+.price span {
+    color: #909693;
+
+    font-size: 0.62rem;
+}
+
+
+.price strong {
+    color: #086958;
+
+    font-size: 1.45rem;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+}
+
+
+/* BOTÓN */
+
+.detail-button {
+    width: 100%;
+
+    min-height: 37px;
+
+    margin-top: 13px;
+
+    border-radius:
+        6px !important;
+
+    background:
+        #086958 !important;
+
+    color:
+        white !important;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    box-shadow: none !important;
+}
+
+
+.detail-button:hover {
+    background:
+        #065649 !important;
+}
+
+
+/* =========================
+   ESTADOS
+   ========================= */
+
+.state {
+    min-height: 320px;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 17px;
+
+    text-align: center;
+}
+
+
+.state h3 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.7rem;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #7b8580;
+}
+
+
+.error {
+    color: #9c1c1c;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 980px) {
+
+    .package-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .search-box {
+        padding: 15px;
+
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+    }
+
+
+    .search-input {
+        border-radius: 8px;
+    }
+
+
+    .price-filter select {
+        border:
+            1px solid #e4e4df;
+
+        border-radius: 8px;
+    }
+
+
+    .search-button {
+        width: 100%;
+
+        margin-left: 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .page-hero {
+        padding-top: 45px;
+    }
+
+
+    .packages-container {
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .list-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .package-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .package-image-wrapper {
+        height: 220px;
+    }
+
+}
