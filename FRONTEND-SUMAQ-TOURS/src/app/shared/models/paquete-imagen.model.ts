@@ -1,1 +1,6 @@
-export interface PaqueteImagen {}
+export interface PaqueteImagenRequest {
+
+    url: string;
+
+    orden: number;
+}
