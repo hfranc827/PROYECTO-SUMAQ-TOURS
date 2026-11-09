@@ -1,9 +1,27 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
+
+import {
+  RouterLink
+} from '@angular/router';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
 
 @Component({
-  imports: [],
   selector: 'app-payment-cancel',
-  styleUrl: './payment-cancel.scss',
+
+  imports: [
+    RouterLink,
+    MatButtonModule
+  ],
+
   templateUrl: './payment-cancel.html',
+  styleUrl: './payment-cancel.scss'
 })
-export class PaymentCancel {}
+export class PaymentCancel {
+
+}
