@@ -1,4 +1,3 @@
-
 export type EstadoReserva =
     | 'PENDIENTE'
     | 'CONFIRMADA'
@@ -6,43 +5,22 @@ export type EstadoReserva =
     | 'FINALIZADA'
     | 'CANCELADA';
 
-
-// ===========================
-// CREAR RESERVA
-// ===========================
+    
 
 export interface CreateReservaRequest {
-
     disponibilidadTourId?: number;
-
     disponibilidadPaqueteId?: number;
-
     cantidadPersonas: number;
-
 }
-
-
-// ===========================
-// ACTUALIZAR ESTADO
-// ===========================
 
 export interface UpdateEstadoReservaRequest {
-
     estado: EstadoReserva;
-
 }
 
-
-// ===========================
-// RESPUESTA DE RESERVA
-// ===========================
-
 export interface ReservaResponse {
-
     id: number;
 
     clienteId: number;
-
     clienteNombre: string;
 
     tipoReserva: string;
@@ -70,5 +48,4 @@ export interface ReservaResponse {
     promocionId: number | null;
 
     promocionTitulo: string | null;
-
 }

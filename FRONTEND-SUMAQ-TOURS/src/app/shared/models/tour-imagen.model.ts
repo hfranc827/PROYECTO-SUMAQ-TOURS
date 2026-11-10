@@ -1,2 +1,4 @@
-export interface TourImagen {}
-export interface TourImagenRequest {}
+export interface TourImagenRequest {
+  url: string;
+  orden: number;
+}
