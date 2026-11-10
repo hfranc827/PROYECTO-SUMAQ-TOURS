@@ -1,1 +1,665 @@
-<p>tour-form works!</p>
+<section class="tour-form-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                ADMINISTRACIÓN
+            </span>
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <h1>
+                Nuevo tour
+            </h1>
+
+            <p>
+                Agrega una nueva experiencia
+                al catálogo de Sumaq Tours.
+            </p>
+
+            } @else {
+
+            <h1>
+                Editar tour
+            </h1>
+
+            <p>
+                Actualiza los datos de
+                la experiencia turística.
+            </p>
+
+            }
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando información...
+            </p>
+
+        </div>
+
+        } @else {
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+            <!-- NOMBRE -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Nombre
+                </mat-label>
+
+                <input matInput formControlName="nombre">
+
+                @if (
+                form.controls.nombre
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    El nombre es obligatorio.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- DESTINO -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Destino
+                </mat-label>
+
+                <mat-select formControlName="destinoId">
+
+
+
+
+                    @for (
+                    destino of destinosActivos();
+                    track destino.id
+                    ) {
+
+                    <mat-option [value]="destino.id">
+                        {{ destino.nombre }}
+                    </mat-option>
+
+                    }
+
+
+
+
+                </mat-select>
+
+                @if (
+                form.controls.destinoId
+                .hasError('min')
+                ) {
+
+                <mat-error>
+                    Selecciona un destino.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- DESCRIPCIÓN -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Descripción
+                </mat-label>
+
+                <textarea matInput rows="5" formControlName="descripcion"></textarea>
+
+                @if (
+                form.controls.descripcion
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    La descripción es obligatoria.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- PRECIO -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Precio
+                </mat-label>
+
+                <input matInput type="number" min="0.01" step="0.01" formControlName="precio">
+
+                <span matTextPrefix>
+                    S/&nbsp;
+                </span>
+
+                @if (
+                form.controls.precio.invalid &&
+                form.controls.precio.touched
+                ) {
+
+                <mat-error>
+                    Ingresa un precio válido.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- DURACIÓN -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Duración en horas
+                </mat-label>
+
+                <input matInput type="number" min="1" formControlName="duracionHoras">
+
+            </mat-form-field>
+
+
+            <!-- CAPACIDAD -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Capacidad máxima
+                </mat-label>
+
+                <input matInput type="number" min="1" formControlName="capacidadMaxima">
+
+            </mat-form-field>
+
+
+            <!-- DIFICULTAD -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Nivel de dificultad
+                </mat-label>
+
+                <mat-select formControlName="nivelDificultad">
+
+                    @for (
+                    nivel of niveles;
+                    track nivel
+                    ) {
+
+                    <mat-option [value]="nivel">
+                        {{ nivel }}
+                    </mat-option>
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+
+            <!-- ACTIVIDAD -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Tipo de actividad
+                </mat-label>
+
+                <input matInput formControlName="tipoActividad" placeholder="Ej. Cultural, aventura, trekking">
+
+            </mat-form-field>
+
+
+            <!-- IMAGEN -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    URL de imagen
+                </mat-label>
+
+                <input matInput formControlName="imagenPrincipalUrl">
+
+            </mat-form-field>
+
+
+            <!-- INCLUYE -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Incluye
+                </mat-label>
+
+                <textarea matInput rows="4" formControlName="incluye"></textarea>
+
+            </mat-form-field>
+
+
+            <!-- NO INCLUYE -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    No incluye
+                </mat-label>
+
+                <textarea matInput rows="4" formControlName="noIncluye"></textarea>
+
+            </mat-form-field>
+
+
+            <!-- ACTIVO SOLO EDICIÓN -->
+
+            @if (
+            editingId() !== null
+            ) {
+
+            <mat-slide-toggle formControlName="activo" class="full">
+                Tour activo
+            </mat-slide-toggle>
+
+            }
+
+
+            <!-- ERROR -->
+
+            @if (errorMessage()) {
+
+            <p class="error full">
+                {{ errorMessage() }}
+            </p>
+
+            }
+
+
+            <!-- BOTONES -->
+
+            <div class="actions">
+
+                <a mat-button routerLink="/admin/tours">
+                    Cancelar
+                </a>
+
+
+                <button mat-flat-button type="submit" [disabled]="
+                        saving() ||
+                        form.invalid
+                    ">
+
+                    @if (saving()) {
+
+                    Guardando...
+
+                    } @else if (
+                    editingId() === null
+                    ) {
+
+                    Crear tour
+
+                    } @else {
+
+                    Guardar cambios
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- =========================
+     GALERÍA DEL TOUR
+     ========================= -->
+
+        @if (
+        editingId() !== null
+        ) {
+
+        <section class="gallery-panel">
+
+            <header class="gallery-heading">
+
+                <div>
+
+                    <span class="gallery-eyebrow">
+                        GALERÍA DEL TOUR
+                    </span>
+
+                    <h2>
+                        Fotografías adicionales
+                    </h2>
+
+                    <p>
+                        La imagen principal se administra
+                        desde el formulario superior.
+                        Puedes añadir hasta tres fotografías
+                        adicionales.
+                    </p>
+
+                </div>
+
+
+                <span class="gallery-counter">
+
+                    {{ imagenes().length }}
+                    / 3 adicionales
+
+                </span>
+
+            </header>
+
+
+            <!-- =====================
+         IMAGEN PRINCIPAL
+         ===================== -->
+
+            <section class="principal-preview">
+
+                <div>
+
+                    <span class="preview-label">
+                        IMAGEN PRINCIPAL
+                    </span>
+
+                    <strong>
+                        Portada del tour
+                    </strong>
+
+                    <small>
+                        Esta imagen corresponde al campo
+                        "URL de imagen" del formulario superior.
+                    </small>
+
+                </div>
+
+
+                @if (
+                form.controls
+                .imagenPrincipalUrl
+                .value;
+                as principal
+                ) {
+
+                <div class="principal-image">
+
+                    <img [src]="principal" alt="Imagen principal del tour">
+
+                </div>
+
+                } @else {
+
+                <div class="principal-image placeholder">
+                    SIN IMAGEN
+                </div>
+
+                }
+
+            </section>
+
+
+            <!-- =====================
+         FOTOS 2, 3 Y 4
+         ===================== -->
+
+            <div class="gallery-slots">
+
+                @for (
+                orden of [1, 2, 3];
+                track orden
+                ) {
+
+                <article class="gallery-slot">
+
+                    <div class="slot-preview">
+
+                        @if (
+                        controlGaleria(orden).value;
+                        as url
+                        ) {
+
+                        <img [src]="url" [alt]="
+                        'Foto '
+                        + (orden + 1)
+                        + ' del tour'
+                    ">
+
+                        } @else {
+
+                        <div class="slot-placeholder">
+
+                            <span>
+                                FOTO {{ orden + 1 }}
+                            </span>
+
+                        </div>
+
+                        }
+
+
+                        <span class="slot-number">
+                            {{ orden + 1 }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="slot-content">
+
+                        <div class="slot-title">
+
+                            <div>
+
+                                <span>
+                                    IMAGEN ADICIONAL
+                                </span>
+
+                                <h3>
+                                    Foto {{ orden + 1 }}
+                                </h3>
+
+                            </div>
+
+
+                            @if (
+                            imagenPorOrden(orden)
+                            ) {
+
+                            <span class="saved-badge">
+                                Guardada
+                            </span>
+
+                            } @else {
+
+                            <span class="empty-badge">
+                                Vacía
+                            </span>
+
+                            }
+
+                        </div>
+
+
+                        <mat-form-field appearance="outline" class="gallery-input">
+
+                            <mat-label>
+                                URL de la foto
+                                {{ orden + 1 }}
+                            </mat-label>
+
+                            <input matInput [formControl]="
+                            controlGaleria(
+                                orden
+                            )
+                        " placeholder="https://...">
+
+                        </mat-form-field>
+
+
+                        <div class="slot-actions">
+
+                            <button mat-flat-button type="button" class="save-image-button" [disabled]="
+                            guardandoImagen()
+                                === orden
+                            ||
+                            !controlGaleria(
+                                orden
+                            ).value.trim()
+                        " (click)="
+                            guardarImagen(
+                                orden
+                            )
+                        ">
+
+                                @if (
+                                guardandoImagen()
+                                === orden
+                                ) {
+
+                                Guardando...
+
+                                } @else if (
+                                imagenPorOrden(
+                                orden
+                                )
+                                ) {
+
+                                Actualizar foto
+
+                                } @else {
+
+                                Guardar foto
+
+                                }
+
+                            </button>
+
+
+                            @if (
+                            imagenPorOrden(
+                            orden
+                            )
+                            ) {
+
+                            <button mat-button type="button" class="delete-image-button" [disabled]="
+                            guardandoImagen()
+                                === orden
+                        " (click)="
+                            eliminarImagen(
+                                orden
+                            )
+                        ">
+                                Eliminar
+                            </button>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                }
+
+            </div>
+
+
+            @if (
+            galeriaSuccess()
+            ) {
+
+            <div class="gallery-message success">
+
+                <strong>
+                    Galería actualizada
+                </strong>
+
+                <span>
+                    {{ galeriaSuccess() }}
+                </span>
+
+            </div>
+
+            }
+
+
+            @if (
+            galeriaError()
+            ) {
+
+            <div class="gallery-message error-message">
+
+                <strong>
+                    No pudimos actualizar la galería
+                </strong>
+
+                <span>
+                    {{ galeriaError() }}
+                </span>
+
+            </div>
+
+            }
+
+        </section>
+
+        } @else {
+
+        <section class="gallery-disabled">
+
+            <span>
+                GALERÍA DEL TOUR
+            </span>
+
+            <h2>
+                Guarda primero el tour
+            </h2>
+
+            <p>
+                Después de crear el tour podrás agregar
+                hasta tres fotografías adicionales desde
+                la pantalla de edición.
+            </p>
+
+        </section>
+
+        }
+
+
+
+
+        }
+
+    </div>
+
+</section>
