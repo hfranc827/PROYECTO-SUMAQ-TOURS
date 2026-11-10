@@ -1,1 +1,306 @@
-<p>reservation-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Cargando reserva...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No fue posible cargar la reserva
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/asesor">
+        Volver
+    </a>
+
+</section>
+
+} @else if (reserva(); as item) {
+
+<section class="advisor-detail">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    RESERVA #{{ item.id }}
+                </span>
+
+                <h1>
+                    {{ item.servicioNombre }}
+                </h1>
+
+                <p>
+                    Cliente:
+                    <strong>
+                        {{ item.clienteNombre }}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <a mat-button routerLink="/asesor">
+                Volver
+            </a>
+
+        </header>
+
+
+        <mat-card class="summary">
+
+            <mat-card-content>
+
+                <div class="summary-grid">
+
+                    <div>
+                        <span>Tipo</span>
+                        <strong>
+                            {{ item.tipoReserva }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Fecha</span>
+                        <strong>
+                            {{
+                            item.fechaServicio
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Personas</span>
+                        <strong>
+                            {{ item.cantidadPersonas }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Estado</span>
+                        <strong>
+                            {{ item.estado }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Total</span>
+                        <strong>
+                            S/
+                            {{
+                            item.precioTotal
+                            | number:'1.2-2'
+                            }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+
+
+        <!-- CAMBIO ESTADO -->
+
+        <section class="state-management">
+
+            <div>
+
+                <span class="eyebrow">
+                    GESTIÓN
+                </span>
+
+                <h2>
+                    Estado de la reserva
+                </h2>
+
+            </div>
+
+
+            @if (
+            estadosPermitidos().length > 0
+            ) {
+
+            <div class="state-actions">
+
+                @for (
+                estado of estadosPermitidos();
+                track estado
+                ) {
+
+                <button mat-flat-button type="button" [disabled]="updating()" (click)="
+                        cambiarEstado(
+                            estado
+                        )
+                    ">
+                    {{ estado }}
+                </button>
+
+                }
+
+            </div>
+
+            } @else {
+
+            <p>
+                Esta reserva no tiene cambios
+                de estado disponibles.
+            </p>
+
+            }
+
+
+            @if (actionError()) {
+
+            <p class="error">
+                {{ actionError() }}
+            </p>
+
+            }
+
+        </section>
+
+
+        <!-- PASAJEROS -->
+
+        <section class="passengers">
+
+            <header>
+
+                <span class="eyebrow">
+                    PASAJEROS
+                </span>
+
+                <h2>
+                    Viajeros registrados
+                </h2>
+
+            </header>
+
+
+            @if (
+            pasajeros().length === 0
+            ) {
+
+            <p>
+                No hay pasajeros registrados.
+            </p>
+
+            } @else {
+
+            <div class="passenger-grid">
+
+                @for (
+                pasajero of pasajeros();
+                track pasajero.id
+                ) {
+
+                <mat-card>
+
+                    <mat-card-content>
+
+                        <strong>
+                            {{ pasajero.nombres }}
+                            {{ pasajero.apellidos }}
+                        </strong>
+
+                        <span>
+                            {{ pasajero.tipoDocumento }}
+                            ·
+                            {{ pasajero.numeroDocumento }}
+                        </span>
+
+                        @if (
+                        pasajero.nacionalidad
+                        ) {
+
+                        <span>
+                            {{ pasajero.nacionalidad }}
+                        </span>
+
+                        }
+
+                    </mat-card-content>
+
+                </mat-card>
+
+                }
+
+            </div>
+
+            }
+
+        </section>
+
+
+        <!-- PAGO -->
+
+        @if (pago(); as payment) {
+
+        <section class="payment">
+
+            <span class="eyebrow">
+                PAGO
+            </span>
+
+            <h2>
+                Información del pago
+            </h2>
+
+
+            <div class="payment-data">
+
+                <div>
+                    <span>Método</span>
+                    <strong>
+                        {{ payment.metodoPago }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Monto</span>
+                    <strong>
+                        S/
+                        {{
+                        payment.monto
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Estado</span>
+                    <strong>
+                        {{ payment.estado }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        }
+
+    </div>
+
+</section>
+
+}
