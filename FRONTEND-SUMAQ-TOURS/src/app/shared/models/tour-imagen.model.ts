@@ -1,1 +1,6 @@
-export interface TourImagen {}
+export interface TourImagenRequest {
+
+  url: string;
+
+  orden: number;
+}
