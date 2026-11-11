@@ -1,0 +1,446 @@
+.advisor-detail {
+    min-height:
+        calc(100vh - 72px);
+
+    padding:
+        72px 24px 110px;
+
+    background: #f7f7f5;
+}
+
+
+.container {
+    width: min(1100px,
+            100%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.heading {
+    margin-bottom: 36px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 28px;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+
+    color: #73766f;
+}
+
+
+.heading h1 {
+    margin:
+        0 0 10px;
+
+    font-size: clamp(2.7rem,
+            6vw,
+            4.8rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -0.035em;
+}
+
+
+.heading p {
+    margin: 0;
+
+    color: #666;
+
+    font-size: 1rem;
+}
+
+
+.heading p strong {
+    color: #1d1e1a;
+}
+
+
+/* =========================
+   RESUMEN RESERVA
+   ========================= */
+
+.summary {
+    margin-bottom: 42px;
+
+    border-radius: 20px;
+
+    background: #f5f5f7;
+}
+
+
+.summary mat-card-content {
+    padding: 28px;
+}
+
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5,
+            minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+.summary-grid div {
+    display: grid;
+
+    gap: 6px;
+}
+
+
+.summary-grid span {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    color: #777;
+}
+
+
+.summary-grid strong {
+    font-size: 0.95rem;
+
+    color: #1d1e1a;
+}
+
+
+/* =========================
+   GESTIÓN DE ESTADO
+   ========================= */
+
+.state-management {
+    margin-bottom: 52px;
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    background: #1d1e1a;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.state-management h2 {
+    margin: 0;
+
+    font-size: 1.7rem;
+}
+
+
+.state-management .eyebrow {
+    color:
+        rgba(255, 255, 255, 0.55);
+}
+
+
+.state-management>p {
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.7);
+
+    line-height: 1.6;
+}
+
+
+.state-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+}
+
+
+.state-actions button {
+    min-width: 130px;
+}
+
+
+.state-management .error {
+    width: 100%;
+
+    margin: 8px 0 0;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(180, 40, 40, 0.18);
+
+    color: #ffd4d4;
+}
+
+
+/* =========================
+   PASAJEROS
+   ========================= */
+
+.passengers {
+    margin-bottom: 52px;
+}
+
+
+.passengers header {
+    margin-bottom: 24px;
+}
+
+
+.passengers h2 {
+    margin: 0;
+
+    font-size: 2rem;
+}
+
+
+.passenger-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit,
+            minmax(280px, 1fr));
+
+    gap: 18px;
+}
+
+
+.passenger-grid mat-card {
+    border-radius: 16px;
+
+    background: #f5f5f7;
+}
+
+
+.passenger-grid mat-card-content {
+    padding: 20px;
+
+    display: grid;
+
+    gap: 7px;
+}
+
+
+.passenger-grid strong {
+    font-size: 1rem;
+
+    color: #1d1e1a;
+}
+
+
+.passenger-grid span {
+    color: #666;
+
+    line-height: 1.4;
+}
+
+
+/* =========================
+   PAGO
+   ========================= */
+
+.payment {
+    margin-bottom: 52px;
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    background: #eaf1e8;
+}
+
+
+.payment h2 {
+    margin:
+        0 0 24px;
+
+    font-size: 1.7rem;
+}
+
+
+.payment-data {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+.payment-data div {
+    display: grid;
+
+    gap: 6px;
+}
+
+
+.payment-data span {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    color: #687067;
+}
+
+
+.payment-data strong {
+    color: #253626;
+}
+
+
+/* =========================
+   ESTADO GENERAL
+   ========================= */
+
+.state {
+    min-height:
+        calc(100vh - 72px);
+
+    padding: 40px;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+
+    background: #f7f7f5;
+}
+
+
+.state h1 {
+    margin: 0;
+
+    font-size: clamp(2rem,
+            5vw,
+            3.8rem);
+
+    line-height: 1;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #666;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+
+    .state-management {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .state-actions {
+        justify-content: flex-start;
+    }
+
+
+    .payment-data {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .advisor-detail {
+        padding:
+            56px 18px 80px;
+    }
+
+
+    .heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .payment-data {
+        grid-template-columns: 1fr;
+    }
+
+
+    .state-actions {
+        width: 100%;
+    }
+
+
+    .state-actions button {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+}
