@@ -43,10 +43,10 @@
 
 
                 <input type="search" placeholder="Buscar destino o tour..." [value]="textoBusqueda()" (input)="
-        actualizarBusqueda(
-            $any($event.target).value
-        )
-    " (keydown.enter)="buscar()">
+                        actualizarBusqueda(
+                            $any($event.target).value
+                        )
+                    ">
 
             </div>
 
@@ -88,7 +88,7 @@
             </div>
 
 
-            <button mat-flat-button type="button" class="search-button" (click)="buscar()">
+            <button mat-flat-button type="button" class="search-button">
                 Buscar
             </button>
 
