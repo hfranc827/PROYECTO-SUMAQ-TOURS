@@ -1,1 +1,267 @@
-<p>dashboard works!</p>
+<section class="advisor-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                PANEL ASESOR
+            </span>
+
+            <h1>
+                Gestión de reservas
+            </h1>
+
+            <p>
+                Consulta las reservas de los clientes
+                y gestiona sus estados.
+            </p>
+
+        </header>
+
+
+        <div class="filters">
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'TODAS'
+                " (click)="
+                    cambiarFiltro('TODAS')
+                ">
+                Todas
+            </button>
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'PENDIENTE'
+                " (click)="
+                    cambiarFiltro('PENDIENTE')
+                ">
+                Pendientes
+            </button>
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'CONFIRMADA'
+                " (click)="
+                    cambiarFiltro('CONFIRMADA')
+                ">
+                Confirmadas
+            </button>
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'PAGADA'
+                " (click)="
+                    cambiarFiltro('PAGADA')
+                ">
+                Pagadas
+            </button>
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'FINALIZADA'
+                " (click)="
+                    cambiarFiltro('FINALIZADA')
+                ">
+                Finalizadas
+            </button>
+
+            <button mat-button type="button" [class.active]="
+                    filtro() === 'CANCELADA'
+                " (click)="
+                    cambiarFiltro('CANCELADA')
+                ">
+                Canceladas
+            </button>
+
+        </div>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando reservas...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarReservas()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        reservasFiltradas().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay reservas
+            </h2>
+
+            <p>
+                No existen reservas para
+                este filtro.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="reservation-grid">
+
+            @for (
+            reserva of reservasFiltradas();
+            track reserva.id
+            ) {
+
+            <mat-card class="reservation-card">
+
+                <mat-card-header>
+
+                    <mat-card-title>
+                        {{ reserva.servicioNombre }}
+                    </mat-card-title>
+
+                    <mat-card-subtitle>
+                        Reserva #{{ reserva.id }}
+                    </mat-card-subtitle>
+
+                </mat-card-header>
+
+
+                <mat-card-content>
+
+                    <div class="client">
+
+                        <span>
+                            CLIENTE
+                        </span>
+
+                        <strong>
+                            {{ reserva.clienteNombre }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="reservation-data">
+
+                        <div>
+
+                            <span>
+                                Tipo
+                            </span>
+
+                            <strong>
+                                {{ reserva.tipoReserva }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Fecha
+                            </span>
+
+                            <strong>
+                                {{
+                                reserva.fechaServicio
+                                | date:'dd/MM/yyyy'
+                                }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Personas
+                            </span>
+
+                            <strong>
+                                {{ reserva.cantidadPersonas }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Estado
+                            </span>
+
+                            <strong class="status-badge" [class.pending]="
+                                    reserva.estado === 'PENDIENTE'
+                                " [class.confirmed]="
+                                    reserva.estado === 'CONFIRMADA'
+                                " [class.paid]="
+                                    reserva.estado === 'PAGADA'
+                                " [class.finished]="
+                                    reserva.estado === 'FINALIZADA'
+                                " [class.cancelled]="
+                                    reserva.estado === 'CANCELADA'
+                                ">
+                                {{ reserva.estado }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            S/
+                            {{
+                            reserva.precioTotal
+                            | number:'1.2-2'
+                            }}
+                        </strong>
+
+                    </div>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>
+
+                    <a mat-flat-button [routerLink]="[
+                            '/asesor/reservas',
+                            reserva.id
+                        ]">
+                        Ver reserva
+                    </a>
+
+                </mat-card-actions>
+
+            </mat-card>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
