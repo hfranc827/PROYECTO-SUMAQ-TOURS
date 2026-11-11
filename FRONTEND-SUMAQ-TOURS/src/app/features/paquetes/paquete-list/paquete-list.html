@@ -1,1 +1,357 @@
-<p>paquete-list works!</p>
+<section class="packages-page">
+
+    <!-- =========================
+         CABECERA
+         ========================= -->
+
+    <header class="page-hero">
+
+        <span class="eyebrow">
+            SUMAQ TOURS · EXPLORA EL PERÚ
+        </span>
+
+
+        <h1>
+            Paquetes turísticos
+        </h1>
+
+
+        <p>
+            Encuentra una experiencia ideal
+            para tu próximo viaje.
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         BUSCADOR
+         ========================= -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <!-- BUSCAR -->
+
+            <div class="search-input">
+
+                <span class="search-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="7"
+                        ></circle>
+
+                        <path
+                            d="m20 20-3.5-3.5"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+
+                <input
+                    type="search"
+                    placeholder="Buscar destino..."
+                    [value]="textoBusqueda()"
+                    (input)="
+                        actualizarBusqueda(
+                            $any($event.target).value
+                        )
+                    "
+                >
+
+            </div>
+
+
+            <!-- PRECIO -->
+
+            <div class="price-filter">
+
+                <select
+                    [value]="filtroPrecio()"
+                    (change)="
+                        actualizarFiltro(
+                            $any($event.target).value
+                        )
+                    "
+                >
+
+                    <option value="TODOS">
+                        Filtrar por precio
+                    </option>
+
+                    <option value="MENOR">
+                        Menor precio
+                    </option>
+
+                    <option value="MAYOR">
+                        Mayor precio
+                    </option>
+
+                    <option value="HASTA_300">
+                        Hasta S/ 300
+                    </option>
+
+                    <option value="300_600">
+                        S/ 301 - S/ 600
+                    </option>
+
+                    <option value="MAS_600">
+                        Más de S/ 600
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BOTÓN -->
+
+            <button
+                mat-flat-button
+                type="button"
+                class="search-button"
+            >
+                Buscar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTENIDO
+         ========================= -->
+
+    <div class="packages-container">
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner
+                diameter="44"
+            ></mat-spinner>
+
+            <p>
+                Buscando experiencias...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button
+                mat-flat-button
+                type="button"
+                (click)="cargarPaquetes()"
+            >
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else {
+
+        <!-- TÍTULO DEL LISTADO -->
+
+        <div class="list-heading">
+
+            <h2>
+                Paquetes turísticos
+            </h2>
+
+
+            <span class="package-count">
+
+                {{ paquetesFiltrados().length }}
+
+                {{
+                    paquetesFiltrados().length === 1
+                    ? 'paquete'
+                    : 'paquetes'
+                }}
+
+            </span>
+
+        </div>
+
+
+        @if (
+            paquetesFiltrados().length === 0
+        ) {
+
+        <div class="state empty-state">
+
+            <h3>
+                No encontramos paquetes
+            </h3>
+
+            <p>
+                Intenta buscar otro destino
+                o cambia el filtro de precio.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <!-- =========================
+             CARDS
+             ========================= -->
+
+        <div class="package-grid">
+
+            @for (
+                paquete
+                of paquetesFiltrados();
+                track paquete.id
+            ) {
+
+            <article class="package-card">
+
+                <!-- IMAGEN -->
+
+                <div class="package-image-wrapper">
+
+                    @if (
+                        paquete.imagenPrincipalUrl
+                    ) {
+
+                    <img
+                        [src]="paquete.imagenPrincipalUrl"
+                        [alt]="paquete.nombre"
+                        class="package-image"
+                    >
+
+                    } @else {
+
+                    <div class="image-placeholder">
+
+                        <span>
+                            IMAGEN DEL PAQUETE
+                        </span>
+
+                    </div>
+
+                    }
+
+                </div>
+
+
+                <!-- INFORMACIÓN -->
+
+                <div class="package-content">
+
+                    <h3>
+                        {{ paquete.nombre }}
+                    </h3>
+
+
+                    <div class="duration">
+
+                        <span class="clock-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                ></circle>
+
+                                <path
+                                    d="M12 7v5l3 2"
+                                ></path>
+
+                            </svg>
+
+                        </span>
+
+
+                        <span>
+
+                            {{ paquete.duracionDias }}
+
+                            {{
+                                paquete.duracionDias === 1
+                                ? 'día'
+                                : 'días'
+                            }}
+
+                            /
+
+                            {{ paquete.duracionNoches }}
+
+                            {{
+                                paquete.duracionNoches === 1
+                                ? 'noche'
+                                : 'noches'
+                            }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        <span>
+                            Desde
+                        </span>
+
+                        <strong>
+                            S/
+                            {{
+                                paquete.precio
+                                | number:'1.0-2'
+                            }}
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        mat-flat-button
+                        class="detail-button"
+                        [routerLink]="[
+                            '/paquetes',
+                            paquete.id
+                        ]"
+                    >
+                        Ver detalle
+                    </a>
+
+                </div>
+
+            </article>
+
+            }
+
+        </div>
+
+        }
+
+        }
+
+    </div>
+
+</section>

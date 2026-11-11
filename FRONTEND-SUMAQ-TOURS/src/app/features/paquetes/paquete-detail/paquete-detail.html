@@ -1,1 +1,694 @@
-<p>paquete-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Preparando paquete...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No encontramos este paquete
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/paquetes">
+        Ver paquetes
+    </a>
+
+</section>
+
+} @else if (
+paquete();
+as item
+) {
+
+<article class="package-detail">
+
+    <div class="detail-container">
+
+
+        <!-- =========================
+             BREADCRUMB
+             ========================= -->
+
+        <nav class="breadcrumb">
+
+            <a routerLink="/paquetes">
+                ← Volver a paquetes
+            </a>
+
+            <span>
+                /
+            </span>
+
+            <span>
+                Detalle del paquete
+            </span>
+
+        </nav>
+
+
+        <!-- =========================
+             BLOQUE PRINCIPAL
+             ========================= -->
+
+        <section class="detail-grid">
+
+
+            <!-- =====================
+                 GALERÍA
+                 ===================== -->
+
+            <div class="gallery-column">
+
+                <!-- =====================
+         IMAGEN PRINCIPAL
+         ===================== -->
+
+                <div class="main-image">
+
+                    @if (
+                    imagenSeleccionada();
+                    as seleccionada
+                    ) {
+
+                    <img [src]="seleccionada" [alt]="item.nombre">
+
+                    } @else {
+
+                    <div class="image-placeholder main-placeholder">
+
+                        <span>
+                            IMAGEN PRINCIPAL
+                        </span>
+
+                        <small>
+                            Próximamente agregaremos
+                            fotografías de esta experiencia.
+                        </small>
+
+                    </div>
+
+                    }
+
+                </div>
+
+
+                <!-- =====================
+         MINIATURAS
+         ===================== -->
+
+                <div class="thumbnail-grid">
+
+
+                    <!-- PORTADA -->
+
+                    @if (
+                    item.imagenPrincipalUrl
+                    ) {
+
+                    <button type="button" class="thumbnail" [class.active]="
+                imagenSeleccionada()
+                    === item.imagenPrincipalUrl
+            " (click)="
+                seleccionarImagen(
+                    item.imagenPrincipalUrl
+                )
+            ">
+
+                        <img [src]="item.imagenPrincipalUrl" [alt]="
+                    'Portada de '
+                    + item.nombre
+                ">
+
+                    </button>
+
+                    }
+
+
+                    <!-- FOTOS ADICIONALES -->
+
+                    @for (
+                    imagen of item.imagenes;
+                    track imagen.id
+                    ) {
+
+                    <button type="button" class="thumbnail" [class.active]="
+                imagenSeleccionada()
+                    === imagen.url
+            " (click)="
+                seleccionarImagen(
+                    imagen.url
+                )
+            ">
+
+                        <img [src]="imagen.url" [alt]="
+                    'Fotografía '
+                    + (imagen.orden + 1)
+                    + ' de '
+                    + item.nombre
+                ">
+
+                    </button>
+
+                    }
+
+
+                    <!-- SIN FOTOGRAFÍAS -->
+
+                    @if (
+                    !item.imagenPrincipalUrl
+                    &&
+                    item.imagenes.length === 0
+                    ) {
+
+                    <div class="thumbnail">
+
+                        <div class="thumbnail-placeholder">
+                            SIN FOTOS
+                        </div>
+
+                    </div>
+
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================
+                 INFORMACIÓN
+                 ===================== -->
+
+            <div class="info-column">
+
+                <span class="location-label">
+                    PAQUETE TURÍSTICO · PERÚ
+                </span>
+
+
+                <h1>
+                    {{ item.nombre }}
+                </h1>
+
+
+                <div class="package-meta">
+
+                    <span>
+
+                        <span class="meta-icon">
+                            ◷
+                        </span>
+
+                        {{ item.duracionDias }}
+
+                        {{
+                        item.duracionDias === 1
+                        ? 'día'
+                        : 'días'
+                        }}
+
+                        /
+
+                        {{ item.duracionNoches }}
+
+                        {{
+                        item.duracionNoches === 1
+                        ? 'noche'
+                        : 'noches'
+                        }}
+
+                    </span>
+
+
+                    <span>
+
+                        <span class="meta-icon">
+                            ◇
+                        </span>
+
+                        {{ item.tours.length }}
+
+                        {{
+                        item.tours.length === 1
+                        ? 'tour incluido'
+                        : 'tours incluidos'
+                        }}
+
+                    </span>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <!-- DESCRIPCIÓN -->
+
+                <section class="description-section">
+
+                    <h2>
+                        Descripción
+                    </h2>
+
+                    <p>
+                        {{ item.descripcion }}
+                    </p>
+
+                </section>
+
+
+                <!-- INCLUYE / NO INCLUYE -->
+
+                <div class="include-grid">
+
+                    @if (item.incluye) {
+
+                    <section class="include-block">
+
+                        <h3>
+                            Incluye
+                        </h3>
+
+                        <div class="include-text">
+
+                            <span class="bullet">
+                                •
+                            </span>
+
+                            <p>
+                                {{ item.incluye }}
+                            </p>
+
+                        </div>
+
+                    </section>
+
+                    }
+
+
+                    @if (item.noIncluye) {
+
+                    <section class="include-block">
+
+                        <h3>
+                            No incluye
+                        </h3>
+
+                        <div class="include-text">
+
+                            <span class="bullet">
+                                •
+                            </span>
+
+                            <p>
+                                {{ item.noIncluye }}
+                            </p>
+
+                        </div>
+
+                    </section>
+
+                    }
+
+                </div>
+
+
+                <!-- =====================
+                     RESERVA
+                     ===================== -->
+
+                <aside class="booking-card">
+
+                    <span class="price-label">
+                        PRECIO DESDE
+                    </span>
+
+
+                    <strong class="main-price">
+
+                        S/
+                        {{
+                        item.precio
+                        | number:'1.2-2'
+                        }}
+
+                    </strong>
+
+
+                    <p class="price-note">
+                        Precio referencial por persona.
+                        Confirma disponibilidad antes de reservar.
+                    </p>
+
+
+                    <div class="booking-divider"></div>
+
+
+                    <!-- DISPONIBILIDADES -->
+
+                    <section class="availability-section">
+
+                        <div class="availability-heading">
+
+                            <h3>
+                                Próximas fechas
+                            </h3>
+
+                            <span>
+                                Selecciona una fecha
+                            </span>
+
+                        </div>
+
+
+                        @if (
+                        disponibilidades().length === 0
+                        ) {
+
+                        <div class="no-availability">
+
+                            <strong>
+                                Sin fechas disponibles
+                            </strong>
+
+                            <span>
+                                Próximamente agregaremos nuevas salidas.
+                            </span>
+
+                        </div>
+
+                        } @else {
+
+                        <div class="availability-list">
+
+                            @for (
+                            disponibilidad
+                            of disponibilidades();
+                            track disponibilidad.id
+                            ) {
+
+                            <button type="button" class="availability-item" [class.selected]="
+                                    disponibilidadSeleccionada()
+                                        ?.id === disponibilidad.id
+                                " [class.sold-out]="
+                                    disponibilidad.estado !== 'DISPONIBLE'
+                                    ||
+                                    disponibilidad.cuposDisponibles === 0
+                                " [disabled]="
+                                    disponibilidad.estado !== 'DISPONIBLE'
+                                    ||
+                                    disponibilidad.cuposDisponibles === 0
+                                " (click)="
+                                    seleccionarDisponibilidad(
+                                        disponibilidad
+                                    )
+                                ">
+
+                                <div>
+
+                                    <strong>
+                                        {{
+                                        disponibilidad.fecha
+                                        | date:'dd/MM/yyyy'
+                                        }}
+                                    </strong>
+
+                                    <span>
+                                        {{
+                                        disponibilidad
+                                        .cuposDisponibles
+                                        }}
+                                        cupos disponibles
+                                    </span>
+
+                                </div>
+
+
+                                <span class="availability-status">
+
+                                    {{
+                                    disponibilidad.estado
+                                    }}
+
+                                </span>
+
+                            </button>
+
+                            }
+
+                        </div>
+
+                        }
+
+                    </section>
+
+
+                    <!-- FORMULARIO -->
+
+                    @if (
+                    disponibilidadSeleccionada();
+                    as seleccionada
+                    ) {
+
+                    <div class="reservation-form">
+
+
+                        <div class="selected-date">
+
+                            <div>
+
+                                <span>
+                                    FECHA SELECCIONADA
+                                </span>
+
+                                <strong>
+                                    {{
+                                    seleccionada.fecha
+                                    | date:'dd/MM/yyyy'
+                                    }}
+                                </strong>
+
+                            </div>
+
+
+                            <span class="selected-check">
+                                ✓
+                            </span>
+
+                        </div>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Cantidad de personas
+                            </mat-label>
+
+                            <input matInput type="number" min="1" [max]="
+                                    seleccionada
+                                        .cuposDisponibles
+                                " [formControl]="
+                                    cantidadPersonas
+                                ">
+
+
+                            @if (
+                            cantidadPersonas
+                            .hasError('min')
+                            ) {
+
+                            <mat-error>
+                                Ingresa al menos una persona.
+                            </mat-error>
+
+                            }
+
+
+                            @if (
+                            cantidadPersonas
+                            .hasError('max')
+                            ) {
+
+                            <mat-error>
+
+                                Solo quedan
+
+                                {{
+                                seleccionada
+                                .cuposDisponibles
+                                }}
+
+                                cupos.
+
+                            </mat-error>
+
+                            }
+
+                        </mat-form-field>
+
+
+                        <div class="reservation-total">
+
+                            <span>
+                                Total estimado
+                            </span>
+
+                            <strong>
+
+                                S/
+
+                                {{
+                                item.precio
+                                *
+                                cantidadPersonas.value
+                                | number:'1.2-2'
+                                }}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    }
+
+
+                    @if (
+                    reservaError()
+                    ) {
+
+                    <p class="reservation-error">
+                        {{ reservaError() }}
+                    </p>
+
+                    }
+
+
+                    <button mat-flat-button type="button" class="reserve-button" [disabled]="
+                            reservando()
+                            ||
+                            (
+                                disponibilidadSeleccionada() !== null
+                                &&
+                                cantidadPersonas.invalid
+                            )
+                        " (click)="crearReserva()">
+
+                        @if (
+                        reservando()
+                        ) {
+
+                        Creando reserva...
+
+                        } @else {
+
+                        Reservar ahora
+
+                        }
+
+                    </button>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TOURS INCLUIDOS
+             ========================= -->
+
+        @if (
+        item.tours.length > 0
+        ) {
+
+        <section class="included-tours">
+
+            <div class="section-heading">
+
+                <span>
+                    EXPERIENCIAS DEL PAQUETE
+                </span>
+
+                <h2>
+                    Tours incluidos
+                </h2>
+
+            </div>
+
+
+            <div class="tour-list">
+
+                @for (
+                tour of item.tours;
+                track tour.id
+                ) {
+
+                <a class="included-tour" [routerLink]="[
+                        '/tours',
+                        tour.id
+                    ]">
+
+                    <div>
+
+                        <span class="tour-destination">
+                            {{ tour.destinoNombre }}
+                        </span>
+
+                        <strong>
+                            {{ tour.nombre }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="tour-price">
+
+                        <span>
+                            Referencia
+                        </span>
+
+                        <strong>
+                            S/
+                            {{
+                            tour.precio
+                            | number:'1.2-2'
+                            }}
+                        </strong>
+
+                    </div>
+
+
+                    <span class="tour-arrow">
+                        →
+                    </span>
+
+                </a>
+
+                }
+
+            </div>
+
+        </section>
+
+        }
+
+    </div>
+
+</article>
+
+}
