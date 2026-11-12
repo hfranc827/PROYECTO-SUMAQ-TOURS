@@ -1,1 +1,197 @@
-<p>destination-list works!</p>
+<section class="admin-destinations">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Destinos
+                </h1>
+
+                <p>
+                    Gestiona los destinos disponibles
+                    en Sumaq Tours.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <a mat-button routerLink="/admin">
+                    Volver
+                </a>
+
+                <a mat-flat-button routerLink="/admin/destinos/nuevo">
+                    Nuevo destino
+                </a>
+
+            </div>
+
+        </header>
+
+
+        @if (actionError()) {
+
+        <p class="action-error">
+            {{ actionError() }}
+        </p>
+
+        }
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando destinos...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarDestinos()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        destinos().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay destinos
+            </h2>
+
+            <p>
+                Crea el primer destino
+                del catálogo.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="destination-grid">
+
+            @for (
+            destino of destinos();
+            track destino.id
+            ) {
+
+            <mat-card class="destination-card">
+
+                @if (destino.imagenPrincipalUrl) {
+
+                <img mat-card-image [src]="destino.imagenPrincipalUrl" [alt]="destino.nombre">
+
+                }
+
+
+                <mat-card-header>
+
+                    <mat-card-title>
+                        {{ destino.nombre }}
+                    </mat-card-title>
+
+                    <mat-card-subtitle>
+                        {{ destino.ubicacion }}
+                    </mat-card-subtitle>
+
+                </mat-card-header>
+
+
+                <mat-card-content>
+
+                    <span class="status-badge" [class.active]="
+                            destino.activo
+                        " [class.inactive]="
+                            !destino.activo
+                        ">
+                        {{
+                        destino.activo
+                        ? 'ACTIVO'
+                        : 'INACTIVO'
+                        }}
+                    </span>
+
+
+                    <p>
+                        {{ destino.descripcion }}
+                    </p>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>
+
+                    <a mat-flat-button [routerLink]="[
+                            '/admin/destinos',
+                            destino.id,
+                            'editar'
+                        ]">
+                        Editar
+                    </a>
+
+
+                    <button mat-button type="button" [disabled]="
+                        deletingId() === destino.id ||
+                             !destino.activo
+                                     " (click)="
+                                     eliminarDestino(
+                                           destino
+                                               )
+                             ">
+
+                        @if (
+                        deletingId() === destino.id
+                        ) {
+
+                        Procesando...
+
+                        } @else if (
+                        !destino.activo
+                        ) {
+
+                        Desactivado
+
+                        } @else {
+
+                        Desactivar
+
+                        }
+
+                    </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
