@@ -1,1 +1,288 @@
-<p>promotion-form works!</p>
+<section class="promotion-form-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                ADMINISTRACIÓN
+            </span>
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <h1>
+                Nueva promoción
+            </h1>
+
+            <p>
+                Crea un descuento para
+                un tour o paquete.
+            </p>
+
+            } @else {
+
+            <h1>
+                Editar promoción
+            </h1>
+
+            <p>
+                Actualiza el descuento,
+                vigencia y producto asociado.
+            </p>
+
+            }
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando información...
+            </p>
+
+        </div>
+
+        } @else {
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Título
+                </mat-label>
+
+                <input matInput formControlName="titulo">
+
+                @if (
+                form.controls.titulo
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    El título es obligatorio.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Descripción
+                </mat-label>
+
+                <textarea matInput rows="4" formControlName="descripcion"></textarea>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Descuento
+                </mat-label>
+
+                <input matInput type="number" min="0.01" max="100" step="0.01" formControlName="porcentajeDescuento">
+
+                <span matTextSuffix>
+                    %
+                </span>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Tipo de producto
+                </mat-label>
+
+                <mat-select formControlName="tipoProducto" (selectionChange)="
+                        cambiarTipoProducto()
+                    ">
+
+                    <mat-option value="TOUR">
+                        Tour
+                    </mat-option>
+
+                    <mat-option value="PAQUETE">
+                        Paquete
+                    </mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    {{
+                    form.controls
+                    .tipoProducto
+                    .value === 'TOUR'
+                    ? 'Tour'
+                    : 'Paquete'
+                    }}
+                </mat-label>
+
+
+                <mat-select formControlName="productoId">
+
+                    @if (
+                    form.controls
+                    .tipoProducto
+                    .value === 'TOUR'
+                    ) {
+
+                    @for (
+                    tour of toursActivos();
+                    track tour.id
+                    ) {
+
+                    <mat-option [value]="tour.id">
+                        {{ tour.nombre }}
+                        — {{ tour.destinoNombre }}
+                    </mat-option>
+
+                    }
+
+                    } @else {
+
+                    @for (
+                    paquete
+                    of paquetesActivos();
+                    track paquete.id
+                    ) {
+
+                    <mat-option [value]="paquete.id">
+                        {{ paquete.nombre }}
+                    </mat-option>
+
+                    }
+
+                    }
+
+                </mat-select>
+
+                @if (
+                form.controls.productoId
+                .hasError('min')
+                ) {
+
+                <mat-error>
+                    Selecciona un producto.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Fecha de inicio
+                </mat-label>
+
+                <input matInput type="date" formControlName="fechaInicio">
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Fecha de fin
+                </mat-label>
+
+                <input matInput type="date" formControlName="fechaFin">
+
+            </mat-form-field>
+
+
+            @if (
+            editingId() !== null
+            ) {
+
+            <mat-slide-toggle formControlName="activo" class="full">
+                Promoción activa
+            </mat-slide-toggle>
+
+            }
+
+
+            <div class="information full">
+
+                <strong>
+                    Asociación de producto
+                </strong>
+
+                <p>
+                    Una promoción puede pertenecer
+                    a un Tour o a un Paquete,
+                    pero no a ambos simultáneamente.
+                </p>
+
+            </div>
+
+
+            @if (errorMessage()) {
+
+            <p class="error full">
+                {{ errorMessage() }}
+            </p>
+
+            }
+
+
+            <div class="actions full">
+
+                <a mat-button routerLink="/admin/promociones">
+                    Cancelar
+                </a>
+
+
+                <button mat-flat-button type="submit" [disabled]="
+                        saving() ||
+                        form.invalid
+                    ">
+
+                    @if (saving()) {
+
+                    Guardando...
+
+                    } @else if (
+                    editingId() === null
+                    ) {
+
+                    Crear promoción
+
+                    } @else {
+
+                    Guardar cambios
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+        }
+
+    </div>
+
+</section>
