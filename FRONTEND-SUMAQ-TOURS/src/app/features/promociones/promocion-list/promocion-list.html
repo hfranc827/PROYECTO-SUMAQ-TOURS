@@ -1,1 +1,85 @@
-<p>promocion-list works!</p>
+<section class="promotions-page">
+
+    <div class="container">
+
+        <header class="page-heading">
+
+            <span class="eyebrow">
+                OPORTUNIDADES
+            </span>
+
+            <h1>
+                Viaja más, aprovecha más
+            </h1>
+
+            <p>
+                Descubre promociones vigentes para
+                nuestros tours y paquetes turísticos.
+            </p>
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="48"></mat-spinner>
+
+            <p>
+                Buscando promociones...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarPromociones()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        promociones().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay promociones vigentes
+            </h2>
+
+            <p>
+                Explora nuestros tours y paquetes
+                mientras preparamos nuevas ofertas.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="promotion-grid">
+
+            @for (
+            promocion of promociones();
+            track promocion.id
+            ) {
+
+            <app-promocion-card [promocion]="promocion" />
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
