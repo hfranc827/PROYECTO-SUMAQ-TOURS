@@ -1,1 +1,464 @@
 <p>reservation-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Cargando reserva...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No fue posible cargar la reserva
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/admin">
+        Volver
+    </a>
+
+</section>
+
+} @else if (reserva(); as item) {
+
+<section class="admin-detail">
+
+    <div class="container">
+
+        <!-- CABECERA -->
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    RESERVA #{{ item.id }}
+                </span>
+
+                <h1>
+                    {{ item.servicioNombre }}
+                </h1>
+
+                <p>
+                    Cliente:
+                    <strong>
+                        {{ item.clienteNombre }}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <a mat-button routerLink="/admin">
+                Volver
+            </a>
+
+        </header>
+
+
+        <!-- RESUMEN -->
+
+        <mat-card class="summary">
+
+            <mat-card-content>
+
+                <div class="summary-grid">
+
+                    <div>
+                        <span>Tipo</span>
+
+                        <strong>
+                            {{ item.tipoReserva }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>Fecha</span>
+
+                        <strong>
+                            {{
+                            item.fechaServicio
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>Personas</span>
+
+                        <strong>
+                            {{ item.cantidadPersonas }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>Estado</span>
+
+                        <strong class="status-badge" [class.pending]="
+                                item.estado === 'PENDIENTE'
+                            " [class.confirmed]="
+                                item.estado === 'CONFIRMADA'
+                            " [class.paid]="
+                                item.estado === 'PAGADA'
+                            " [class.finished]="
+                                item.estado === 'FINALIZADA'
+                            " [class.cancelled]="
+                                item.estado === 'CANCELADA'
+                            ">
+                            {{ item.estado }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>Total</span>
+
+                        <strong>
+                            S/
+                            {{
+                            item.precioTotal
+                            | number:'1.2-2'
+                            }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+
+
+        <!-- PRECIOS -->
+
+        <section class="price-detail">
+
+            <div>
+
+                <span>
+                    Precio base
+                </span>
+
+                <strong>
+                    S/
+                    {{
+                    item.precioBase
+                    | number:'1.2-2'
+                    }}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Descuento
+                </span>
+
+                <strong>
+                    S/
+                    {{
+                    item.montoDescuento
+                    | number:'1.2-2'
+                    }}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    S/
+                    {{
+                    item.precioTotal
+                    | number:'1.2-2'
+                    }}
+                </strong>
+
+            </div>
+
+
+            @if (item.promocionTitulo) {
+
+            <div>
+
+                <span>
+                    Promoción
+                </span>
+
+                <strong>
+                    {{ item.promocionTitulo }}
+                </strong>
+
+            </div>
+
+            }
+
+        </section>
+
+
+        <!-- GESTIÓN ESTADO -->
+
+        <section class="state-management">
+
+            <div>
+
+                <span class="eyebrow">
+                    GESTIÓN
+                </span>
+
+                <h2>
+                    Estado de la reserva
+                </h2>
+
+            </div>
+
+
+            @if (
+            estadosPermitidos().length > 0
+            ) {
+
+            <div class="state-actions">
+
+                @for (
+                estado of estadosPermitidos();
+                track estado
+                ) {
+
+                <button mat-flat-button type="button" [disabled]="updating()" (click)="
+                        cambiarEstado(
+                            estado
+                        )
+                    ">
+
+                    @if (updating()) {
+
+                    Actualizando...
+
+                    } @else {
+
+                    {{ estado }}
+
+                    }
+
+                </button>
+
+                }
+
+            </div>
+
+            } @else {
+
+            <p>
+                Esta reserva no tiene cambios
+                de estado disponibles.
+            </p>
+
+            }
+
+
+            @if (actionError()) {
+
+            <p class="error">
+                {{ actionError() }}
+            </p>
+
+            }
+
+        </section>
+
+
+        <!-- PASAJEROS -->
+
+        <section class="passengers">
+
+            <header>
+
+                <span class="eyebrow">
+                    PASAJEROS
+                </span>
+
+                <h2>
+                    Viajeros registrados
+                </h2>
+
+            </header>
+
+
+            @if (
+            pasajeros().length === 0
+            ) {
+
+            <p>
+                No hay pasajeros registrados.
+            </p>
+
+            } @else {
+
+            <div class="passenger-grid">
+
+                @for (
+                pasajero of pasajeros();
+                track pasajero.id
+                ) {
+
+                <mat-card>
+
+                    <mat-card-content>
+
+                        <strong>
+                            {{ pasajero.nombres }}
+                            {{ pasajero.apellidos }}
+                        </strong>
+
+                        <span>
+                            {{ pasajero.tipoDocumento }}
+                            ·
+                            {{ pasajero.numeroDocumento }}
+                        </span>
+
+
+                        @if (
+                        pasajero.fechaNacimiento
+                        ) {
+
+                        <span>
+                            Nacimiento:
+                            {{
+                            pasajero.fechaNacimiento
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </span>
+
+                        }
+
+
+                        @if (
+                        pasajero.nacionalidad
+                        ) {
+
+                        <span>
+                            Nacionalidad:
+                            {{ pasajero.nacionalidad }}
+                        </span>
+
+                        }
+
+                    </mat-card-content>
+
+                </mat-card>
+
+                }
+
+            </div>
+
+            }
+
+        </section>
+
+
+        <!-- PAGO -->
+
+        @if (pago(); as payment) {
+
+        <section class="payment">
+
+            <span class="eyebrow">
+                PAGO REGISTRADO
+            </span>
+
+            <h2>
+                Información del pago
+            </h2>
+
+
+            <div class="payment-data">
+
+                <div>
+
+                    <span>
+                        Método
+                    </span>
+
+                    <strong>
+                        {{ payment.metodoPago }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Monto
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        payment.monto
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Estado
+                    </span>
+
+                    <strong>
+                        {{ payment.estado }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Fecha
+                    </span>
+
+                    <strong>
+                        {{
+                        payment.fechaPago
+                        | date:'dd/MM/yyyy HH:mm'
+                        }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        }
+
+    </div>
+
+</section>
+
+}
