@@ -1,1 +1,503 @@
-<p>availability-list works!</p>
+<section class="availability-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Disponibilidades
+                </h1>
+
+                <p>
+                    Gestiona fechas, capacidades
+                    y cupos disponibles.
+                </p>
+
+            </div>
+
+
+            <a mat-button routerLink="/admin">
+                Volver
+            </a>
+
+        </header>
+
+
+        <div class="type-selector">
+
+            <button mat-flat-button type="button" [class.selected]="
+                    tipo() === 'TOUR'
+                " (click)="
+                    cambiarTipo('TOUR')
+                ">
+                Tours
+            </button>
+
+
+            <button mat-flat-button type="button" [class.selected]="
+                    tipo() === 'PAQUETE'
+                " (click)="
+                    cambiarTipo('PAQUETE')
+                ">
+                Paquetes
+            </button>
+
+        </div>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando información...
+            </p>
+
+        </div>
+
+        } @else {
+
+        @if (
+        tipo() === 'TOUR'
+        ) {
+
+        <section class="management-panel">
+
+            <div class="selector-row">
+
+                <mat-form-field appearance="outline">
+
+                    <mat-label>
+                        Seleccionar tour
+                    </mat-label>
+
+                    <mat-select [value]="
+                                tourSeleccionadoId()
+                            " (selectionChange)="
+                                seleccionarTour(
+                                    $event.value
+                                )
+                            ">
+
+                        @for (
+                        tour of tours();
+                        track tour.id
+                        ) {
+
+                        <mat-option [value]="tour.id">
+                            {{ tour.nombre }}
+
+                            @if (!tour.activo) {
+                            — INACTIVO
+                            }
+
+                        </mat-option>
+
+                        }
+
+                    </mat-select>
+
+                </mat-form-field>
+
+
+                <a mat-flat-button routerLink="/admin/disponibilidades/tour/nueva">
+                    Nueva disponibilidad
+                </a>
+
+            </div>
+
+
+            @if (
+            loadingDisponibilidades()
+            ) {
+
+            <div class="state small">
+
+                <mat-spinner diameter="36"></mat-spinner>
+
+            </div>
+
+            } @else if (
+            tourSeleccionadoId() === null
+            ) {
+
+            <div class="empty">
+
+                Selecciona un tour para
+                consultar sus disponibilidades.
+
+            </div>
+
+            } @else {
+
+            <div class="availability-grid">
+
+                @for (
+                disponibilidad
+                of disponibilidadesTour();
+                track disponibilidad.id
+                ) {
+
+                <mat-card class="availability-card">
+
+                    <mat-card-content>
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="date">
+                                    {{
+                                    disponibilidad.fecha
+                                    | date:'dd/MM/yyyy'
+                                    }}
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad.tourNombre
+                                    }}
+                                </strong>
+
+                            </div>
+
+
+                            <span class="status" [class.available]="
+                                        disponibilidad.estado ===
+                                        'DISPONIBLE'
+                                    " [class.sold-out]="
+                                        disponibilidad.estado ===
+                                        'AGOTADO'
+                                    " [class.blocked]="
+                                        disponibilidad.estado ===
+                                        'BLOQUEADO'
+                                    ">
+                                {{
+                                disponibilidad.estado
+                                }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="capacity">
+
+                            <div>
+                                <span>
+                                    Capacidad
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad
+                                    .capacidadTotal
+                                    }}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    Cupos
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad
+                                    .cuposDisponibles
+                                    }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </mat-card-content>
+
+
+                    <mat-card-actions>
+
+                        <a mat-flat-button [routerLink]="[
+                                    '/admin/disponibilidades',
+                                    'tour',
+                                    disponibilidad.id,
+                                    'editar'
+                                ]">
+                            Editar
+                        </a>
+
+
+                        <button mat-button type="button" [disabled]="
+        deletingId() === disponibilidad.id ||
+        disponibilidad.estado === 'BLOQUEADO'
+    " (click)="bloquearTour(disponibilidad)">
+                            @if (
+                            deletingId() === disponibilidad.id
+                            ) {
+                            Procesando...
+                            } @else if (
+                            disponibilidad.estado === 'BLOQUEADO'
+                            ) {
+                            Bloqueado
+                            } @else {
+                            Bloquear
+                            }
+                        </button>
+
+                    </mat-card-actions>
+
+                </mat-card>
+
+                } @empty {
+
+                <div class="empty">
+
+                    Este tour todavía no tiene
+                    disponibilidades próximas.
+
+                </div>
+
+                }
+
+            </div>
+
+            }
+
+        </section>
+
+        } @else {
+
+        <section class="management-panel">
+
+            <div class="selector-row">
+
+                <mat-form-field appearance="outline">
+
+                    <mat-label>
+                        Seleccionar paquete
+                    </mat-label>
+
+                    <mat-select [value]="
+                                paqueteSeleccionadoId()
+                            " (selectionChange)="
+                                seleccionarPaquete(
+                                    $event.value
+                                )
+                            ">
+
+                        @for (
+                        paquete of paquetes();
+                        track paquete.id
+                        ) {
+
+                        <mat-option [value]="paquete.id">
+                            {{ paquete.nombre }}
+
+                            @if (!paquete.activo) {
+                            — INACTIVO
+                            }
+
+                        </mat-option>
+
+                        }
+
+                    </mat-select>
+
+                </mat-form-field>
+
+
+                <a mat-flat-button routerLink="/admin/disponibilidades/paquete/nueva">
+                    Nueva disponibilidad
+                </a>
+
+            </div>
+
+
+            @if (
+            loadingDisponibilidades()
+            ) {
+
+            <div class="state small">
+
+                <mat-spinner diameter="36"></mat-spinner>
+
+            </div>
+
+            } @else if (
+            paqueteSeleccionadoId() === null
+            ) {
+
+            <div class="empty">
+
+                Selecciona un paquete para
+                consultar sus disponibilidades.
+
+            </div>
+
+            } @else {
+
+            <div class="availability-grid">
+
+                @for (
+                disponibilidad
+                of disponibilidadesPaquete();
+                track disponibilidad.id
+                ) {
+
+                <mat-card class="availability-card">
+
+                    <mat-card-content>
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="date">
+                                    {{
+                                    disponibilidad.fecha
+                                    | date:'dd/MM/yyyy'
+                                    }}
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad
+                                    .paqueteNombre
+                                    }}
+                                </strong>
+
+                            </div>
+
+
+                            <span class="status" [class.available]="
+                                        disponibilidad.estado ===
+                                        'DISPONIBLE'
+                                    " [class.sold-out]="
+                                        disponibilidad.estado ===
+                                        'AGOTADO'
+                                    " [class.blocked]="
+                                        disponibilidad.estado ===
+                                        'BLOQUEADO'
+                                    ">
+                                {{
+                                disponibilidad.estado
+                                }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="capacity">
+
+                            <div>
+                                <span>
+                                    Capacidad
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad
+                                    .capacidadTotal
+                                    }}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    Cupos
+                                </span>
+
+                                <strong>
+                                    {{
+                                    disponibilidad
+                                    .cuposDisponibles
+                                    }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </mat-card-content>
+
+
+                    <mat-card-actions>
+
+                        <a mat-flat-button [routerLink]="[
+                                    '/admin/disponibilidades',
+                                    'paquete',
+                                    disponibilidad.id,
+                                    'editar'
+                                ]">
+                            Editar
+                        </a>
+
+
+                        <button mat-button type="button" [disabled]="
+        deletingId() === disponibilidad.id ||
+        disponibilidad.estado === 'BLOQUEADO'
+    " (click)="bloquearPaquete(disponibilidad)">
+                            @if (
+                            deletingId() === disponibilidad.id
+                            ) {
+                            Procesando...
+                            } @else if (
+                            disponibilidad.estado === 'BLOQUEADO'
+                            ) {
+                            Bloqueado
+                            } @else {
+                            Bloquear
+                            }
+                        </button>
+
+                    </mat-card-actions>
+
+                </mat-card>
+
+                } @empty {
+
+                <div class="empty">
+
+                    Este paquete todavía no tiene
+                    disponibilidades próximas.
+
+                </div>
+
+                }
+
+            </div>
+
+            }
+
+        </section>
+
+        }
+
+        }
+
+
+        @if (errorMessage()) {
+
+        <p class="error">
+            {{ errorMessage() }}
+        </p>
+
+        }
+
+
+        @if (actionError()) {
+
+        <p class="error">
+            {{ actionError() }}
+        </p>
+
+        }
+
+    </div>
+
+</section>
