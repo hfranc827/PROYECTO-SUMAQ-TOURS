@@ -1,20 +1,9 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {
-    inject,
-    Injectable
-} from '@angular/core';
+import { Observable } from 'rxjs';
 
-import {
-    HttpClient
-} from '@angular/common/http';
-
-import {
-    Observable
-} from 'rxjs';
-
-import {
-    environment
-} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 import {
     CreateDisponibilidadTourRequest,
@@ -34,10 +23,6 @@ export class DisponibilidadTour {
     private readonly apiUrl =
         `${environment.apiUrl}/disponibilidades-tours`;
 
-
-    // ===========================
-    // DISPONIBILIDADES PÚBLICAS
-    // ===========================
 
     listarPorTour(
         tourId: number
@@ -60,7 +45,7 @@ export class DisponibilidadTour {
 
 
     // ===========================
-    // ADMINISTRACIÓN
+    // ADMIN
     // ===========================
 
     crear(
