@@ -1,4 +1,4 @@
-
+/* 
 import {
     PromocionResponse
 } from '../shared/models/promocion.model';
@@ -45,3 +45,4 @@ export const MOCK_PROMOCIONES: PromocionResponse[] = [
     }
 
 ];
+ */
