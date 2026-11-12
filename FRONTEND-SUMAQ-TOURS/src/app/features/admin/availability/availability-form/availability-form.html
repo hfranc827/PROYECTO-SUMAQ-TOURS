@@ -1,1 +1,243 @@
-<p>availability-form works!</p>
+<section class="availability-form-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                ADMINISTRACIÓN
+            </span>
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <h1>
+                Nueva disponibilidad
+            </h1>
+
+            <p>
+                Crea una fecha disponible para
+                {{ tipo() === 'tour' ? 'un tour' : 'un paquete' }}.
+            </p>
+
+            } @else {
+
+            <h1>
+                Editar disponibilidad
+            </h1>
+
+            <p>
+                Gestiona la capacidad,
+                los cupos y el estado.
+            </p>
+
+            }
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando información...
+            </p>
+
+        </div>
+
+        } @else {
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+            @if (
+            editingId() === null
+            ) {
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    {{
+                    tipo() === 'tour'
+                    ? 'Tour'
+                    : 'Paquete'
+                    }}
+                </mat-label>
+
+
+                <mat-select formControlName="recursoId">
+
+                    @if (
+                    tipo() === 'tour'
+                    ) {
+
+                    @for (
+                    tour of toursActivos();
+                    track tour.id
+                    ) {
+
+                    <mat-option [value]="tour.id">
+                        {{ tour.nombre }}
+                        — {{ tour.destinoNombre }}
+                    </mat-option>
+
+                    }
+
+                    } @else {
+
+                    @for (
+                    paquete of paquetesActivos();
+                    track paquete.id
+                    ) {
+
+                    <mat-option [value]="paquete.id">
+                        {{ paquete.nombre }}
+                    </mat-option>
+
+                    }
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+            }
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Fecha
+                </mat-label>
+
+                <input matInput type="date" formControlName="fecha">
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Capacidad total
+                </mat-label>
+
+                <input matInput type="number" min="1" formControlName="capacidadTotal">
+
+            </mat-form-field>
+
+
+            @if (
+            editingId() !== null
+            ) {
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Cupos disponibles
+                </mat-label>
+
+                <input matInput type="number" min="0" formControlName="cuposDisponibles">
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Estado
+                </mat-label>
+
+                <mat-select formControlName="estado">
+
+                    @for (
+                    estado of estados;
+                    track estado
+                    ) {
+
+                    <mat-option [value]="estado">
+                        {{ estado }}
+                    </mat-option>
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+            }
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <div class="information full">
+
+                <strong>
+                    Estado inicial
+                </strong>
+
+                <p>
+                    Al crear la disponibilidad,
+                    todos los cupos estarán disponibles
+                    y el estado será DISPONIBLE.
+                </p>
+
+            </div>
+
+            }
+
+
+            @if (errorMessage()) {
+
+            <p class="error full">
+                {{ errorMessage() }}
+            </p>
+
+            }
+
+
+            <div class="actions full">
+
+                <a mat-button routerLink="/admin/disponibilidades">
+                    Cancelar
+                </a>
+
+
+                <button mat-flat-button type="submit" [disabled]="
+                        saving() ||
+                        form.invalid
+                    ">
+
+                    @if (saving()) {
+
+                    Guardando...
+
+                    } @else if (
+                    editingId() === null
+                    ) {
+
+                    Crear disponibilidad
+
+                    } @else {
+
+                    Guardar cambios
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+        }
+
+    </div>
+
+</section>
