@@ -1,0 +1,676 @@
+.admin-page {
+    min-height:
+        calc(100vh - 72px);
+
+    padding:
+        64px 24px 100px;
+
+    background: #f7f7f5;
+}
+
+
+.container {
+    width: min(1200px,
+            100%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================
+   CABECERA
+   ========================= */
+
+.heading {
+    margin-bottom: 32px;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+
+    color: #777;
+}
+
+
+.heading h1 {
+    margin:
+        0 0 12px;
+
+    font-size: clamp(2.8rem,
+            6vw,
+            5rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -0.035em;
+}
+
+
+.heading p {
+    margin: 0;
+
+    max-width: 650px;
+
+    color: #666;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   MÓDULOS ADMIN
+   ========================= */
+
+.admin-modules {
+    margin-bottom: 52px;
+
+    padding:
+        14px;
+
+    border-radius: 18px;
+
+    background: white;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.05);
+}
+
+
+.admin-modules a {
+    border-radius: 999px;
+
+    padding:
+        0 18px;
+}
+
+
+/* =========================
+   SECCIÓN RESERVAS
+   ========================= */
+
+.reservations-section {
+    display: grid;
+
+    gap: 28px;
+}
+
+
+.section-heading {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: clamp(2rem,
+            4vw,
+            3rem);
+}
+
+
+.reservation-count {
+    padding:
+        7px 12px;
+
+    border-radius: 999px;
+
+    background: #e9eae5;
+
+    font-size: 0.85rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   FILTROS
+   ========================= */
+
+.filters {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+
+.filters button {
+    border-radius: 999px;
+
+    padding:
+        0 16px;
+}
+
+
+.filters button.active {
+    background: #1d1e1a;
+
+    color: white;
+}
+
+
+/* =========================
+   GRID DE RESERVAS
+   ========================= */
+
+.reservation-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+.reservation-card {
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: #f6f6f8;
+
+    overflow: hidden;
+
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+
+.reservation-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.08);
+}
+
+
+.reservation-card mat-card-header {
+    padding:
+        22px 22px 0;
+}
+
+
+.reservation-card mat-card-title {
+    font-size: 1.3rem;
+}
+
+
+.reservation-card mat-card-subtitle {
+    margin-top: 4px;
+
+    color: #555;
+
+    font-weight: 600;
+}
+
+
+.reservation-card mat-card-content {
+    padding:
+        0 22px 22px;
+}
+
+
+/* =========================
+   CLIENTE
+   ========================= */
+
+.client {
+    margin-top: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    display: grid;
+
+    gap: 5px;
+}
+
+
+.client span {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    color: #777;
+}
+
+
+.client strong {
+    color: #1d1e1a;
+}
+
+
+/* =========================
+   DATOS RESERVA
+   ========================= */
+
+.reservation-data {
+    margin-top: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,
+            minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.reservation-data div {
+    display: grid;
+
+    gap: 5px;
+}
+
+
+.reservation-data span,
+.price span,
+.price-breakdown span {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    color: #777;
+}
+
+
+/* =========================
+   BADGES
+   ========================= */
+
+.status-badge {
+    width: fit-content;
+
+    padding:
+        5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.72rem;
+}
+
+
+.status-badge.pending {
+    background: #fff2cf;
+    color: #735716;
+}
+
+
+.status-badge.confirmed {
+    background: #e6effb;
+    color: #245b92;
+}
+
+
+.status-badge.paid {
+    background: #e3f1e6;
+    color: #28663a;
+}
+
+
+.status-badge.finished {
+    background: #e8e8e8;
+    color: #555;
+}
+
+
+.status-badge.cancelled {
+    background: #f7e4e4;
+    color: #8e2929;
+}
+
+
+/* =========================
+   PRECIOS
+   ========================= */
+
+.price-breakdown {
+    margin-top: 24px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    display: grid;
+
+    gap: 10px;
+}
+
+
+.price-breakdown div {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+.discount-value {
+    color: #347143;
+}
+
+
+.price {
+    margin-top: 18px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.price strong {
+    font-size: 1.4rem;
+}
+
+
+/* =========================
+   PROMOCIÓN
+   ========================= */
+
+.promotion-info {
+    margin-top: 16px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #edf4eb;
+
+    display: grid;
+
+    gap: 4px;
+}
+
+
+.promotion-info span {
+    font-size: 0.68rem;
+
+    letter-spacing: 0.08em;
+
+    color: #347143;
+}
+
+
+.promotion-info strong {
+    color: #347143;
+}
+
+
+/* =========================
+   ACCIONES
+   ========================= */
+
+.reservation-card mat-card-actions {
+    padding:
+        0 14px 14px;
+
+    margin-top: auto;
+}
+
+
+.reservation-card mat-card-actions a {
+    border-radius: 999px;
+}
+
+
+/* =========================
+   ESTADOS GENERALES
+   ========================= */
+
+.state {
+    min-height: 300px;
+
+    display: grid;
+
+    place-items: center;
+
+    align-content: center;
+
+    gap: 18px;
+
+    text-align: center;
+}
+
+
+.state h3 {
+    margin: 0;
+
+    font-size: 1.6rem;
+}
+
+
+.state p {
+    margin: 0;
+
+    color: #666;
+}
+
+
+.error {
+    color: #9c1c1c;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1000px) {
+
+    .reservation-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+    .summary-section {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .summary-section {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-page {
+        padding:
+            48px 18px 80px;
+    }
+
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .reservation-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .reservation-data {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-modules {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .admin-modules a {
+        width: 100%;
+    }
+
+}
+
+/* =========================
+   RESUMEN ADMIN
+   ========================= */
+
+.summary-section {
+    margin-bottom: 52px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+.summary-card {
+    min-height: 145px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.05);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+
+.summary-card span {
+    font-size: 0.7rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    color: #777;
+}
+
+
+.summary-card strong {
+    margin:
+        8px 0;
+
+    font-size: 2.7rem;
+
+    line-height: 1;
+}
+
+
+.summary-card p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 0.85rem;
+}
+
+
+.summary-card.main {
+    background: #1d1e1a;
+
+    color: white;
+}
+
+
+.summary-card.main span,
+.summary-card.main p {
+    color:
+        rgba(255,
+            255,
+            255,
+            0.7);
+}
+
+
+.summary-card.pending {
+    border-top:
+        4px solid #d7aa3e;
+}
+
+
+.summary-card.confirmed {
+    border-top:
+        4px solid #5385b5;
+}
+
+
+.summary-card.paid {
+    border-top:
+        4px solid #4f9160;
+}
+
+
+.summary-card.finished {
+    border-top:
+        4px solid #777;
+}
+
+
+.summary-card.cancelled {
+    border-top:
+        4px solid #b65757;
+}
