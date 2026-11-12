@@ -1,39 +1,87 @@
-import { inject, Injectable, Service } from '@angular/core';
-import { TourImagenRequest } from '../../shared/models/tour-imagen.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { TourImagenResponse } from '../../shared/models/tour.model';
+import {
+    inject,
+    Injectable
+} from '@angular/core';
 
-@Injectable({providedIn: 'root'})
+import {
+    HttpClient
+} from '@angular/common/http';
+
+import {
+    Observable
+} from 'rxjs';
+
+import {
+    environment
+} from '../../../environments/environment';
+
+import {
+    TourImagenResponse
+} from '../../shared/models/tour.model';
+
+import {
+    TourImagenRequest
+} from '../../shared/models/tour-imagen.model';
+
+
+@Injectable({
+    providedIn: 'root'
+})
 export class TourImagen {
-  private readonly http = inject(HttpClient);
 
- crear(
-    tourId: number,
-    request: TourImagenRequest
-  ): Observable<TourImagenResponse> {
-    return this.http.post<TourImagenResponse>(
-      this.rutaImagenes(tourId),
-      request
-    );
-  }
+    private readonly http =
+        inject(HttpClient);
 
-  actualizar(
-    tourId: number,
-    id: number,
-    request: TourImagenRequest
-  ): Observable<TourImagenResponse> {
-    return this.http.put<TourImagenResponse>(
-      `${this.rutaImagenes(tourId)}/${id}`,
-      request
-    );
-  }
+    private readonly apiUrl =
+        `${environment.apiUrl}/tours`;
 
-  eliminar(tourId: number, id: number): Observable<void> {
-    return this.http.delete<void>(`${this.rutaImagenes(tourId)}/${id}`);
-  }
 
-  private rutaImagenes(tourId: number): string {
-    return `/api/tours/${tourId}/imagenes`;
-  }
+    listar(
+        tourId: number
+    ): Observable<TourImagenResponse[]> {
+
+        return this.http
+            .get<TourImagenResponse[]>(
+                `${this.apiUrl}/${tourId}/imagenes`
+            );
+    }
+
+
+    crear(
+        tourId: number,
+        request: TourImagenRequest
+    ): Observable<TourImagenResponse> {
+
+        return this.http
+            .post<TourImagenResponse>(
+                `${this.apiUrl}/${tourId}/imagenes`,
+                request
+            );
+    }
+
+
+    actualizar(
+        tourId: number,
+        imagenId: number,
+        request: TourImagenRequest
+    ): Observable<TourImagenResponse> {
+
+        return this.http
+            .put<TourImagenResponse>(
+                `${this.apiUrl}/${tourId}/imagenes/${imagenId}`,
+                request
+            );
+    }
+
+
+    eliminar(
+        tourId: number,
+        imagenId: number
+    ): Observable<void> {
+
+        return this.http
+            .delete<void>(
+                `${this.apiUrl}/${tourId}/imagenes/${imagenId}`
+            );
+    }
 }
