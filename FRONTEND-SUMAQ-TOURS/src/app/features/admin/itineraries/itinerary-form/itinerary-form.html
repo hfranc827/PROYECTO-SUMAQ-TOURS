@@ -1,1 +1,401 @@
-<p>itinerary-form works!</p>
+<section class="itinerary-form-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                ADMINISTRACIÓN
+            </span>
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <h1>
+                Nueva actividad
+            </h1>
+
+            <p>
+                Agrega una actividad al
+                itinerario de un paquete.
+            </p>
+
+            } @else {
+
+            <h1>
+                Editar actividad
+            </h1>
+
+            <p>
+                Actualiza la información
+                de esta actividad.
+            </p>
+
+            }
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando información...
+            </p>
+
+        </div>
+
+        } @else {
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+            <!-- PAQUETE -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Paquete
+                </mat-label>
+
+                <mat-select formControlName="paqueteId" (selectionChange)="
+                        cambiarPaquete()
+                    ">
+
+                    @for (
+                    paquete of paquetes();
+                    track paquete.id
+                    ) {
+
+                    <mat-option [value]="paquete.id">
+
+                        {{ paquete.nombre }}
+
+                        — {{ paquete.duracionDias }}
+                        días /
+                        {{ paquete.duracionNoches }}
+                        noches
+
+                        @if (
+                        !paquete.activo
+                        ) {
+                        — INACTIVO
+                        }
+
+                    </mat-option>
+
+                    }
+
+                </mat-select>
+
+
+                @if (
+                form.controls
+                .paqueteId
+                .hasError('min')
+                ) {
+
+                <mat-error>
+                    Selecciona un paquete.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- TOUR OPCIONAL -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Tour relacionado
+                    (opcional)
+                </mat-label>
+
+                <mat-select formControlName="tourId">
+
+                    <mat-option [value]="0">
+                        Sin tour asociado
+                    </mat-option>
+
+
+                    @for (
+                    tour
+                    of toursDelPaquete();
+                    track tour.id
+                    ) {
+
+                    <mat-option [value]="tour.id">
+                        {{ tour.nombre }}
+                        — {{ tour.destinoNombre }}
+                    </mat-option>
+
+                    }
+
+                </mat-select>
+
+
+                <mat-hint>
+
+                    Solo aparecen los tours
+                    pertenecientes al paquete.
+
+                </mat-hint>
+
+            </mat-form-field>
+
+
+            <!-- DÍA -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Día
+                </mat-label>
+
+                <input matInput type="number" min="1" [max]="
+                        duracionPaquete() ?? 999
+                    " formControlName="dia">
+
+
+                @if (
+                duracionPaquete()
+                ) {
+
+                <mat-hint>
+                    Máximo:
+                    {{ duracionPaquete() }}
+                    días
+                </mat-hint>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- ORDEN -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Orden
+                </mat-label>
+
+                <input matInput type="number" min="1" formControlName="orden">
+
+                <mat-hint>
+                    Posición de la actividad
+                    dentro del día.
+                </mat-hint>
+
+            </mat-form-field>
+
+
+            <!-- HORA -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Hora de inicio
+                </mat-label>
+
+                <input matInput type="time" formControlName="horaInicio">
+
+                <mat-hint>
+                    Opcional
+                </mat-hint>
+
+            </mat-form-field>
+
+
+            <!-- TÍTULO -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Título de la actividad
+                </mat-label>
+
+                <input matInput formControlName="titulo">
+
+
+                @if (
+                form.controls
+                .titulo
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    El título es obligatorio.
+                </mat-error>
+
+                }
+
+
+                @if (
+                form.controls
+                .titulo
+                .hasError('maxlength')
+                ) {
+
+                <mat-error>
+                    El título no puede superar
+                    los 150 caracteres.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <!-- DESCRIPCIÓN -->
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Descripción
+                </mat-label>
+
+                <textarea matInput rows="5" formControlName="descripcion"></textarea>
+
+            </mat-form-field>
+
+
+            <!-- INFORMACIÓN -->
+
+            <div class="information full">
+
+                <strong>
+                    Organización del itinerario
+                </strong>
+
+                <p>
+                    El día debe encontrarse dentro
+                    de la duración del paquete.
+                    Además, no pueden existir dos
+                    actividades con el mismo día
+                    y orden.
+                </p>
+
+            </div>
+
+
+            @if (
+            paqueteSeleccionado()
+            ) {
+
+            <div class="package-summary full">
+
+                <div>
+
+                    <span>
+                        PAQUETE
+                    </span>
+
+                    <strong>
+                        {{
+                        paqueteSeleccionado()
+                        ?.nombre
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DURACIÓN
+                    </span>
+
+                    <strong>
+                        {{
+                        paqueteSeleccionado()
+                        ?.duracionDias
+                        }}
+                        días /
+                        {{
+                        paqueteSeleccionado()
+                        ?.duracionNoches
+                        }}
+                        noches
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        TOURS DISPONIBLES
+                    </span>
+
+                    <strong>
+                        {{
+                        toursDelPaquete()
+                        .length
+                        }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            }
+
+
+            @if (errorMessage()) {
+
+            <p class="error full">
+                {{ errorMessage() }}
+            </p>
+
+            }
+
+
+            <div class="actions full">
+
+                <a mat-button routerLink="/admin/itinerarios">
+                    Cancelar
+                </a>
+
+
+                <button mat-flat-button type="submit" [disabled]="
+                        saving() ||
+                        form.invalid
+                    ">
+
+                    @if (
+                    saving()
+                    ) {
+
+                    Guardando...
+
+                    } @else if (
+                    editingId() === null
+                    ) {
+
+                    Crear actividad
+
+                    } @else {
+
+                    Guardar cambios
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+        }
+
+    </div>
+
+</section>

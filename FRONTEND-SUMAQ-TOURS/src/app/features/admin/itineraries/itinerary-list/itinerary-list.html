@@ -1,1 +1,259 @@
-<p>itinerary-list works!</p>
+<section class="itinerary-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Itinerarios
+                </h1>
+
+                <p>
+                    Organiza las actividades de cada
+                    paquete por día y orden.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <a mat-button routerLink="/admin">
+                    Volver
+                </a>
+
+                <a mat-flat-button routerLink="/admin/itinerarios/nuevo" [queryParams]="
+        paqueteSeleccionadoId() !== null
+        ? {
+            paqueteId:
+                paqueteSeleccionadoId()
+          }
+        : null
+    ">
+                    Nueva actividad
+                </a>
+
+            </div>
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando paquetes...
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="selector-panel">
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Seleccionar paquete
+                </mat-label>
+
+                <mat-select [value]="
+                        paqueteSeleccionadoId()
+                    " (selectionChange)="
+                        seleccionarPaquete(
+                            $event.value
+                        )
+                    ">
+
+                    @for (
+                    paquete of paquetes();
+                    track paquete.id
+                    ) {
+
+                    <mat-option [value]="paquete.id">
+                        {{ paquete.nombre }}
+
+                        @if (!paquete.activo) {
+                        — INACTIVO
+                        }
+
+                    </mat-option>
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+        </div>
+
+
+        @if (
+        loadingItinerarios()
+        ) {
+
+        <div class="state small">
+
+            <mat-spinner diameter="36"></mat-spinner>
+
+        </div>
+
+        } @else if (
+        paqueteSeleccionadoId() === null
+        ) {
+
+        <div class="empty">
+
+            Selecciona un paquete para
+            consultar su itinerario.
+
+        </div>
+
+        } @else if (
+        itinerarios().length === 0
+        ) {
+
+        <div class="empty">
+
+            Este paquete todavía no tiene
+            actividades registradas.
+
+        </div>
+
+        } @else {
+
+        <div class="itinerary-list">
+
+            @for (
+            item of itinerarios();
+            track item.id
+            ) {
+
+            <mat-card class="itinerary-card">
+
+                <mat-card-content>
+
+                    <div class="position">
+
+                        <span class="day">
+                            DÍA {{ item.dia }}
+                        </span>
+
+                        <span class="order">
+                            Orden {{ item.orden }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        @if (
+                        item.horaInicio
+                        ) {
+
+                        <span class="time">
+                            {{ item.horaInicio }}
+                        </span>
+
+                        }
+
+
+                        <h2>
+                            {{ item.titulo }}
+                        </h2>
+
+
+                        @if (
+                        item.tourNombre
+                        ) {
+
+                        <span class="tour">
+                            Tour:
+                            {{ item.tourNombre }}
+                        </span>
+
+                        }
+
+
+                        @if (
+                        item.descripcion
+                        ) {
+
+                        <p>
+                            {{ item.descripcion }}
+                        </p>
+
+                        }
+
+                    </div>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>
+
+                    <a mat-flat-button [routerLink]="[
+                            '/admin/itinerarios',
+                            item.id,
+                            'editar'
+                        ]">
+                        Editar
+                    </a>
+
+
+                    <button mat-button type="button" [disabled]="
+                            deletingId() ===
+                            item.id
+                        " (click)="
+                            eliminar(item)
+                        ">
+                        {{
+                        deletingId() === item.id
+                        ? 'Eliminando...'
+                        : 'Eliminar'
+                        }}
+                    </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+
+            }
+
+        </div>
+
+        }
+
+        }
+
+
+        @if (errorMessage()) {
+
+        <p class="error">
+            {{ errorMessage() }}
+        </p>
+
+        }
+
+
+        @if (actionError()) {
+
+        <p class="error">
+            {{ actionError() }}
+        </p>
+
+        }
+
+    </div>
+
+</section>
