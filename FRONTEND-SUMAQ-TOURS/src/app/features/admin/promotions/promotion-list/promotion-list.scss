@@ -1,0 +1,219 @@
+.admin-promotions {
+    min-height:
+        calc(100vh - 72px);
+
+    padding:
+        64px 24px 100px;
+
+    background: #f7f7f5;
+}
+
+.container {
+    width: min(1200px,
+            100%);
+
+    margin: 0 auto;
+}
+
+.heading {
+    margin-bottom: 38px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    color: #777;
+}
+
+.heading h1 {
+    margin:
+        0 0 10px;
+
+    font-size: clamp(2.8rem,
+            6vw,
+            5rem);
+
+    line-height: 0.95;
+}
+
+.heading p {
+    margin: 0;
+
+    color: #666;
+}
+
+.heading-actions {
+    display: flex;
+
+    gap: 10px;
+}
+
+.promotion-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,
+            minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+.promotion-card {
+    border-radius: 20px;
+}
+
+.promotion-card mat-card-content {
+    padding-top: 24px;
+}
+
+.card-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.discount {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.status {
+    padding:
+        6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 0.7rem;
+
+    font-weight: 700;
+}
+
+.status.active {
+    background: #e3f1e6;
+
+    color: #28663a;
+}
+
+.status.inactive {
+    background: #e8e8e8;
+
+    color: #666;
+}
+
+.promotion-card h2 {
+    margin:
+        20px 0 10px;
+}
+
+.description {
+    color: #666;
+
+    line-height: 1.6;
+}
+
+.product {
+    margin-top: 20px;
+
+    padding:
+        16px 0;
+
+    border-top:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    display: grid;
+
+    gap: 5px;
+}
+
+.product span,
+.dates span {
+    font-size: 0.7rem;
+
+    letter-spacing: 0.08em;
+
+    color: #777;
+}
+
+.dates {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 16px;
+}
+
+.dates div {
+    display: grid;
+
+    gap: 5px;
+}
+
+.error-box {
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #fdecec;
+
+    color: #9c1c1c;
+}
+
+.state {
+    min-height: 300px;
+
+    display: grid;
+
+    place-items: center;
+    align-content: center;
+
+    gap: 16px;
+
+    text-align: center;
+}
+
+.error-text {
+    color: #9c1c1c;
+}
+
+@media (max-width: 950px) {
+
+    .promotion-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .promotion-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

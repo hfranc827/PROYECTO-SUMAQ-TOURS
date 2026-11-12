@@ -1,1 +1,253 @@
-<p>promotion-list works!</p>
+<section class="admin-promotions">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Promociones
+                </h1>
+
+                <p>
+                    Gestiona descuentos para tours
+                    y paquetes de Sumaq Tours.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <a mat-button routerLink="/admin">
+                    Volver
+                </a>
+
+                <a mat-flat-button routerLink="/admin/promociones/nueva">
+                    Nueva promoción
+                </a>
+
+            </div>
+
+        </header>
+
+
+        @if (actionError()) {
+
+        <p class="error-box">
+            {{ actionError() }}
+        </p>
+
+        }
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando promociones...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error-text">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarPromociones()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        promociones().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay promociones
+            </h2>
+
+            <p>
+                Crea la primera promoción.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="promotion-grid">
+
+            @for (
+            promocion of promociones();
+            track promocion.id
+            ) {
+
+            <mat-card class="promotion-card">
+
+                <mat-card-content>
+
+                    <div class="card-top">
+
+                        <span class="discount">
+                            {{
+                            promocion
+                            .porcentajeDescuento
+                            | number:'1.0-2'
+                            }}%
+                        </span>
+
+
+                        <span class="status" [class.active]="
+                                promocion.activo
+                            " [class.inactive]="
+                                !promocion.activo
+                            ">
+                            {{
+                            promocion.activo
+                            ? 'ACTIVA'
+                            : 'INACTIVA'
+                            }}
+                        </span>
+
+                    </div>
+
+
+                    <h2>
+                        {{ promocion.titulo }}
+                    </h2>
+
+
+                    @if (
+                    promocion.descripcion
+                    ) {
+
+                    <p class="description">
+                        {{ promocion.descripcion }}
+                    </p>
+
+                    }
+
+
+                    <div class="product">
+
+                        <span>
+                            {{
+                            promocion.tipoProducto
+                            }}
+                        </span>
+
+                        <strong>
+                            {{
+                            promocion.productoNombre
+                            }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dates">
+
+                        <div>
+
+                            <span>
+                                Desde
+                            </span>
+
+                            <strong>
+                                {{
+                                promocion.fechaInicio
+                                | date:'dd/MM/yyyy'
+                                }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Hasta
+                            </span>
+
+                            <strong>
+                                {{
+                                promocion.fechaFin
+                                | date:'dd/MM/yyyy'
+                                }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>
+
+                    <a mat-flat-button [routerLink]="[
+                            '/admin/promociones',
+                            promocion.id,
+                            'editar'
+                        ]">
+                        Editar
+                    </a>
+
+
+                    <button mat-button type="button" [disabled]="
+                            processingId() === promocion.id ||
+                            !promocion.activo
+                        " (click)="
+                            desactivar(
+                                promocion
+                            )
+                        ">
+
+                        @if (
+                        processingId() === promocion.id
+                        ) {
+
+                        Procesando...
+
+                        } @else if (
+                        !promocion.activo
+                        ) {
+
+                        Desactivada
+
+                        } @else {
+
+                        Desactivar
+
+                        }
+
+                    </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
