@@ -1,1 +1,911 @@
-<p>reservation-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Cargando reserva...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No pudimos cargar la reserva
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/mi-cuenta">
+        Volver a mis reservas
+    </a>
+
+</section>
+
+} @else if (reserva(); as item) {
+
+<section class="reservation-page">
+
+    <div class="container">
+
+
+        <!-- CABECERA -->
+
+        <header class="reservation-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    RESERVA #{{ item.id }}
+                </span>
+
+                <h1>
+                    {{ item.servicioNombre }}
+                </h1>
+
+                <p>
+                    Gestiona los pasajeros asociados
+                    a esta reserva.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <a mat-button routerLink="/mi-cuenta">
+                    Volver
+                </a>
+
+
+                @if (puedeCancelarReserva()) {
+
+                <button mat-flat-button type="button" [disabled]="cancelling()" (click)="cancelarReserva()">
+
+                    @if (cancelling()) {
+
+                    Cancelando...
+
+                    } @else {
+
+                    Cancelar reserva
+
+                    }
+
+                </button>
+
+                }
+
+            </div>
+
+        </header>
+
+
+        <!-- RESUMEN -->
+
+        <mat-card class="summary-card">
+
+            <mat-card-content>
+
+                <div class="summary-grid">
+
+                    <div>
+                        <span>Tipo</span>
+                        <strong>
+                            {{ item.tipoReserva }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Fecha</span>
+                        <strong>
+                            {{
+                            item.fechaServicio
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Personas</span>
+                        <strong>
+                            {{ item.cantidadPersonas }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Estado</span>
+                        <strong>
+                            {{ item.estado }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Total</span>
+                        <strong>
+                            S/
+                            {{
+                            item.precioTotal
+                            | number:'1.2-2'
+                            }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+
+        @if (
+        item.estado === 'PAGADA' &&
+        pago();
+        as payment
+        ) {
+
+        <section class="paid-section">
+
+            <div class="paid-heading">
+
+                <span class="eyebrow">
+                    PAGO COMPLETADO
+                </span>
+
+                <h2>
+                    Pago registrado correctamente
+                </h2>
+
+                <p>
+                    El pago de esta reserva fue confirmado
+                    y registrado en Sumaq Tours.
+                </p>
+
+            </div>
+
+
+            <div class="paid-data">
+
+                <div>
+
+                    <span>
+                        Método
+                    </span>
+
+                    <strong>
+                        {{ payment.metodoPago }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Monto
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        payment.monto
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Estado
+                    </span>
+
+                    <strong>
+                        {{ payment.estado }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Fecha de pago
+                    </span>
+
+                    <strong>
+                        {{
+                        payment.fechaPago
+                        | date:'dd/MM/yyyy HH:mm'
+                        }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        }
+
+
+
+
+
+        @if (item.estado === 'PENDIENTE') {
+
+        <section class="payment-section">
+
+            <div class="payment-description">
+
+                <span class="eyebrow">
+                    PAGO
+                </span>
+
+                <h2>
+                    Completa tu reserva
+                </h2>
+
+                <p>
+                    Serás redirigido a Stripe para
+                    realizar el pago de forma segura.
+                </p>
+
+
+                @if (
+                pasajeros().length !==
+                item.cantidadPersonas
+                ) {
+
+                <div class="passenger-warning">
+
+                    <strong>
+                        Completa los datos de pasajeros
+                    </strong>
+
+                    <span>
+                        Has registrado
+                        {{ pasajeros().length }}
+                        de
+                        {{ item.cantidadPersonas }}
+                        pasajero(s).
+                    </span>
+
+                </div>
+
+                } @else {
+
+                <div class="passenger-ready">
+
+                    <strong>
+                        ✓ Pasajeros completos
+                    </strong>
+
+                    <span>
+                        Ya puedes continuar con el pago.
+                    </span>
+
+                </div>
+
+                }
+
+            </div>
+
+
+            <div class="payment-action">
+
+                <strong>
+                    S/
+                    {{
+                    item.precioTotal
+                    | number:'1.2-2'
+                    }}
+                </strong>
+
+
+                <button mat-flat-button type="button" [disabled]="
+                paying() ||
+                !puedePagar()
+            " (click)="pagarConStripe()">
+
+                    @if (paying()) {
+
+                    Redirigiendo...
+
+                    } @else {
+
+                    Pagar con Stripe
+
+                    }
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        }
+
+
+        @if (paymentError()) {
+
+        <p class="payment-error">
+            {{ paymentError() }}
+        </p>
+
+        }
+
+
+        <!-- PASAJEROS -->
+
+        <div class="traveler-layout">
+
+            <section class="passenger-section">
+
+                <header class="section-heading">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            PASAJEROS
+                        </span>
+
+                        <h2>
+                            Información de viajeros
+                        </h2>
+
+                    </div>
+
+
+                    <span class="counter">
+                        {{ pasajeros().length }}
+                        /
+                        {{ item.cantidadPersonas }}
+                    </span>
+
+                </header>
+
+                @if (formError()) {
+
+                <p class="form-error global-error">
+                    {{ formError() }}
+                </p>
+
+                }
+
+
+
+
+
+
+                @if (pasajeros().length > 0) {
+
+                <div class="passenger-list">
+
+                    @for (
+                    pasajero of pasajeros();
+                    track pasajero.id
+                    ) {
+
+                    <mat-card class="passenger-card">
+
+                        <mat-card-content>
+
+                            <div class="passenger-data">
+
+                                <div>
+
+                                    <strong>
+                                        {{ pasajero.nombres }}
+                                        {{ pasajero.apellidos }}
+                                    </strong>
+
+                                    <span>
+                                        {{ pasajero.tipoDocumento }}
+                                        ·
+                                        {{ pasajero.numeroDocumento }}
+                                    </span>
+
+                                </div>
+
+
+                                @if (
+                                pasajero.fechaNacimiento
+                                ) {
+
+                                <span>
+                                    Nacimiento:
+                                    {{
+                                    pasajero.fechaNacimiento
+                                    | date:'dd/MM/yyyy'
+                                    }}
+                                </span>
+
+                                }
+
+
+                                @if (
+                                pasajero.nacionalidad
+                                ) {
+
+                                <span>
+                                    {{ pasajero.nacionalidad }}
+                                </span>
+
+                                }
+
+                            </div>
+
+
+                            @if (puedeModificarPasajeros()) {
+
+                            <div class="passenger-actions">
+
+                                <button mat-button type="button" (click)="
+                  editarPasajero(
+                    pasajero
+                  )
+                ">
+                                    Editar
+                                </button>
+
+                                <button mat-button type="button" (click)="
+                  eliminarPasajero(
+                    pasajero.id
+                  )
+                ">
+                                    Eliminar
+                                </button>
+
+                            </div>
+
+                            }
+
+                        </mat-card-content>
+
+                    </mat-card>
+
+                    }
+
+                </div>
+
+                } @else {
+
+                <p class="empty-message">
+                    Todavía no hay pasajeros registrados.
+                </p>
+
+                }
+
+
+                <!-- FORMULARIO -->
+
+                @if (
+                puedeAgregarPasajero()
+                ||
+                editingId() !== null
+                ) {
+
+                <form class="passenger-form" [formGroup]="pasajeroForm" (ngSubmit)="guardarPasajero()">
+
+                    <h3>
+
+                        @if (editingId() !== null) {
+                        Editar pasajero
+                        } @else {
+                        Agregar pasajero
+                        }
+
+                    </h3>
+
+
+                    <div class="form-grid">
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Nombres
+                            </mat-label>
+
+                            <input matInput formControlName="nombres">
+
+                            @if (
+                            pasajeroForm.controls
+                            .nombres
+                            .hasError('required')
+                            ) {
+
+                            <mat-error>
+                                Los nombres son obligatorios.
+                            </mat-error>
+
+                            }
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Apellidos
+                            </mat-label>
+
+                            <input matInput formControlName="apellidos">
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Tipo de documento
+                            </mat-label>
+
+                            <mat-select formControlName="tipoDocumento">
+
+                                <mat-option value="DNI">
+                                    DNI
+                                </mat-option>
+
+                                <mat-option value="PASAPORTE">
+                                    Pasaporte
+                                </mat-option>
+
+                                <mat-option value="CE">
+                                    Carné de extranjería
+                                </mat-option>
+
+                            </mat-select>
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Número de documento
+                            </mat-label>
+
+                            <input matInput formControlName="numeroDocumento">
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Fecha de nacimiento
+                            </mat-label>
+
+                            <input matInput type="date" formControlName="fechaNacimiento">
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline">
+
+                            <mat-label>
+                                Nacionalidad
+                            </mat-label>
+
+                            <input matInput formControlName="nacionalidad">
+
+                        </mat-form-field>
+
+                    </div>
+
+
+
+
+
+                    <div class="form-actions">
+
+                        @if (editingId() !== null) {
+
+                        <button mat-button type="button" (click)="cancelarEdicion()">
+                            Cancelar edición
+                        </button>
+
+                        }
+
+
+                        <button mat-flat-button type="submit" [disabled]="
+              saving()
+              ||
+              pasajeroForm.invalid
+              ">
+
+                            @if (saving()) {
+
+                            Guardando...
+
+                            } @else if (
+                            editingId() !== null
+                            ) {
+
+                            Guardar cambios
+
+                            } @else {
+
+                            Agregar pasajero
+
+                            }
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+                }
+
+
+                @if (
+                pasajeros().length ===
+                item.cantidadPersonas
+                ) {
+
+                <div class="passengers-complete">
+
+                    <strong>
+                        Información de pasajeros completa
+                    </strong>
+
+                    <p>
+                        Ya registraste todos los pasajeros
+                        requeridos para esta reserva.
+                    </p>
+
+                </div>
+
+                }
+
+
+                @if (
+                !puedeModificarPasajeros()
+                ) {
+
+                <div class="locked-message">
+
+                    Los pasajeros ya no pueden modificarse
+                    porque esta reserva se encuentra
+                    en estado {{ item.estado }}.
+
+                </div>
+
+                }
+
+            </section>
+            <!-- =========================
+     RESUMEN LATERAL
+     ========================= -->
+
+            @if (
+            item.tipoReserva === 'PAQUETE'
+            &&
+            paqueteResumen();
+            as paquete
+            ) {
+
+            <aside class="service-summary">
+
+                <h2>
+                    Resumen del paquete
+                </h2>
+
+
+                <div class="summary-image">
+
+                    @if (
+                    paquete.imagenPrincipalUrl
+                    ) {
+
+                    <img [src]="
+                paquete.imagenPrincipalUrl
+            " [alt]="paquete.nombre">
+
+                    } @else {
+
+                    <div class="summary-image-placeholder">
+                        IMAGEN DEL PAQUETE
+                    </div>
+
+                    }
+
+                </div>
+
+
+                <h3>
+                    {{ paquete.nombre }}
+                </h3>
+
+
+                <div class="service-meta">
+
+                    <span>
+                        ◷
+                        {{ paquete.duracionDias }}
+
+                        {{
+                        paquete.duracionDias === 1
+                        ? 'día'
+                        : 'días'
+                        }}
+
+                        /
+
+                        {{ paquete.duracionNoches }}
+
+                        {{
+                        paquete.duracionNoches === 1
+                        ? 'noche'
+                        : 'noches'
+                        }}
+                    </span>
+
+
+                    <span>
+                        ◇
+                        {{ paquete.tours.length }}
+
+                        {{
+                        paquete.tours.length === 1
+                        ? 'tour'
+                        : 'tours'
+                        }}
+                    </span>
+
+                </div>
+
+
+                <p class="service-description">
+                    {{ paquete.descripcion }}
+                </p>
+
+
+                <div class="summary-price">
+
+                    <span>
+                        PRECIO DESDE
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        paquete.precio
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+
+                    <small>
+                        Precio referencial por persona.
+                        La disponibilidad se confirma
+                        al realizar la reserva.
+                    </small>
+
+                </div>
+
+
+                <div class="selected-passengers">
+
+                    <span>
+                        Pasajeros seleccionados
+                    </span>
+
+                    <strong>
+                        {{ pasajeros().length }}
+                        /
+                        {{ item.cantidadPersonas }}
+                    </strong>
+
+                </div>
+
+            </aside>
+
+            } @else {
+
+            <!-- Para reservas de TOUR conservamos
+     una tarjeta lateral sin inventar datos -->
+
+            <aside class="service-summary simple-summary">
+
+                <span class="summary-label">
+                    RESUMEN DE LA EXPERIENCIA
+                </span>
+
+
+                <h2>
+                    {{ item.servicioNombre }}
+                </h2>
+
+
+                <div class="simple-summary-data">
+
+                    <div>
+                        <span>
+                            Tipo
+                        </span>
+
+                        <strong>
+                            {{ item.tipoReserva }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Fecha
+                        </span>
+
+                        <strong>
+                            {{
+                            item.fechaServicio
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Viajeros
+                        </span>
+
+                        <strong>
+                            {{ item.cantidadPersonas }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-price">
+
+                    <span>
+                        TOTAL DE LA RESERVA
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        item.precioTotal
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+                </div>
+
+
+                <div class="selected-passengers">
+
+                    <span>
+                        Pasajeros registrados
+                    </span>
+
+                    <strong>
+                        {{ pasajeros().length }}
+                        /
+                        {{ item.cantidadPersonas }}
+                    </strong>
+
+                </div>
+
+            </aside>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+}

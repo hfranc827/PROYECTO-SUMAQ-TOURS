@@ -1,1 +1,175 @@
-<p>destination-form works!</p>
+<section class="destination-form-page">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <span class="eyebrow">
+                ADMINISTRACIÓN
+            </span>
+
+
+            @if (
+            editingId() === null
+            ) {
+
+            <h1>
+                Nuevo destino
+            </h1>
+
+            <p>
+                Agrega un nuevo destino
+                al catálogo de Sumaq Tours.
+            </p>
+
+            } @else {
+
+            <h1>
+                Editar destino
+            </h1>
+
+            <p>
+                Actualiza la información
+                del destino.
+            </p>
+
+            }
+
+        </header>
+
+
+        @if (loading()) {
+
+        <div class="state">
+            Cargando destino...
+        </div>
+
+        } @else {
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Nombre
+                </mat-label>
+
+                <input matInput formControlName="nombre">
+
+                @if (
+                form.controls.nombre
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    El nombre es obligatorio.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+                    Ubicación
+                </mat-label>
+
+                <input matInput formControlName="ubicacion">
+
+                @if (
+                form.controls.ubicacion
+                .hasError('required')
+                ) {
+
+                <mat-error>
+                    La ubicación es obligatoria.
+                </mat-error>
+
+                }
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    Descripción
+                </mat-label>
+
+                <textarea matInput rows="6" formControlName="descripcion"></textarea>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full">
+
+                <mat-label>
+                    URL de imagen
+                </mat-label>
+
+                <input matInput formControlName="imagenPrincipalUrl">
+
+            </mat-form-field>
+
+
+            @if (
+            editingId() !== null
+            ) {
+
+            <mat-slide-toggle formControlName="activo">
+                Destino activo
+            </mat-slide-toggle>
+
+            }
+
+
+            @if (errorMessage()) {
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            }
+
+
+            <div class="actions">
+
+                <a mat-button routerLink="/admin/destinos">
+                    Cancelar
+                </a>
+
+
+                <button mat-flat-button type="submit" [disabled]="
+                        saving() ||
+                        form.invalid
+                    ">
+
+                    @if (saving()) {
+
+                    Guardando...
+
+                    } @else if (
+                    editingId() === null
+                    ) {
+
+                    Crear destino
+
+                    } @else {
+
+                    Guardar cambios
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+        }
+
+    </div>
+
+</section>

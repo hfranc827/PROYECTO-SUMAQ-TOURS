@@ -1,4 +1,4 @@
-
+/* 
 import {
     PaqueteResponse
 } from '../shared/models/paquete.model';
@@ -105,3 +105,4 @@ export const MOCK_PAQUETES: PaqueteResponse[] = [
     }
 
 ];
+ */

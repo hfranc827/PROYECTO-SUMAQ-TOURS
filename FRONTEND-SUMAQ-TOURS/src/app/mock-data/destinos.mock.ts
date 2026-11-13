@@ -1,4 +1,4 @@
-
+/* 
 import {
     DestinoResponse
 } from '../shared/models/destino.model';
@@ -50,3 +50,4 @@ export const MOCK_DESTINOS: DestinoResponse[] = [
     }
 
 ];
+ */

@@ -1,1 +1,150 @@
-<p>promocion-detail works!</p>
+@if (loading()) {
+
+<section class="state">
+
+    <mat-spinner diameter="48"></mat-spinner>
+
+    <p>
+        Cargando promoción...
+    </p>
+
+</section>
+
+} @else if (errorMessage()) {
+
+<section class="state">
+
+    <h1>
+        No encontramos esta promoción
+    </h1>
+
+    <p>
+        {{ errorMessage() }}
+    </p>
+
+    <a mat-flat-button routerLink="/promociones">
+        Ver promociones
+    </a>
+
+</section>
+
+} @else if (
+promocion();
+as item
+) {
+
+<article class="promotion-detail">
+
+    <div class="container">
+
+
+        <section class="discount-panel">
+
+            <span class="type">
+                {{ item.tipoProducto }}
+            </span>
+
+            <strong>
+                {{
+                item.porcentajeDescuento
+                | number:'1.0-2'
+                }}%
+            </strong>
+
+            <span class="discount-label">
+                DE DESCUENTO
+            </span>
+
+        </section>
+
+
+        <section class="information">
+
+            <span class="eyebrow">
+                PROMOCIÓN VIGENTE
+            </span>
+
+            <h1>
+                {{ item.titulo }}
+            </h1>
+
+
+            <h2>
+                {{ item.productoNombre }}
+            </h2>
+
+
+            @if (item.descripcion) {
+
+            <p class="description">
+                {{ item.descripcion }}
+            </p>
+
+            }
+
+
+            <div class="dates">
+
+                <div>
+
+                    <span>
+                        Desde
+                    </span>
+
+                    <strong>
+                        {{
+                        item.fechaInicio
+                        | date:'dd/MM/yyyy'
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Hasta
+                    </span>
+
+                    <strong>
+                        {{
+                        item.fechaFin
+                        | date:'dd/MM/yyyy'
+                        }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button mat-flat-button type="button" (click)="irAlProducto(item)">
+
+                @if (
+                item.tipoProducto === 'TOUR'
+                ) {
+
+                Ver tour
+
+                } @else {
+
+                Ver paquete
+
+                }
+
+            </button>
+
+
+            <small>
+                El descuento aplicable se valida
+                automáticamente al realizar la reserva.
+            </small>
+
+        </section>
+
+    </div>
+
+</article>
+
+}

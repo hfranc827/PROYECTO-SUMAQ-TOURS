@@ -1,261 +1,250 @@
-
 import {
-    Component,
-    computed,
-    inject,
-    OnInit,
-    signal
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal
 } from '@angular/core';
 
 import {
-    CommonModule
+  CommonModule
 } from '@angular/common';
 
 import {
-    RouterLink
+  RouterLink
 } from '@angular/router';
 
 import {
-    MatButtonModule
+  MatButtonModule
 } from '@angular/material/button';
 
 import {
-    MatProgressSpinnerModule
+  MatProgressSpinnerModule
 } from '@angular/material/progress-spinner';
 
 import {
-    Tour
+  Tour
 } from '../../../core/services/tour';
 
 import {
-    TourResponse
+  TourResponse
 } from '../../../shared/models/tour.model';
 
 
 type FiltroPrecio =
-    'TODOS' |
-    'MENOR' |
-    'MAYOR' |
-    'HASTA_150' |
-    '150_300' |
-    'MAS_300';
+  'TODOS' |
+  'MENOR' |
+  'MAYOR' |
+  'HASTA_150' |
+  '150_300' |
+  'MAS_300';
 
 
 @Component({
-    selector: 'app-tour-list',
+  selector: 'app-tour-list',
 
-    imports: [
-        CommonModule,
-        RouterLink,
-        MatButtonModule,
-        MatProgressSpinnerModule
-    ],
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatButtonModule,
+    MatProgressSpinnerModule
+  ],
 
-    templateUrl: './tour-list.html',
-    styleUrl: './tour-list.scss'
+  templateUrl: './tour-list.html',
+  styleUrl: './tour-list.scss'
 })
-export class TourList implements OnInit {
+export class TourList
+  implements OnInit {
 
-    private readonly tourService =
-        inject(Tour);
-
-
-    readonly tours =
-        signal<TourResponse[]>([]);
+  private readonly tourService =
+    inject(Tour);
 
 
-    readonly loading =
-        signal(true);
+  readonly tours =
+    signal<TourResponse[]>([]);
+
+  readonly loading =
+    signal(true);
+
+  readonly errorMessage =
+    signal('');
+
+  readonly textoBusqueda =
+    signal('');
+
+  readonly filtroPrecio =
+    signal<FiltroPrecio>(
+      'TODOS'
+    );
 
 
-    readonly errorMessage =
-        signal('');
+  readonly toursFiltrados =
+    computed(() => {
+
+      const texto =
+        this.textoBusqueda()
+          .trim()
+          .toLowerCase();
+
+      const filtro =
+        this.filtroPrecio();
 
 
-    readonly textoBusqueda =
-        signal('');
+      let resultado =
+        this.tours()
+          .filter(tour => {
 
-
-    readonly busquedaAplicada =
-        signal('');
-
-
-    readonly filtroPrecio =
-        signal<FiltroPrecio>('TODOS');
-
-
-    readonly toursFiltrados =
-        computed(() => {
-
-            const texto =
-                this.busquedaAplicada()
-                    .trim()
-                    .toLowerCase();
-
-            const filtro =
-                this.filtroPrecio();
-
-
-            let resultado =
-                this.tours().filter(tour => {
-
-                    if (!texto) {
-                        return true;
-                    }
-
-                    return (
-                        tour.nombre.toLowerCase().includes(texto) ||
-                        tour.destinoNombre.toLowerCase().includes(texto) ||
-                        tour.descripcion.toLowerCase().includes(texto) ||
-                        tour.tipoActividad.toLowerCase().includes(texto)
-                    );
-
-                });
-
-
-            switch (filtro) {
-
-                case 'MENOR':
-
-                    resultado =
-                        [...resultado].sort(
-                            (a, b) => a.precio - b.precio
-                        );
-
-                    break;
-
-
-                case 'MAYOR':
-
-                    resultado =
-                        [...resultado].sort(
-                            (a, b) => b.precio - a.precio
-                        );
-
-                    break;
-
-
-                case 'HASTA_150':
-
-                    resultado =
-                        resultado.filter(
-                            tour => tour.precio <= 150
-                        );
-
-                    break;
-
-
-                case '150_300':
-
-                    resultado =
-                        resultado.filter(
-                            tour =>
-                                tour.precio > 150 &&
-                                tour.precio <= 300
-                        );
-
-                    break;
-
-
-                case 'MAS_300':
-
-                    resultado =
-                        resultado.filter(
-                            tour => tour.precio > 300
-                        );
-
-                    break;
-
+            if (!texto) {
+              return true;
             }
 
-            return resultado;
 
-        });
-
-
-    ngOnInit(): void {
-
-        this.cargarTours();
-
-    }
-
-
-    cargarTours(): void {
-
-        this.loading.set(true);
-
-        this.errorMessage.set('');
-
-
-        this.tourService
-            .listarPublicos()
-            .subscribe({
-
-                next: tours => {
-
-                    this.tours.set(tours);
-
-                    this.loading.set(false);
-
-                },
-
-                error: error => {
-
-                    console.error(
-                        'Error cargando tours:',
-                        error
-                    );
-
-                    this.loading.set(false);
-
-                    this.errorMessage.set(
-                        'No fue posible cargar los tours.'
-                    );
-
-                }
-
-            });
-
-    }
+            return (
+              tour.nombre
+                .toLowerCase()
+                .includes(texto)
+              ||
+              tour.destinoNombre
+                .toLowerCase()
+                .includes(texto)
+              ||
+              tour.descripcion
+                .toLowerCase()
+                .includes(texto)
+              ||
+              tour.tipoActividad
+                .toLowerCase()
+                .includes(texto)
+            );
+          });
 
 
-    actualizarBusqueda(valor: string): void {
+      switch (filtro) {
 
-        this.textoBusqueda.set(valor);
+        case 'MENOR':
 
-    }
+          resultado =
+            [...resultado]
+              .sort(
+                (a, b) =>
+                  a.precio - b.precio
+              );
 
-
-    buscar(): void {
-
-        this.busquedaAplicada.set(
-            this.textoBusqueda().trim()
-        );
-
-    }
+          break;
 
 
-    actualizarFiltro(valor: string): void {
+        case 'MAYOR':
 
-        const filtrosValidos: FiltroPrecio[] = [
-            'TODOS',
-            'MENOR',
-            'MAYOR',
-            'HASTA_150',
-            '150_300',
-            'MAS_300'
-        ];
+          resultado =
+            [...resultado]
+              .sort(
+                (a, b) =>
+                  b.precio - a.precio
+              );
 
-        if (
-            filtrosValidos.includes(valor as FiltroPrecio)
-        ) {
+          break;
 
-            this.filtroPrecio.set(
-                valor as FiltroPrecio
+
+        case 'HASTA_150':
+
+          resultado =
+            resultado.filter(
+              tour =>
+                tour.precio <= 150
             );
 
+          break;
+
+
+        case '150_300':
+
+          resultado =
+            resultado.filter(
+              tour =>
+                tour.precio > 150 &&
+                tour.precio <= 300
+            );
+
+          break;
+
+
+        case 'MAS_300':
+
+          resultado =
+            resultado.filter(
+              tour =>
+                tour.precio > 300
+            );
+
+          break;
+      }
+
+
+      return resultado;
+    });
+
+
+  ngOnInit(): void {
+
+    this.cargarTours();
+  }
+
+
+  cargarTours(): void {
+
+    this.loading.set(true);
+
+    this.errorMessage.set('');
+
+
+    this.tourService
+      .listarPublicos()
+      .subscribe({
+
+        next: tours => {
+
+          this.tours.set(
+            tours
+          );
+
+          this.loading.set(false);
+        },
+
+        error: error => {
+
+          console.error(
+            'Error cargando tours:',
+            error
+          );
+
+          this.loading.set(false);
+
+          this.errorMessage.set(
+            'No fue posible cargar los tours.'
+          );
         }
 
-    }
+      });
+  }
+
+
+  actualizarBusqueda(
+    valor: string
+  ): void {
+
+    this.textoBusqueda.set(
+      valor
+    );
+  }
+
+
+  actualizarFiltro(
+    valor: string
+  ): void {
+
+    this.filtroPrecio.set(
+      valor as FiltroPrecio
+    );
+  }
 
 }

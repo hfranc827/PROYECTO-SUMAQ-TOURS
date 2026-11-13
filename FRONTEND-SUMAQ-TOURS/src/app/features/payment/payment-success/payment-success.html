@@ -1,1 +1,448 @@
-<p>payment-success works!</p>
+<section class="payment-result">
+
+    <div class="result-container">
+
+
+        <!-- =========================
+             BREADCRUMB
+             ========================= -->
+
+        <nav class="breadcrumb">
+
+            <a routerLink="/">
+                ← Volver al inicio
+            </a>
+
+            <span>
+                /
+            </span>
+
+            <span>
+                Confirmación de reserva
+            </span>
+
+        </nav>
+
+
+        <!-- =========================
+             CARGANDO
+             ========================= -->
+
+        @if (loading()) {
+
+        <article class="confirmation-card state-card">
+
+            <mat-spinner diameter="46"></mat-spinner>
+
+
+            <span class="eyebrow">
+                SUMAQ TOURS · CONFIRMACIÓN
+            </span>
+
+
+            <h1>
+                Confirmando tu pago
+            </h1>
+
+
+            <p>
+                Estamos verificando la confirmación
+                enviada por Stripe.
+            </p>
+
+        </article>
+
+        }
+
+
+        <!-- =========================
+             PAGO CONFIRMADO
+             ========================= -->
+
+        @else if (
+        pago();
+        as item
+        ) {
+
+        <article class="confirmation-card">
+
+
+            <!-- ICONO -->
+
+            <div class="success-icon">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+
+                    <path d="M5 12.5 9.5 17 19 7.5"></path>
+
+                </svg>
+
+            </div>
+
+
+            <!-- TITULAR -->
+
+            <span class="eyebrow">
+                SUMAQ TOURS · CONFIRMACIÓN
+            </span>
+
+
+            <h1>
+                ¡Reserva realizada con éxito!
+            </h1>
+
+
+            <p class="confirmation-text">
+
+                Hemos confirmado correctamente
+                el pago de tu reserva.
+
+                Puedes revisar todos los detalles
+                de tu viaje desde tu cuenta.
+
+            </p>
+
+
+            <!-- CÓDIGO -->
+
+            <div class="reservation-code">
+
+                <span>
+                    Código de reserva:
+                </span>
+
+                <strong>
+                    ST-{{ item.reservaId }}
+                </strong>
+
+            </div>
+
+
+            <!-- =========================
+                 RESUMEN CON RESERVA
+                 ========================= -->
+
+            @if (
+            reserva();
+            as booking
+            ) {
+
+            <section class="reservation-summary">
+
+                <header>
+                    Resumen de tu reserva
+                </header>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        {{
+                        booking.tipoReserva === 'PAQUETE'
+                        ? 'Paquete turístico'
+                        : 'Tour turístico'
+                        }}
+                    </span>
+
+                    <strong>
+                        {{ booking.servicioNombre }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Fecha del viaje
+                    </span>
+
+                    <strong>
+                        {{
+                        booking.fechaServicio
+                        | date:'dd/MM/yyyy'
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Número de pasajeros
+                    </span>
+
+                    <strong>
+
+                        {{ booking.cantidadPersonas }}
+
+                        {{
+                        booking.cantidadPersonas === 1
+                        ? 'pasajero'
+                        : 'pasajeros'
+                        }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Estado de la reserva
+                    </span>
+
+                    <strong class="success-value">
+                        {{ booking.estado }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Estado del pago
+                    </span>
+
+                    <strong class="success-value">
+                        {{ item.estado }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row total-row">
+
+                    <span>
+                        Total pagado
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        item.monto
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+
+                </div>
+
+            </section>
+
+            }
+
+
+            <!-- =========================
+                 FALLBACK
+                 ========================= -->
+
+            @else {
+
+            <section class="reservation-summary">
+
+                <header>
+                    Resumen del pago
+                </header>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Código de reserva
+                    </span>
+
+                    <strong>
+                        #{{ item.reservaId }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Método
+                    </span>
+
+                    <strong>
+                        {{ item.metodoPago }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Estado
+                    </span>
+
+                    <strong class="success-value">
+                        {{ item.estado }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Fecha de pago
+                    </span>
+
+                    <strong>
+                        {{
+                        item.fechaPago
+                        | date:'dd/MM/yyyy HH:mm'
+                        }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row total-row">
+
+                    <span>
+                        Total pagado
+                    </span>
+
+                    <strong>
+                        S/
+                        {{
+                        item.monto
+                        | number:'1.2-2'
+                        }}
+                    </strong>
+
+                </div>
+
+            </section>
+
+            }
+
+
+            <!-- MÉTODO -->
+
+            <div class="payment-method">
+
+                <div>
+
+                    <span>
+                        Pago procesado con
+                    </span>
+
+                    <strong>
+                        {{ item.metodoPago }}
+                    </strong>
+
+                </div>
+
+
+                <span class="secure-payment">
+                    ✓ Pago confirmado
+                </span>
+
+            </div>
+
+
+            <!-- ACCIONES -->
+
+            <div class="result-actions">
+
+                <a mat-flat-button routerLink="/" class="primary-button">
+                    Volver al inicio
+                </a>
+
+
+                <a mat-stroked-button routerLink="/mi-cuenta" class="secondary-button">
+                    Ver mis reservas
+                </a>
+
+            </div>
+
+        </article>
+
+        }
+
+
+        <!-- =========================
+             WEBHOOK PENDIENTE
+             ========================= -->
+
+        @else if (pending()) {
+
+        <article class="confirmation-card state-card">
+
+
+            <div class="pending-icon">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+
+                    <circle cx="12" cy="12" r="9"></circle>
+
+                    <path d="M12 7v5l3 2"></path>
+
+                </svg>
+
+            </div>
+
+
+            <span class="eyebrow">
+                SUMAQ TOURS · CONFIRMACIÓN
+            </span>
+
+
+            <h1>
+                Estamos confirmando tu pago
+            </h1>
+
+
+            <p>
+
+                Stripe recibió tu operación y
+                estamos esperando la confirmación
+                final.
+
+                En unos instantes podrás ver tu
+                reserva actualizada.
+
+            </p>
+
+
+            <div class="pending-message">
+
+                <strong>
+                    Tu pago está siendo procesado
+                </strong>
+
+                <span>
+                    No es necesario volver a realizar
+                    el pago.
+                </span>
+
+            </div>
+
+
+            <div class="result-actions">
+
+                <a mat-flat-button routerLink="/mi-cuenta" class="primary-button">
+                    Ir a mis reservas
+                </a>
+
+
+                <a mat-button routerLink="/" class="home-link">
+                    Volver al inicio
+                </a>
+
+            </div>
+
+        </article>
+
+        }
+
+    </div>
+
+</section>

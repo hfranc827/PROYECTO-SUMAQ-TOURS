@@ -1,26 +1,9 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {
-    inject,
-    Injectable
-} from '@angular/core';
+import { Observable } from 'rxjs';
 
-import {
-    HttpClient
-} from '@angular/common/http';
-
-import {
-    Observable,
-    of,
-    throwError
-} from 'rxjs';
-
-import {
-    environment
-} from '../../../environments/environment';
-
-import {
-    DemoData
-} from './demo-data';
+import { environment } from '../../../environments/environment';
 
 import {
     CreateTourRequest,
@@ -37,113 +20,53 @@ export class Tour {
     private readonly http =
         inject(HttpClient);
 
-    private readonly demoData =
-        inject(DemoData);
-
     private readonly apiUrl =
         `${environment.apiUrl}/tours`;
 
 
-    // =====================================
-    // LISTAR TOURS PÚBLICOS
-    // =====================================
-
     listarPublicos():
         Observable<TourResponse[]> {
 
-        if (environment.useMockData) {
-
-            const tours =
-                this.demoData.listarTours()
-                    .filter(tour => tour.activo);
-
-            return of(tours);
-
-        }
-
-        return this.http.get<TourResponse[]>(
-            this.apiUrl
-        );
-
+        return this.http
+            .get<TourResponse[]>(
+                this.apiUrl
+            );
     }
 
-
-    // =====================================
-    // OBTENER TOUR POR ID
-    // =====================================
 
     obtenerPorId(
         id: number
     ): Observable<TourResponse> {
 
-        if (environment.useMockData) {
-
-            const tour =
-                this.demoData.listarTours()
-                    .find(item =>
-                        item.id === id &&
-                        item.activo
-                    );
-
-            if (!tour) {
-
-                return throwError(() => ({
-                    status: 404,
-                    message: 'Tour no encontrado'
-                }));
-
-            }
-
-            return of(tour);
-
-        }
-
-        return this.http.get<TourResponse>(
-            `${this.apiUrl}/${id}`
-        );
-
+        return this.http
+            .get<TourResponse>(
+                `${this.apiUrl}/${id}`
+            );
     }
 
-
-    // =====================================
-    // TOURS POR DESTINO
-    // =====================================
 
     listarPorDestino(
         destinoId: number
     ): Observable<TourResponse[]> {
 
-        if (environment.useMockData) {
-
-            const tours =
-                this.demoData.listarTours()
-                    .filter(tour =>
-                        tour.destinoId === destinoId &&
-                        tour.activo
-                    );
-
-            return of(tours);
-
-        }
-
-        return this.http.get<TourResponse[]>(
-            `${this.apiUrl}/destino/${destinoId}`
-        );
-
+        return this.http
+            .get<TourResponse[]>(
+                `${this.apiUrl}/destino/${destinoId}`
+            );
     }
 
 
-    // =====================================
-    // ADMINISTRACIÓN
-    // =====================================
+    // ===========================
+    // ADMIN
+    // ===========================
 
     listarTodosAdmin():
         Observable<TourResponse[]> {
 
-        return this.http.get<TourResponse[]>(
-            `${this.apiUrl}/admin/todos`
-        );
-
+        return this.http
+            .get<TourResponse[]>(
+                `${this.apiUrl}/admin/todos`
+            );
     }
 
 
@@ -151,11 +74,11 @@ export class Tour {
         request: CreateTourRequest
     ): Observable<TourResponse> {
 
-        return this.http.post<TourResponse>(
-            this.apiUrl,
-            request
-        );
-
+        return this.http
+            .post<TourResponse>(
+                this.apiUrl,
+                request
+            );
     }
 
 
@@ -164,11 +87,11 @@ export class Tour {
         request: UpdateTourRequest
     ): Observable<TourResponse> {
 
-        return this.http.put<TourResponse>(
-            `${this.apiUrl}/${id}`,
-            request
-        );
-
+        return this.http
+            .put<TourResponse>(
+                `${this.apiUrl}/${id}`,
+                request
+            );
     }
 
 
@@ -176,10 +99,10 @@ export class Tour {
         id: number
     ): Observable<void> {
 
-        return this.http.delete<void>(
-            `${this.apiUrl}/${id}`
-        );
-
+        return this.http
+            .delete<void>(
+                `${this.apiUrl}/${id}`
+            );
     }
 
 }

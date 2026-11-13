@@ -1,0 +1,216 @@
+.itinerary-page {
+    min-height:
+        calc(100vh - 72px);
+
+    padding:
+        64px 24px 100px;
+
+    background: #f7f7f5;
+}
+
+.container {
+    width: min(1100px,
+            100%);
+
+    margin: 0 auto;
+}
+
+.heading {
+    margin-bottom: 36px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+.heading-actions {
+    display: flex;
+
+    gap: 10px;
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    color: #777;
+}
+
+.heading h1 {
+    margin:
+        0 0 10px;
+
+    font-size: clamp(2.8rem,
+            6vw,
+            5rem);
+
+    line-height: 0.95;
+}
+
+.heading p {
+    margin: 0;
+
+    color: #666;
+}
+
+.selector-panel {
+    margin-bottom: 28px;
+
+    padding: 24px;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.05);
+}
+
+.selector-panel mat-form-field {
+    width: min(520px,
+            100%);
+}
+
+.itinerary-list {
+    display: grid;
+
+    gap: 18px;
+}
+
+.itinerary-card {
+    border-radius: 18px;
+}
+
+.itinerary-card mat-card-content {
+    display: grid;
+
+    grid-template-columns:
+        130px 1fr;
+
+    gap: 24px;
+
+    padding-top: 22px;
+}
+
+.position {
+    display: grid;
+
+    align-content: start;
+
+    gap: 8px;
+}
+
+.day {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.order {
+    color: #777;
+
+    font-size: 0.8rem;
+}
+
+.activity {
+    display: grid;
+
+    gap: 8px;
+}
+
+.time {
+    width: fit-content;
+
+    padding:
+        5px 9px;
+
+    border-radius: 999px;
+
+    background: #ececf1;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.activity h2 {
+    margin: 0;
+}
+
+.tour {
+    color: #3a5f8f;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+}
+
+.activity p {
+    margin:
+        5px 0 0;
+
+    color: #666;
+
+    line-height: 1.6;
+}
+
+.empty {
+    padding: 42px;
+
+    border-radius: 18px;
+
+    background: white;
+
+    color: #666;
+
+    text-align: center;
+}
+
+.state {
+    min-height: 300px;
+
+    display: grid;
+
+    place-items: center;
+    align-content: center;
+
+    gap: 16px;
+}
+
+.state.small {
+    min-height: 160px;
+}
+
+.error {
+    margin-top: 18px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #fdecec;
+
+    color: #9c1c1c;
+}
+
+@media (max-width: 650px) {
+
+    .heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .itinerary-card mat-card-content {
+        grid-template-columns: 1fr;
+    }
+
+}

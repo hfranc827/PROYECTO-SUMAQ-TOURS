@@ -1,0 +1,50 @@
+.payment-cancelled {
+    min-height:
+        calc(100vh - 72px);
+
+    padding: 60px 24px;
+
+    display: grid;
+
+    place-items: center;
+    align-content: center;
+
+    gap: 20px;
+
+    text-align: center;
+
+    background: #f7f7f5;
+}
+
+.eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    opacity: 0.55;
+}
+
+h1 {
+    max-width: 720px;
+
+    margin: 0;
+
+    font-size: clamp(2.5rem,
+            7vw,
+            5rem);
+
+    line-height: 0.95;
+}
+
+p {
+    max-width: 570px;
+
+    margin: 0;
+
+    color: #666;
+
+    line-height: 1.7;
+
+    white-space: pre-line;
+}

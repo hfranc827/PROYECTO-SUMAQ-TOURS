@@ -1,1 +1,266 @@
-<p>tour-list works!</p>
+<section class="admin-tours">
+
+    <div class="container">
+
+        <header class="heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Tours
+                </h1>
+
+                <p>
+                    Gestiona las experiencias turísticas
+                    disponibles en Sumaq Tours.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <a mat-button routerLink="/admin">
+                    Volver
+                </a>
+
+                <a mat-flat-button routerLink="/admin/tours/nuevo">
+                    Nuevo tour
+                </a>
+
+            </div>
+
+        </header>
+
+
+        @if (actionError()) {
+
+        <p class="action-error">
+            {{ actionError() }}
+        </p>
+
+        }
+
+
+        @if (loading()) {
+
+        <div class="state">
+
+            <mat-spinner diameter="44"></mat-spinner>
+
+            <p>
+                Cargando tours...
+            </p>
+
+        </div>
+
+        } @else if (errorMessage()) {
+
+        <div class="state">
+
+            <p class="error">
+                {{ errorMessage() }}
+            </p>
+
+            <button mat-flat-button type="button" (click)="cargarTours()">
+                Reintentar
+            </button>
+
+        </div>
+
+        } @else if (
+        tours().length === 0
+        ) {
+
+        <div class="state">
+
+            <h2>
+                No hay tours
+            </h2>
+
+            <p>
+                Crea el primer tour del catálogo.
+            </p>
+
+        </div>
+
+        } @else {
+
+        <div class="tour-grid">
+
+            @for (
+            tour of tours();
+            track tour.id
+            ) {
+
+            <mat-card class="tour-card">
+
+                @if (tour.imagenPrincipalUrl) {
+
+                <img mat-card-image [src]="tour.imagenPrincipalUrl" [alt]="tour.nombre">
+
+                }
+
+
+                <mat-card-header>
+
+                    <mat-card-title>
+                        {{ tour.nombre }}
+                    </mat-card-title>
+
+                    <mat-card-subtitle>
+                        {{ tour.destinoNombre }}
+                    </mat-card-subtitle>
+
+                </mat-card-header>
+
+
+                <mat-card-content>
+
+                    <div class="badges">
+
+                        <span class="status-badge" [class.active]="
+                                tour.activo
+                            " [class.inactive]="
+                                !tour.activo
+                            ">
+                            {{
+                            tour.activo
+                            ? 'ACTIVO'
+                            : 'INACTIVO'
+                            }}
+                        </span>
+
+
+                        <span class="difficulty">
+                            {{ tour.nivelDificultad }}
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        {{ tour.descripcion }}
+                    </p>
+
+
+                    <div class="tour-info">
+
+                        <div>
+
+                            <span>
+                                Precio
+                            </span>
+
+                            <strong>
+                                S/
+                                {{
+                                tour.precio
+                                | number:'1.2-2'
+                                }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Duración
+                            </span>
+
+                            <strong>
+                                {{ tour.duracionHoras }}
+                                h
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Capacidad
+                            </span>
+
+                            <strong>
+                                {{ tour.capacidadMaxima }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Actividad
+                            </span>
+
+                            <strong>
+                                {{ tour.tipoActividad }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>
+
+                    <a mat-flat-button [routerLink]="[
+                            '/admin/tours',
+                            tour.id,
+                            'editar'
+                        ]">
+                        Editar
+                    </a>
+
+
+                    <button mat-button type="button" [disabled]="
+                            deletingId() === tour.id ||
+                            !tour.activo
+                        " (click)="
+                            eliminarTour(
+                                tour
+                            )
+                        ">
+
+                        @if (
+                        deletingId() === tour.id
+                        ) {
+
+                        Procesando...
+
+                        } @else if (
+                        !tour.activo
+                        ) {
+
+                        Desactivado
+
+                        } @else {
+
+                        Desactivar
+
+                        }
+
+                    </button>
+
+                </mat-card-actions>
+
+            </mat-card>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
