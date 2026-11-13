@@ -1,4 +1,4 @@
-
+/* 
 import {
     TourResponse
 } from '../shared/models/tour.model';
@@ -92,3 +92,4 @@ export const MOCK_TOURS: TourResponse[] = [
     }
 
 ];
+ */

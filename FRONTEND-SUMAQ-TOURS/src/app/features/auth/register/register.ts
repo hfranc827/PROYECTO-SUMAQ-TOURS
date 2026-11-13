@@ -1,8 +1,4 @@
-
-import {
-  Component,
-  inject
-} from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
   FormBuilder,
@@ -10,33 +6,15 @@ import {
   Validators
 } from '@angular/forms';
 
-import {
-  Router
-} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {
-  MatButtonModule
-} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import {
-  MatFormFieldModule
-} from '@angular/material/form-field';
-
-import {
-  MatInputModule
-} from '@angular/material/input';
-
-import {
-  MatSelectModule
-} from '@angular/material/select';
-
-import {
-  MatProgressSpinnerModule
-} from '@angular/material/progress-spinner';
-
-import {
-  Auth
-} from '../../../core/services/auth';
+import { Auth } from '../../../core/services/auth';
 
 import {
   RegisterRequest
@@ -76,10 +54,6 @@ export class Register {
 
   successMessage = '';
 
-
-  // ===========================
-  // FORMULARIO
-  // ===========================
 
   form = this.fb.group({
 
@@ -141,10 +115,6 @@ export class Register {
   });
 
 
-  // ===========================
-  // REGISTRAR CLIENTE
-  // ===========================
-
   submit(): void {
 
     if (this.form.invalid) {
@@ -154,9 +124,6 @@ export class Register {
       return;
     }
 
-    if (this.loading) {
-      return;
-    }
 
     this.loading = true;
 
@@ -202,23 +169,16 @@ export class Register {
             response.mensaje ||
             'Cuenta creada correctamente.';
 
-
           setTimeout(() => {
 
-            this.router.navigate([
-              '/login'
-            ]);
+            this.router.navigate(
+              ['/login']
+            );
 
           }, 1200);
-
         },
 
         error: error => {
-
-          console.error(
-            'Error registrando usuario:',
-            error
-          );
 
           this.loading = false;
 
@@ -240,11 +200,9 @@ export class Register {
 
           this.errorMessage =
             'No fue posible crear la cuenta. Inténtalo nuevamente.';
-
         }
 
       });
-
   }
 
 }
