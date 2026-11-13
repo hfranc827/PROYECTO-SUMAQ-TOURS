@@ -1,4 +1,3 @@
-
 import {
   Component,
   inject
@@ -11,28 +10,9 @@ import {
 } from '@angular/forms';
 
 import {
-  Router
+  Router,
+  RouterLink
 } from '@angular/router';
-
-import {
-  MatButtonModule
-} from '@angular/material/button';
-
-import {
-  MatFormFieldModule
-} from '@angular/material/form-field';
-
-import {
-  MatInputModule
-} from '@angular/material/input';
-
-import {
-  MatSelectModule
-} from '@angular/material/select';
-
-import {
-  MatProgressSpinnerModule
-} from '@angular/material/progress-spinner';
 
 import {
   Auth
@@ -48,11 +28,7 @@ import {
 
   imports: [
     ReactiveFormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatProgressSpinnerModule
+    RouterLink
   ],
 
   templateUrl: './register.html',
@@ -75,6 +51,8 @@ export class Register {
   errorMessage = '';
 
   successMessage = '';
+
+  hidePassword = true;
 
 
   // ===========================
