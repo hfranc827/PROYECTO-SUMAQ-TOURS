@@ -14,103 +14,89 @@
 
 /* =========================
    HERO
-   ========================= */
+========================= */
 
 .hero {
     position: relative;
 
-    min-height: 500px;
+    width: 100%;
+    min-height: 680px;
+    min-height: 78vh;
 
     overflow: hidden;
 
     display: flex;
-
-    align-items: center;
+    align-items: flex-start;
 
     background: #d5ded9;
 }
 
-
 .hero-background {
     position: absolute;
-
     inset: 0;
-
-    /*
-     * Coloca después una foto real aquí:
-     *
-     * public/images/home/hero-peru.jpg
-     */
 
     background-image:
         url('/images/home/hero-peru.jpg');
 
     background-size: cover;
+    background-position: center 52%;
+    background-repeat: no-repeat;
 
-    background-position:
-        center 52%;
-
-    background-repeat:
-        no-repeat;
+    transform: scale(1.01);
 }
 
+/* Capa para mejorar la lectura */
 
 .hero-overlay {
     position: absolute;
-
     inset: 0;
 
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             rgba(251, 247, 237, 0.97) 0%,
-            rgba(251, 247, 237, 0.86) 24%,
-            rgba(251, 247, 237, 0.34) 48%,
-            rgba(251, 247, 237, 0.04) 73%);
+            rgba(251, 247, 237, 0.91) 25%,
+            rgba(251, 247, 237, 0.60) 45%,
+            rgba(251, 247, 237, 0.15) 72%,
+            rgba(251, 247, 237, 0.04) 100%
+        );
 }
-
 
 .hero-container {
     position: relative;
-
     z-index: 2;
 
-    width: min(1400px,
-            calc(100% - 64px));
+    width: min(1400px, calc(100% - 64px));
+
+    height: 100%;
 
     margin: 0 auto;
 }
 
-
 .hero-content {
     max-width: 620px;
 
-    padding:
-        68px 0 98px;
+    padding: 185px 0 130px;
 }
 
+/* TEXTO SUPERIOR */
 
 .hero-kicker {
     margin-bottom: 18px;
 
     display: flex;
-
     align-items: center;
-
     gap: 13px;
 
     color: #0a6b5b;
 
     font-size: 0.73rem;
-
     font-weight: 800;
-
     letter-spacing: 0.19em;
 }
 
-
 .kicker-line {
     width: 31px;
-
     height: 3px;
 
     border-radius: 999px;
@@ -118,10 +104,10 @@
     background: #f5a623;
 }
 
+/* TÍTULO */
 
 .hero h1 {
-    margin:
-        0 0 20px;
+    margin: 0 0 20px;
 
     color: #17251f;
 
@@ -130,84 +116,74 @@
         'Times New Roman',
         serif;
 
-    font-size: clamp(3.4rem,
-            6.3vw,
-            6.3rem);
+    font-size: clamp(3.4rem, 6.3vw, 6.3rem);
 
     font-weight: 700;
-
     line-height: 0.86;
-
     letter-spacing: -0.04em;
 }
-
 
 .hero h1 span {
     color: #086958;
 }
 
+/* DESCRIPCIÓN */
 
 .hero p {
     max-width: 480px;
 
-    margin:
-        0 0 28px;
+    margin: 0 0 28px;
 
     color: #45564f;
 
     font-size: 1.05rem;
-
     font-weight: 500;
-
     line-height: 1.55;
 }
 
+/* BOTONES */
 
 .hero-actions {
     display: flex;
-
     flex-wrap: wrap;
-
     gap: 12px;
 }
 
-
 .hero-actions a {
-    min-height: 45px;
+    min-height: 48px;
 
-    padding:
-        0 23px;
+    padding: 0 23px;
 
-    border-radius:
-        8px !important;
+    border-radius: 9px !important;
 
     font-weight: 800;
+    transition: all 180ms ease;
 }
-
 
 .primary-button {
-    background:
-        #086958 !important;
-
-    color:
-        #fff !important;
+    background: #086958 !important;
+    color: #fff !important;
 }
 
+.primary-button:hover {
+    background: #064f43 !important;
+    transform: translateY(-2px);
+}
 
 .primary-button span {
     margin-left: 12px;
 }
 
-
 .secondary-button {
-    border-color:
-        #7f8c87 !important;
+    border-color: #7f8c87 !important;
+    background: rgba(255, 255, 255, 0.90) !important;
+    color: #24342e !important;
+}
 
-    background:
-        rgba(255, 255, 255, 0.78) !important;
-
-    color:
-        #24342e !important;
+.secondary-button:hover {
+    border-color: #086958 !important;
+    color: #086958 !important;
+    transform: translateY(-2px);
 }
 
 
@@ -217,33 +193,26 @@
 
 .home-search {
     position: relative;
-
     z-index: 30;
 
-    margin-top: -40px;
+    margin-top: -65px;
 
-    padding:
-        0 32px;
+    padding: 0 32px;
 }
 
-
 .search-container {
-    width: min(1280px,
-            100%);
+    width: min(1280px, 100%);
 
     margin: 0 auto;
-
     padding: 12px;
 
-    border:
-        1px solid rgba(26, 46, 39, 0.07);
-
-    border-radius: 18px;
+    border: 1px solid rgba(26, 46, 39, 0.07);
+    border-radius: 20px;
 
     background: #ffffff;
 
     box-shadow:
-        0 14px 35px rgba(34, 56, 48, 0.12);
+        0 18px 45px rgba(34, 56, 48, 0.13);
 
     display: grid;
 
@@ -252,7 +221,6 @@
 
     gap: 10px;
 }
-
 
 .search-field {
     min-height: 64px;
@@ -371,16 +339,14 @@
 
 
 .destinations-section {
-    padding-top: 50px;
-
-    padding-bottom: 30px;
+    padding-top: 65px;
+    padding-bottom: 45px;
 }
 
 
 .packages-section {
-    padding-top: 18px;
-
-    padding-bottom: 56px;
+    padding-top: 25px;
+    padding-bottom: 65px;
 }
 
 
