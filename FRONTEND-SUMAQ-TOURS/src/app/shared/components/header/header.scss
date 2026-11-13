@@ -1,274 +1,358 @@
+
 :host {
     display: block;
 }
 
+/* ========================================
+   HEADER - GLASSMORPHISM
+======================================== */
 
 .site-header {
-    width: 100%;
+    width: calc(100% - 360px);
+    max-width: 1250px;
 
-    min-height: 76px;
+    min-height: 72px;
 
-    position: sticky;
+    position: fixed;
+    top: 14px;
+    left: 50%;
 
-    top: 0;
+    transform: translateX(-50%);
 
     z-index: 1000;
 
-    border-bottom:
-        1px solid rgba(21, 52, 45, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 45px;
 
-    background:
-        rgba(251,
-            247,
-            237,
-            0.97);
+    background: rgba(255, 255, 255, 0.06);
 
-    backdrop-filter:
-        blur(14px);
+    backdrop-filter: blur(22px) saturate(145%);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    transition:
+        background 250ms ease,
+        box-shadow 250ms ease,
+        border-color 250ms ease;
 }
 
+/* ========================================
+   CONTENEDOR PRINCIPAL
+======================================== */
 
 .header-container {
-    width: min(1420px,
-            100%);
-
-    min-height: 76px;
+    width: 100%;
+    min-height: 70px;
 
     margin: 0 auto;
-
-    padding:
-        0 30px;
+    padding: 0 28px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
-    gap: 24px;
+    gap: 20px;
 }
 
-
-/* =========================
-   LOGO
-   ========================= */
+/* ========================================
+   LOGO SUMAQ TOURS
+======================================== */
 
 .brand {
     flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
 
-    gap: 11px;
+    gap: 10px;
 
-    color: #172521;
-
+    color: #ffffff;
     text-decoration: none;
+
+    transition: opacity 180ms ease;
 }
 
+.brand:hover {
+    opacity: 0.90;
+}
+
+/* Imagen del logo */
+
+.brand img {
+    display: block;
+
+    width: 145px;
+    max-height: 48px;
+
+    object-fit: contain;
+    object-position: left center;
+}
+
+/* Compatibilidad con el logo anterior */
 
 .brand-mark {
-    width: 42px;
+    width: 46px;
+    height: 46px;
 
-    height: 42px;
+    flex-shrink: 0;
 
-    border-radius:
-        12px 12px 16px 8px;
+    border-radius: 13px 13px 16px 9px;
 
-    background:
-        linear-gradient(145deg,
-            #073f3a,
-            #0b6d5e);
+    background: linear-gradient(
+        145deg,
+        #073f3a,
+        #0b6d5e
+    );
 
     color: #f4a62a;
 
     display: grid;
-
     place-items: center;
 
-    font-family:
-        Georgia,
-        'Times New Roman',
-        serif;
-
-    font-size: 0.9rem;
-
-    font-weight: 800;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
 }
-
 
 .brand-copy {
     display: grid;
-
-    gap: 1px;
+    gap: 3px;
 }
-
 
 .brand-copy strong {
-    font-family:
-        Georgia,
-        'Times New Roman',
-        serif;
+    font-family: Georgia, 'Times New Roman', serif;
 
-    font-size: 1.28rem;
-
+    font-size: 1.25rem;
     line-height: 1;
-}
 
+    font-weight: 600;
+
+    color: #ffffff;
+    white-space: nowrap;
+}
 
 .brand-copy strong span {
     color: #0b6d5e;
 }
 
-
 .brand-copy small {
-    color: #74807b;
+    color: rgba(255, 255, 255, 0.90);
 
-    font-size: 0.48rem;
+    font-size: 0.49rem;
+    font-weight: 500;
 
-    font-weight: 800;
-
-    letter-spacing: 0.2em;
+    letter-spacing: 0.19em;
+    white-space: nowrap;
 }
 
-
-/* =========================
+/* ========================================
    NAVEGACIÓN
-   ========================= */
+======================================== */
 
 .navigation {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 25px;
 }
 
-
 .navigation a {
     position: relative;
 
-    padding:
-        28px 0 24px;
+    padding: 25px 0 23px;
 
-    color: #44514d;
+    color: #ffffff;
 
-    font-size: 0.86rem;
-
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 500;
 
     text-decoration: none;
-
     white-space: nowrap;
 
-    transition:
-        color 180ms ease;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+
+    transition: color 200ms ease;
 }
 
+/* Hover verde */
 
-.navigation a:hover,
+.navigation a:hover {
+    color: #0b6d5e;
+}
+
+/* Página seleccionada */
+
 .navigation a.active {
-    color: #0b5f52;
+    color: #0b6d5e;
+    font-weight: 600;
 }
 
+/* Indicador activo */
 
 .navigation a.active::after {
     content: "";
 
     position: absolute;
 
-    left: 10%;
+    left: 0;
+    right: 0;
 
-    right: 10%;
+    bottom: 15px;
 
-    bottom: 16px;
-
-    height: 3px;
+    height: 2px;
 
     border-radius: 999px;
 
-    background: #0b5f52;
+    background: #0b6d5e;
 }
 
-
-/* =========================
-   SESIÓN
-   ========================= */
+/* ========================================
+   ACCIONES DE USUARIO
+======================================== */
 
 .auth-actions {
     flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
 
-    gap: 8px;
+    gap: 10px;
+
+    padding-left: 18px;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.30);
 }
 
+/* ========================================
+   INICIAR SESIÓN
+======================================== */
 
 .login-button {
-    color: #344641 !important;
+    min-height: 42px;
 
-    font-weight: 700;
+    padding: 0 13px !important;
+
+    color: #ffffff !important;
+
+    font-size: 0.85rem;
+    font-weight: 500 !important;
+
+    border-radius: 30px !important;
+
+    transition:
+        background 180ms ease,
+        color 180ms ease;
 }
 
+/* Hover verde */
+
+.login-button:hover {
+    background: rgba(11, 109, 94, 0.14) !important;
+
+    color: #0b6d5e !important;
+}
+
+/* ========================================
+   CREAR CUENTA
+======================================== */
 
 .register-button {
-    min-height: 43px;
+    min-height: 44px;
 
-    padding:
-        0 20px !important;
+    padding: 0 23px !important;
 
-    border-radius: 9px !important;
+    border-radius: 30px !important;
 
-    background:
-        #f4a62a !important;
+    background: #f4a62a !important;
 
-    color:
-        #18302a !important;
+    color: #18302a !important;
 
-    font-weight: 800;
+    font-size: 0.85rem;
+    font-weight: 600 !important;
+
+    box-shadow: 0 5px 14px rgba(244, 166, 42, 0.18);
+
+    transition:
+        background 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
 }
 
+.register-button:hover {
+    background: #e99a19 !important;
+
+    color: #18302a !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 18px rgba(244, 166, 42, 0.25);
+}
+
+/* ========================================
+   CERRAR SESIÓN
+======================================== */
 
 .logout-button {
-    color: #0b5f52 !important;
+    color: #ffffff !important;
 
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 500 !important;
+
+    border-radius: 25px !important;
+
+    transition:
+        background 180ms ease,
+        color 180ms ease;
 }
 
+.logout-button:hover {
+    background: rgba(11, 109, 94, 0.14) !important;
+
+    color: #0b6d5e !important;
+}
+
+/* ========================================
+   CORREO DEL USUARIO
+======================================== */
 
 .user-email {
     max-width: 150px;
 
     overflow: hidden;
 
-    color: #66736f;
+    color: #ffffff;
 
     font-size: 0.78rem;
+    font-weight: 400;
 
     text-overflow: ellipsis;
-
     white-space: nowrap;
 }
 
-
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* ========================================
+   TABLETS
+======================================== */
 
 @media (max-width: 1150px) {
+
+    .site-header {
+        width: calc(100% - 40px);
+        max-width: none;
+
+        border-radius: 30px;
+    }
 
     .header-container {
         flex-wrap: wrap;
 
-        padding:
-            12px 24px;
-    }
+        padding: 12px 24px;
 
+        row-gap: 5px;
+    }
 
     .navigation {
         order: 3;
@@ -277,62 +361,156 @@
 
         justify-content: flex-start;
 
+        gap: 25px;
+
         overflow-x: auto;
 
         scrollbar-width: none;
     }
 
-
     .navigation::-webkit-scrollbar {
         display: none;
     }
 
-
     .navigation a {
-        padding:
-            10px 0 12px;
+        padding: 12px 0 15px;
     }
-
 
     .navigation a.active::after {
-        bottom: 3px;
+        bottom: 6px;
     }
 
+    .auth-actions {
+        margin-left: auto;
+    }
 }
 
+/* ========================================
+   CELULARES
+======================================== */
 
 @media (max-width: 650px) {
 
-    .header-container {
-        padding:
-            12px 18px;
+    .site-header {
+        width: calc(100% - 24px);
+
+        top: 10px;
+
+        border-radius: 25px;
     }
 
+    .header-container {
+        padding: 12px 16px;
+
+        gap: 10px;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .brand img {
+        width: 115px;
+        max-height: 40px;
+    }
+
+    .brand-mark {
+        width: 39px;
+        height: 39px;
+    }
+
+    .brand-copy strong {
+        font-size: 1.1rem;
+    }
 
     .brand-copy small {
         display: none;
     }
 
-
-    .brand-mark {
-        width: 38px;
-        height: 38px;
+    .navigation {
+        gap: 22px;
     }
 
+    .navigation a {
+        font-size: 0.79rem;
 
-    .register-button {
-        padding:
-            0 14px !important;
+        padding: 10px 0 13px;
     }
 
+    .navigation a.active::after {
+        bottom: 5px;
+    }
+
+    .auth-actions {
+        gap: 4px;
+
+        padding-left: 0;
+
+        border-left: none;
+    }
 
     .login-button {
         display: none;
     }
 
+    .register-button {
+        min-height: 39px;
+
+        padding: 0 13px !important;
+
+        font-size: 0.76rem;
+    }
 
     .user-email {
         display: none;
     }
+}
 
+/* ========================================
+   PANTALLAS PEQUEÑAS
+======================================== */
+
+@media (max-width: 380px) {
+
+    .header-container {
+        padding: 10px 12px;
+    }
+
+    .brand img {
+        width: 100px;
+    }
+
+    .brand-copy strong {
+        font-size: 0.98rem;
+    }
+
+    .navigation {
+        gap: 17px;
+    }
+
+    .navigation a {
+        font-size: 0.74rem;
+    }
+
+    .register-button {
+        padding: 0 10px !important;
+
+        font-size: 0.70rem;
+    }
+}
+
+/* ========================================
+   ACCESIBILIDAD
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .site-header,
+    .brand,
+    .navigation a,
+    .login-button,
+    .register-button,
+    .logout-button {
+        transition: none;
+    }
 }

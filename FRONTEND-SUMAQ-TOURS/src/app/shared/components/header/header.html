@@ -1,137 +1,104 @@
+
 <header class="site-header">
 
     <div class="header-container">
 
-        <!-- LOGO -->
-
+        <!-- LOGO SUMAQ TOURS -->
         <a routerLink="/" class="brand">
-
-            <span class="brand-mark">
-                ST
-            </span>
-
-            <span class="brand-copy">
-
-                <strong>
-                    Sumaq
-                    <span>
-                        Tours
-                    </span>
-                </strong>
-
-                <small>
-                    TU VIAJE COMIENZA AQUÍ
-                </small>
-
-            </span>
-
+            <img
+                src="/images/logo-sumaq-tours.png"
+                alt="Sumaq Tours - Turismo peruano"
+                class="brand-logo"
+            />
         </a>
 
-
         <!-- NAVEGACIÓN -->
-
         <nav class="navigation">
 
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{
-                    exact: true
-                }">
+            <a routerLink="/" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">
                 Inicio
             </a>
-
 
             <a routerLink="/destinos" routerLinkActive="active">
                 Destinos
             </a>
 
-
             <a routerLink="/tours" routerLinkActive="active">
                 Tours
             </a>
-
 
             <a routerLink="/paquetes" routerLinkActive="active">
                 Paquetes
             </a>
 
-
             <a routerLink="/promociones" routerLinkActive="active">
                 Promociones
             </a>
-
 
             <a routerLink="/nosotros" routerLinkActive="active">
                 Nosotros
             </a>
 
-
             <a routerLink="/contacto" routerLinkActive="active">
                 Contacto
             </a>
 
-
             @if (
-            isAuthenticated() &&
-            getRole() === 'ROLE_CLIENTE'
+                isAuthenticated() &&
+                getRole() === 'ROLE_CLIENTE'
             ) {
-
-            <a routerLink="/mi-cuenta" routerLinkActive="active">
-                Mi cuenta
-            </a>
-
+                <a routerLink="/mi-cuenta" routerLinkActive="active">
+                    Mi cuenta
+                </a>
             }
 
-
             @if (
-            isAuthenticated() &&
-            getRole() === 'ROLE_ADMIN'
+                isAuthenticated() &&
+                getRole() === 'ROLE_ADMIN'
             ) {
-
-            <a routerLink="/admin" routerLinkActive="active">
-                Administración
-            </a>
-
+                <a routerLink="/admin" routerLinkActive="active">
+                    Administración
+                </a>
             }
 
-
             @if (
-            isAuthenticated() &&
-            getRole() === 'ROLE_ASESOR'
+                isAuthenticated() &&
+                getRole() === 'ROLE_ASESOR'
             ) {
-
-            <a routerLink="/asesor" routerLinkActive="active">
-                Asesor
-            </a>
-
+                <a routerLink="/asesor" routerLinkActive="active">
+                    Asesor
+                </a>
             }
 
         </nav>
 
-
         <!-- AUTENTICACIÓN -->
-
         <div class="auth-actions">
 
             @if (!isAuthenticated()) {
 
-            <a mat-button routerLink="/login" class="login-button">
-                Iniciar sesión
-            </a>
+                <a mat-button routerLink="/login" class="login-button">
+                    Iniciar sesión
+                </a>
 
-
-            <a mat-flat-button routerLink="/registro" class="register-button">
-                Crear cuenta
-            </a>
+                <a mat-flat-button routerLink="/registro" class="register-button">
+                    Crear cuenta
+                </a>
 
             } @else {
 
-            <span class="user-email">
-                {{ getEmail() }}
-            </span>
+                <span class="user-email">
+                    {{ getEmail() }}
+                </span>
 
-
-            <button mat-button type="button" class="logout-button" (click)="logout()">
-                Cerrar sesión
-            </button>
+                <button
+                    mat-button
+                    type="button"
+                    class="logout-button"
+                    (click)="logout()">
+                    Cerrar sesión
+                </button>
 
             }
 
