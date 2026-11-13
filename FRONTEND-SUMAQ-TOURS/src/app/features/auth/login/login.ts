@@ -6,53 +6,30 @@ import {
   Validators
 } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 import { Auth } from '../../../core/services/auth';
-
-import {
-  LoginRequest
-} from '../../../shared/models/auth.model';
-
+import { LoginRequest } from '../../../shared/models/auth.model';
 
 @Component({
   selector: 'app-login',
-
-  imports: [
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule
-  ],
-
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class Login {
-
-  private readonly fb =
-    inject(FormBuilder);
-
-  private readonly auth =
-    inject(Auth);
-
-  private readonly router =
-    inject(Router);
-
+  private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   loading = false;
-
   errorMessage = '';
+  hidePassword = true;
 
-
-  form = this.fb.group({
-
+  readonly form = this.fb.nonNullable.group({
     email: [
       '',
       [
@@ -60,103 +37,83 @@ export class Login {
         Validators.email
       ]
     ],
-
     password: [
       '',
-      [
-        Validators.required
-      ]
+      Validators.required
     ]
-
   });
 
-
   submit(): void {
-
-    if (this.form.invalid) {
-
-      this.form.markAllAsTouched();
-
+    if (this.loading) {
       return;
     }
 
-
-    this.loading = true;
     this.errorMessage = '';
 
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const values = this.form.getRawValue();
 
     const request: LoginRequest = {
-
-      email:
-        this.form.controls.email.value!,
-
-      password:
-        this.form.controls.password.value!
-
+      email: values.email.trim(),
+      password: values.password
     };
 
+    this.loading = true;
 
     this.auth.login(request)
-      .subscribe({
-
-        next: response => {
-
+      .pipe(
+        finalize(() => {
           this.loading = false;
-
-          this.redirigirSegunRol(
-            response.rol
-          );
+        })
+      )
+      .subscribe({
+        next: response => {
+          this.redirigirSegunRol(response.rol);
         },
 
         error: error => {
+          switch (error.status) {
+            case 401:
+              this.errorMessage =
+                'Correo o contraseña incorrectos.';
+              break;
 
-          this.loading = false;
+            case 400:
+              this.errorMessage =
+                'Verifica los datos ingresados.';
+              break;
 
-          if (error.status === 401) {
+            case 0:
+              this.errorMessage =
+                'No se pudo conectar con el servidor. Revisa tu conexión.';
+              break;
 
-            this.errorMessage =
-              'Correo o contraseña incorrectos.';
-
-            return;
+            default:
+              this.errorMessage =
+                'No fue posible iniciar sesión. Inténtalo nuevamente.';
           }
-
-          if (error.status === 400) {
-
-            this.errorMessage =
-              'Verifica los datos ingresados.';
-
-            return;
-          }
-
-          this.errorMessage =
-            'No fue posible iniciar sesión. Inténtalo nuevamente.';
         }
-
       });
   }
 
-
-  private redirigirSegunRol(
-    rol: string
-  ): void {
-
+  private redirigirSegunRol(rol: string): void {
     switch (rol) {
-
       case 'ROLE_ADMIN':
-        this.router.navigate(['/admin']);
+        void this.router.navigate(['/admin']);
         break;
 
       case 'ROLE_ASESOR':
-        this.router.navigate(['/asesor']);
+        void this.router.navigate(['/asesor']);
         break;
 
       case 'ROLE_CLIENTE':
-        this.router.navigate(['/']);
-        break;
-
       default:
-        this.router.navigate(['/']);
+        void this.router.navigate(['/']);
+        break;
     }
   }
-
 }
